@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f3f5f7">
+  <title>Does NEAR Keep Its Users?</title>
+  <style>
+    :root{color-scheme:light dark;--bg:#f3f5f7;--ink:#1c2733;--muted:#566272;--line:#d3d9e0;--accent:#0b6e8a;--warning:#8a2d1f}
+    @media(prefers-color-scheme:dark){:root{--bg:#12181f;--ink:#e6ebf0;--muted:#9aa6b3;--line:#2b3541;--accent:#52bad8;--warning:#ff9d8a}}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+    .banner{padding:10px 18px;background:var(--warning);color:#fff;text-align:center;font-weight:650;font-size:.9rem}
+    main{max-width:760px;margin:0 auto;padding:64px 22px 90px}small,.muted{color:var(--muted)}h1{font:600 clamp(2.2rem,7vw,4rem)/1.05 Georgia,serif;letter-spacing:-.04em;max-width:13ch;margin:16px 0 24px}h2{font:600 1.35rem Georgia,serif;margin:42px 0 10px}p{max-width:65ch}.rule{height:1px;background:var(--line);margin:30px 0}.steps{padding-left:20px}.steps li{margin:8px 0}code{background:rgba(127,140,155,.15);padding:2px 5px;border-radius:3px}a{color:var(--accent)}
+  </style>
+</head>
+<body>
+  <div class="banner">NO REAL NEAR RESULTS PUBLISHED YET. This page is a project status page, not an investment conclusion.</div>
+  <main>
+    <small>NEAR HACKATHON · INVESTMENT THESIS</small>
+    <h1>Does NEAR keep its users?</h1>
+    <p class="muted">An evidence-first study of whether newly active NEAR accounts return to transact, and whether retention is changing across weekly cohorts.</p>
+    <div class="rule"></div>
+    <h2>Research status</h2>
+    <p>The analysis pipeline is in place, but no real BigQuery result has been fetched. This page intentionally shows no retention numbers until the source data has been queried and checked.</p>
+    <h2>Run a local preview</h2>
+    <ol class="steps">
+      <li>Install Python 3.10 or later.</li>
+      <li>Run <code>python -m unittest -v</code> to check the analysis.</li>
+      <li>Run <code>python rebuild.py --demo</code> to generate a clearly labelled synthetic dashboard in <code>demo/index.html</code>.</li>
+    </ol>
+    <h2>Fetch real data</h2>
+    <p>Install the BigQuery client, authenticate with Google Cloud, then run <code>python fetch_data.py --project YOUR_GCP_PROJECT --dry-run</code>. Review the estimated bytes before running the query without <code>--dry-run</code>. The script enforces a maximum billed-bytes cap.</p>
+    <p class="muted">See the <a href="https://github.com/fawazfff/near-retention-thesis">repository README</a> for the complete method, assumptions, tests, and reproduction steps.</p>
+  </main>
+</body>
+</html>

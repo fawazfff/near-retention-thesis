@@ -1,8 +1,8 @@
-# Research data
+# Data files
 
-This directory contains the exact metadata and result artifacts used by the dashboard and generated thesis.
+Real runs of `python fetch_data.py` write:
 
-- `schema.json`: live table/column inventory, including partition metadata.
-- `metrics.json`: calculated cohort metrics and chart data.
+- `retention.csv`: one row per variant, cohort week, and observed follow-up week.
+- `run_meta.json`: fetch timestamp, query byte count, date window, source table, SQL hash, and row count.
 
-Do not commit credentials, temporary query exports containing secrets, or fabricated/sample metrics. The dashboard intentionally renders an empty state when no complete metrics artifact exists.
+These files are generated from the public BigQuery source. Do not replace them with synthetic demo output. Demo data lives under the ignored `demo/` directory and is clearly labelled.

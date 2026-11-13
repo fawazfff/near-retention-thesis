@@ -1,94 +1,103 @@
 # Does NEAR Keep Its Users?
 
-An independent, reproducible investigation into NEAR mainnet account retention.
+An evidence-first investment thesis on NEAR, built for **NEAR HACKATHON**, track **Investment Thesis** (`thesis`).
 
-**Research question:** Of the accounts first observed on NEAR, what share returns to make another qualifying transaction after 14 and 30 days, and is that share changing across cohorts?
+**The question:** of every 100 newly observed NEAR accounts, how many are still signing transactions four weeks later, and is that changing across weekly cohorts?
 
-> This repository does not publish invented metrics. Until source schemas have been inspected and the analysis has been run, the dashboard deliberately shows an empty research state.
+The project fetches public NEAR mainnet data from BigQuery, calculates cohort retention, tests whether the change is meaningful, and generates both the dashboard and `THESIS.md` from the same source data.
 
-## Why this matters
+- Dashboard preview: [`docs/index.html`](docs/index.html). It is clearly labelled **synthetic demo data**, not real NEAR results.
+- Written thesis: [`THESIS.md`](THESIS.md). It is generated only from fetched data and is not replaced by demo mode.
+- Source data: `data/retention.csv` and `data/run_meta.json` after a real fetch.
 
-New-account counts measure acquisition. They do not tell us whether people find a reason to return. Cohort retention is a more useful signal of recurring on-chain behaviour, although it is not a direct measure of unique humans or product-market fit.
+## What it does
 
-## Data source
+1. `sql/retention.sql` groups accounts that sign transactions into weekly cohorts, then counts how many sign again in later weeks.
+2. It reports four versions: no filter, and three bot-like filters that exclude accounts with more than 200, 50, or 20 transactions in their first week. The headline uses 50, fixed before data was pulled. All variants remain visible.
+3. `rebuild.py` turns `data/retention.csv` into every number, chart, the dashboard and `THESIS.md`. Nothing is typed into the thesis by hand.
 
-The intended source is the NEAR mainnet BigQuery public dataset:
+## Quick start
 
-`bigquery-public-data.crypto_near_mainnet_us`
+Python 3.10+ is recommended.
 
-The dataset is maintained through the [NEAR Public Lakehouse](https://github.com/near/near-public-lakehouse). Its documented tables include transactions, receipts, receipt actions, and account changes. The source documentation recommends filtering on `block_date` and selecting only required columns to control query costs.
-
-**Important:** Do not assume the schema from examples or old queries. The first data task is to inspect the live BigQuery table metadata and save the exact table and column inventory. Analytical SQL must be generated from verified fields.
-
-## Research definitions
-
-The intended unit is an account identifier, not a person.
-
-- **First activity:** the earliest qualifying mainnet transaction/activity event observed for an account in the selected source window.
-- **Cohort:** accounts grouped by the calendar week of first qualifying activity.
-- **14-day retention:** share of accounts in an eligible cohort with at least one qualifying return activity during days 1–14 after first activity.
-- **30-day retention:** same calculation for days 1–30.
-- **Eligible cohort:** a cohort old enough to have the full observation window before the dataset's verified latest complete date.
-- **Automation sensitivity:** report both all-account results and a separately labelled, documented filter. Never silently delete suspected automated accounts or present a heuristic as ground truth.
-
-The exact qualifying event, date fields, account identifier, and any bot heuristic must be finalised only after schema inspection. These definitions must be versioned in the thesis and query files.
-
-## Planned project layout
-
-```text
-.
-├── index.html              # Static research dashboard
-├── THESIS.md               # Generated written investment thesis
-├── queries/                # SQL generated from inspected schema
-├── data/
-│   ├── schema.json         # Discovered BigQuery metadata
-│   └── metrics.json        # Computed results consumed by dashboard
-├── src/
-│   ├── discover.py         # Inspect dataset tables and columns
-│   ├── metrics.py          # Cohort calculations and query execution
-│   ├── charts.py           # Deterministic chart output
-│   └── render.py           # Build THESIS.md and dashboard data
-└── tests/
+```bash
+python -m unittest -v
+python rebuild.py --demo
 ```
 
-## Reproducibility
+The demo command writes a synthetic preview to `demo/`. It is fake data, prominently labelled as synthetic, and never overwrites `THESIS.md` or the real-data dashboard in `docs/`.
 
-The finished pipeline will support two modes:
+## Refreshing real data
 
-1. **Offline rebuild:** rebuild charts, dashboard data, and `THESIS.md` from checked-in query outputs without Google credentials.
-2. **Refresh:** explicitly query BigQuery again after schema checks, dry runs, and a configured maximum bytes billed.
+Install the BigQuery client and authenticate locally:
 
-No credentials belong in the repository. Use Application Default Credentials or a local environment configuration. Query jobs must use a dry run first, print estimated bytes, and set `maximum_bytes_billed` for every real query.
+```bash
+python -m pip install -r requirements.txt
+gcloud auth application-default login
+```
 
-## Current status
+Then run a dry run first:
 
-- [x] Research question and metric intent defined
-- [x] Static dashboard shell created with a non-generic editorial visual direction
-- [x] Explicit empty state to prevent fabricated data
-- [ ] Inspect live BigQuery table and column metadata
-- [ ] Confirm qualifying activity and account identifier
-- [ ] Dry-run candidate query and record estimated bytes
-- [ ] Calculate 14-day and 30-day cohort retention
-- [ ] Add documented automation sensitivity analysis
-- [ ] Generate charts and thesis from the same metrics file
-- [ ] Add tests and verify offline rebuild
+```bash
+python fetch_data.py --project YOUR_GCP_PROJECT --dry-run
+```
 
-## Local preview
+The script prints the estimated bytes processed and exits without running the query. If the estimate is acceptable, run:
 
-Open `index.html` in a browser or serve the repository root with any static web server. The page will remain in its honest empty state until `data/metrics.json` is generated by the analysis pipeline.
+```bash
+python fetch_data.py --project YOUR_GCP_PROJECT
+python rebuild.py
+```
 
-## Sources
+The default maximum billed bytes is 100 GB. The script refuses to run if the dry-run estimate exceeds `--max-gb`, and the real query also sets BigQuery's `maximum_bytes_billed` to the same cap.
 
-- [NEAR Public Lakehouse](https://github.com/near/near-public-lakehouse)
-- [NEAR announcement of the BigQuery public dataset](https://near.org/blog/near-protocol-bigquery-public-dataset)
-- [Google Cloud: BigQuery public datasets](https://docs.cloud.google.com/bigquery/public-data)
+Useful options:
+
+- `--cohort-weeks 40`: number of cohort weeks, including both endpoints. Must be at least 19 for the week-4 trend comparison.
+- `--burn-in-weeks 12`: prior weeks used to decide whether an account is new.
+- `--max-weeks 12`: furthest follow-up week to include. Must be at least 4.
+- `--max-gb 100`: hard cap for query processing.
+- `--literal-dates`: inline dates if BigQuery's dry-run estimate suggests parameterized partition pruning is not working.
+
+## Method
+
+An account is active in a week if it signed at least one transaction (`signer_account_id`) in a Monday-start UTC week. A cohort contains accounts whose first observed signed transaction occurs in that week after a 12-week burn-in. Retention at week 4 is the share of the cohort that signs again in the fourth following week.
+
+The trend test compares the eight earliest and eight latest cohorts with a complete week-4 observation, using one retention rate per cohort and a Welch 95% interval. A change is called improving or declining only if the interval excludes zero and the difference is at least one percentage point. If there are too few eligible cohorts, the analysis stops with an explicit error instead of producing a weak headline.
+
+The SQL's scan window includes exactly the requested number of cohort weeks. The earlier version accidentally included one extra week; this is fixed and covered by a regression test.
+
+## Known limits
+
+- This measures accounts signing transactions, not unique humans.
+- Accounts that only act through relayers or only receive tokens are not counted.
+- A 12-week burn-in cannot distinguish a genuinely new account from one that was dormant for longer than 12 weeks.
+- The transaction-count filter is a sensitivity check, not proof that an account is a bot or airdrop farmer.
+- Retention is not value. This says nothing by itself about price, fees, revenue, or product-market fit.
+- The query reads the public BigQuery dataset. Always dry-run before executing and inspect the reported bytes.
+
+## Tests
+
+```bash
+python -m unittest -v
+```
+
+The standard-library tests cover the cohort window, metrics, confidence intervals, verdict logic, rendering, and missing-data errors. Two SQL-to-reference tests additionally run when the optional development dependencies are installed:
+
+```bash
+python -m pip install -r requirements-dev.txt
+python -m unittest -v
+```
+
+Those tests execute the BigQuery-shaped SQL translated to DuckDB against generated transactions and compare the output to an independent Python reference. They validate query logic, not BigQuery's live schema or billing estimate.
 
 ## AI assistance and libraries
 
-AI assistance is used for implementation support, research workflow design, and documentation. The project is designed to expose source queries, assumptions, generated outputs, and limitations so that its conclusions can be independently checked.
+Built with AI assistance for implementation, tests, and documentation. The research question, metric definitions, assumptions, and final interpretation must be reviewed by the author. Runtime for `rebuild.py` uses Python's standard library. `fetch_data.py` uses `google-cloud-bigquery`. Tests use `duckdb` and `sqlglot` as optional development dependencies. Charts are hand-built SVG, so the dashboard works offline.
 
-The dashboard currently uses plain HTML, CSS, and JavaScript with no runtime framework or charting dependency. The analysis pipeline will document each Python dependency when added.
+## Hackathon notes
 
-## License
-
-MIT. See [LICENSE](LICENSE).
+- Track: Investment Thesis (`thesis`).
+- Data source: `bigquery-public-data.crypto_near_mainnet_us.transactions`.
+- No on-chain deployment or signing is required. No keys or credentials belong in this repository.
+- License: MIT, see [`LICENSE`](LICENSE).

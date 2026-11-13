@@ -1,12 +1,6 @@
-.env
-.env.*
-!.env.example
-.venv/
-venv/
+demo/
 __pycache__/
-*.py[cod]
-.pytest_cache/
-.coverage
-htmlcov/
-.DS_Store
-*.log
+*.pyc
+.env
+*.json.key
+application_default_credentials.json
