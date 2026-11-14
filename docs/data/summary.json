@@ -70,9 +70,13 @@
     "total_returned": 18989,
     "pooled_rate_percent": 0.4103223436495546,
     "mean_cohort_rate_percent": 2.4127855700813647,
+    "median_cohort_rate_percent": 2.3147696127773156,
     "median_cohort_size": 18439,
     "max_cohort_size": 1660162,
-    "top_five_cohort_account_share_percent": 88.383571116021,
-    "note": "Pooled rate weights accounts equally; mean cohort rate weights each weekly cohort equally. Large cohort-size concentration makes these differ substantially."
+    "top_five_account_share_percent": 88.383571116021,
+    "top_five_return_share_percent": 23.99810416556954,
+    "top_five_pooled_rate_percent": 0.11141163702738986,
+    "other_31_cohorts_pooled_rate_percent": 2.684583733233556,
+    "note": "Pooled rate weights accounts equally; mean and median cohort rates describe weekly cohorts. The five largest cohorts account for 88.4% of the denominator but only 24.0% of week-four returns. The cause is unknown."
   }
 }
