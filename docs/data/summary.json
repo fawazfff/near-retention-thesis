@@ -282,7 +282,9 @@
       "protocol": "NEAR Intents",
       "category": "Bridge & Cross-Chain",
       "reported_amount_usd": 3800000,
-      "note": "DeFiLlama says the exploit involved the Omni deposit/withdrawal infrastructure and NEAR Intents contract, that the team patched the issue and said affected users would be compensated in full. Verify completed reimbursement on-chain. This is a product/bridge risk, not evidence of a NEAR base-layer consensus failure."
+      "note": "Material product/contract accounting and monitoring weakness, but reported full financial recovery. Not a NEAR base-layer consensus incident.",
+      "root_cause": "Deposit-notification bug in the NEAR Intents contract, not an Omni bridge bug; 23 failing notifications created unbacked internal balances.",
+      "recovery_status": "The 16 October postmortem says all funds were returned on 2 October and affected users were made whole. Deposit-notification feature removed on 7 October after another critical report. Recovery is reported by the team; verify on-chain where possible."
     }
   ]
 }
