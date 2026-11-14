@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Rebuild every number, chart and THESIS.md from data/retention.csv.
 
-    python rebuild.py          # real data in data/  -> docs/index.html + THESIS.md
-    python rebuild.py --demo   # SYNTHETIC preview   -> demo/index.html + demo/THESIS.md
+    python rebuild.py                      # regenerate THESIS.md; preserve the designed dashboard
+    python rebuild.py --overwrite-dashboard # also replace docs/index.html with the report renderer
+    python rebuild.py --demo               # SYNTHETIC preview -> demo/index.html + demo/THESIS.md
 
 Standard library only. No Google account needed.
 """
@@ -19,6 +20,7 @@ ROOT = Path(__file__).parent
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--demo", action="store_true", help="use clearly labelled SYNTHETIC data (never NEAR data)")
+    ap.add_argument("--overwrite-dashboard", action="store_true", help="replace docs/index.html with the simpler generated report page")
     args = ap.parse_args(argv)
 
     if args.demo:
@@ -38,7 +40,8 @@ def main(argv=None) -> int:
     demo = bool(meta.get("synthetic")) or args.demo
     sql_text = (ROOT / "sql" / "retention.sql").read_text()
     out_dir.mkdir(parents=True, exist_ok=True)
-    (out_dir / "index.html").write_text(render.build_html(analysis, meta, sql_text, demo), encoding="utf-8")
+    if args.demo or args.overwrite_dashboard:
+        (out_dir / "index.html").write_text(render.build_html(analysis, meta, sql_text, demo), encoding="utf-8")
     thesis = render.build_thesis(analysis, meta, ROOT / "templates" / "THESIS.template.md", demo)
     thesis_path = out_dir / "THESIS.md" if demo else ROOT / "THESIS.md"
     thesis_path.write_text(thesis, encoding="utf-8")
@@ -48,7 +51,10 @@ def main(argv=None) -> int:
           f"{render.per100(h['pooled_recent'][0])} of every 100 new accounts still active at week "
           f"{metrics.HEADLINE_WEEK} (latest {h['group_size']} cohorts). Retention: {h['verdict']} "
           f"({render.pp(h['diff'])}, 95% interval {render.pp(h['diff_lo'])} to {render.pp(h['diff_hi'])}).")
-    print(f"wrote {out_dir / 'index.html'} and {thesis_path}")
+    if args.demo or args.overwrite_dashboard:
+        print(f"wrote {out_dir / 'index.html'} and {thesis_path}")
+    else:
+        print(f"wrote {thesis_path}; existing docs/index.html was preserved")
     return 0
 
 
