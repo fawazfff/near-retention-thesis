@@ -12,6 +12,7 @@
 -- @end_date DATE         Sunday ending last fully observed week
 -- @last_week_start DATE  Monday of last fully observed week
 -- @max_weeks INT64       maximum follow-up week
+-- @max_first_week_transactions INT64  first-week transaction cap (use 50 for the headline filter)
 --
 -- Dry-run before executing. This query joins transactions and receipts and may be materially
 -- more expensive than the signer-only retention query. It includes all receipt kinds;
@@ -29,24 +30,31 @@ WITH weekly_signers AS (
 cohorts AS (
   SELECT
     signer_account_id,
-    MIN(week_start) AS cohort_week
+    MIN(week_start) AS cohort_week,
+    ARRAY_AGG(signed_transactions ORDER BY week_start LIMIT 1)[OFFSET(0)]
+      AS first_week_transactions
   FROM weekly_signers
   GROUP BY signer_account_id
-  HAVING cohort_week >= @start_date
+),
+eligible_cohorts AS (
+  SELECT *
+  FROM cohorts
+  WHERE cohort_week >= @start_date
+    AND first_week_transactions <= @max_first_week_transactions
 ),
 cohort_sizes AS (
   SELECT cohort_week, COUNT(*) AS cohort_accounts
-  FROM cohorts
+  FROM eligible_cohorts
   GROUP BY cohort_week
 ),
-function_calls AS (
+receiver_interactions AS (
   SELECT DISTINCT
     c.cohort_week,
     DATE_TRUNC(r.block_date, WEEK(MONDAY)) AS activity_week,
     c.signer_account_id,
     r.receiver_account_id,
     r.receipt_id
-  FROM cohorts c
+  FROM eligible_cohorts c
   JOIN `bigquery-public-data.crypto_near_mainnet_us.transactions` t
     ON t.signer_account_id = c.signer_account_id
    AND t.block_date BETWEEN @start_date AND @end_date
@@ -54,7 +62,7 @@ function_calls AS (
     ON r.originated_from_transaction_hash = t.transaction_hash
    AND r.block_date BETWEEN @start_date AND @end_date
   WHERE DATE_DIFF(DATE_TRUNC(r.block_date, WEEK(MONDAY)), c.cohort_week, DAY)
-        BETWEEN 0 AND @max_weeks * 7
+        BETWEEN 7 AND @max_weeks * 7
 ),
 largest_cohorts AS (
   SELECT cohort_week
@@ -67,11 +75,11 @@ SELECT
   DIV(DATE_DIFF(f.activity_week, f.cohort_week, DAY), 7) AS followup_week,
   f.receiver_account_id,
   COUNT(DISTINCT f.signer_account_id) AS distinct_cohort_signers,
-  COUNT(DISTINCT f.receipt_id) AS function_call_receipts,
+  COUNT(DISTINCT f.receipt_id) AS receiver_receipts,
   s.cohort_accounts,
   SAFE_DIVIDE(COUNT(DISTINCT f.signer_account_id), s.cohort_accounts)
     AS share_of_cohort_signers
-FROM function_calls f
+FROM receiver_interactions f
 JOIN cohort_sizes s USING (cohort_week)
 WHERE f.cohort_week IN (SELECT cohort_week FROM largest_cohorts)
 GROUP BY f.cohort_week, followup_week, f.receiver_account_id, s.cohort_accounts
