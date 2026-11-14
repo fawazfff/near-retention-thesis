@@ -63,5 +63,16 @@
       ]
     }
   },
-  "note": "Recomputed from the supplied CSV. The original BigQuery job ID, exact query execution timestamp, bytes processed, and query hash were not included. Calculations can be reproduced from this export; no independent BigQuery rerun is claimed."
+  "note": "Recomputed from the supplied CSV. The original BigQuery job ID, exact query execution timestamp, bytes processed, and query hash were not included. Calculations can be reproduced from this export; no independent BigQuery rerun is claimed.",
+  "cohort_diagnostics": {
+    "mature_cohorts": 36,
+    "total_accounts": 4627825,
+    "total_returned": 18989,
+    "pooled_rate_percent": 0.4103223436495546,
+    "mean_cohort_rate_percent": 2.4127855700813647,
+    "median_cohort_size": 18439,
+    "max_cohort_size": 1660162,
+    "top_five_cohort_account_share_percent": 88.383571116021,
+    "note": "Pooled rate weights accounts equally; mean cohort rate weights each weekly cohort equally. Large cohort-size concentration makes these differ substantially."
+  }
 }
