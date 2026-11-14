@@ -56,6 +56,7 @@ def main() -> int:
     ap.add_argument("--max-weeks", type=int, default=12, help="largest k (weeks since first activity)")
     ap.add_argument("--max-gb", type=float, default=100.0, help="refuse to run, and cap billing, above this many GB")
     ap.add_argument("--dry-run", action="store_true", help="only estimate bytes scanned")
+    ap.add_argument("--output-stem", default="retention", help="output filename stem, e.g. retention_26w (default retention)")
     ap.add_argument("--literal-dates", action="store_true",
                     help="inline dates instead of query parameters (use if the dry run scans far more than expected)")
     args = ap.parse_args()
@@ -70,6 +71,9 @@ def main() -> int:
         params = window(datetime.now(timezone.utc).date(), args.cohort_weeks, args.burn_in_weeks, args.max_weeks)
     except ValueError as err:
         print(f"error: {err}", file=sys.stderr)
+        return 2
+    if not args.output_stem or not all(c.isalnum() or c in "_-" for c in args.output_stem):
+        print("error: --output-stem may contain only letters, numbers, _ and -", file=sys.stderr)
         return 2
     template = SQL_PATH.read_text()
     sql = with_literals(template, params) if args.literal_dates else template
@@ -93,7 +97,9 @@ def main() -> int:
     job = client.query(sql, job_config=cfg)
     rows = list(job.result())
     DATA.mkdir(exist_ok=True)
-    with (DATA / "retention.csv").open("w", newline="") as fh:
+    csv_path = DATA / f"{args.output_stem}.csv"
+    meta_path = DATA / f"{args.output_stem}_meta.json"
+    with csv_path.open("w", newline="") as fh:
         w = csv.writer(fh)
         w.writerow(["variant", "cohort_week", "k", "accounts_active"])
         for r in rows:
@@ -105,9 +111,11 @@ def main() -> int:
         "sql_sha256": hashlib.sha256(template.encode()).hexdigest(),
         "source": "bigquery-public-data.crypto_near_mainnet_us.transactions",
         "rows": len(rows),
+        "row_count": len(rows),
+        "burn_in_weeks": args.burn_in_weeks,
     }
-    (DATA / "run_meta.json").write_text(json.dumps(meta, indent=2))
-    print(f"wrote {len(rows)} rows to data/retention.csv. Next: python rebuild.py")
+    meta_path.write_text(json.dumps(meta, indent=2))
+    print(f"wrote {len(rows)} rows to {csv_path} with metadata {meta_path}.")
     return 0
 
 
