@@ -205,7 +205,22 @@ def analyse(data: dict) -> dict:
     total_returned = sum(c.retained[HEADLINE_WEEK] for c in mature)
     top_five_returned = sum(c.retained[HEADLINE_WEEK] for c in top_five)
     cohort_rates = sorted(c.p(HEADLINE_WEEK) for c in mature)
+    top_five_rows = []
+    for cohort in top_five:
+        all_cohort = next(c for c in data["all"] if c.week == cohort.week)
+        filtered20_cohort = next(c for c in data["filtered_20"] if c.week == cohort.week)
+        top_five_rows.append({
+            "week": cohort.week.isoformat(),
+            "accounts": cohort.size,
+            "week4_active": cohort.retained[HEADLINE_WEEK],
+            "week4_rate": cohort.p(HEADLINE_WEEK),
+            "all_accounts": all_cohort.size,
+            "filtered20_accounts": filtered20_cohort.size,
+        })
     diagnostics = {
+        "top_five_cohorts": top_five_rows,
+        "top_five_accounts_all": sum(row["all_accounts"] for row in top_five_rows),
+        "top_five_accounts_filtered20": sum(row["filtered20_accounts"] for row in top_five_rows),
         "mature_cohorts": len(mature),
         "total_accounts": total_accounts,
         "total_returned": total_returned,
