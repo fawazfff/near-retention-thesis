@@ -28,7 +28,10 @@ The denominator changes at each horizon because newer cohorts have not had enoug
 
 | Follow-up week | Eligible cohorts | Accounts | Accounts active | Pooled retention |
 |---:|---:|---:|---:|---:|
-{{retention_window_rows}}
+| 1 | 39 | 4,695,104 | 44,255 | 0.94% |
+| 4 | 36 | 4,627,825 | 18,989 | 0.41% |
+| 8 | 32 | 3,941,854 | 11,345 | 0.29% |
+| 12 | 28 | 3,906,626 | 8,007 | 0.20% |
 
 These are separate exact-week activity measures. They do not mean that an account remained continuously active from week 1 through week 12.
 
