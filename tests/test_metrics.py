@@ -138,6 +138,8 @@ class RenderTests(unittest.TestCase):
         self.assertGreater(summary["market_context"]["defillama_near_chain_tvl_usd"], summary["market_context"]["coingecko_tvl_usd"])
         self.assertEqual(summary["market_context"]["near_intents_supported_chains"], 26)
         self.assertEqual(summary["market_context"]["defillama_holders_revenue_30d_usd"], 1810000)
+        self.assertAlmostEqual(summary["market_context"]["daily_issuance_offset_by_fee_burn_percent"], 1.011, places=2)
+        self.assertIn("all funds were returned", summary["security_risks"][0]["recovery_status"].lower())
         self.assertIn("buyback-based", summary["market_context"]["holders_revenue_note"])
         self.assertAlmostEqual(summary["cohort_diagnostics"]["pooled_rate_percent"],
                                analysis["cohort_diagnostics"]["pooled_rate"] * 100, places=10)
@@ -158,6 +160,8 @@ class RenderTests(unittest.TestCase):
         self.assertIn("1,660,185", text)
         self.assertIn("1,660,089", text)
         self.assertIn("NEAR Intents processed about", text)
+        self.assertIn("88,000 NEAR issued per day", text)
+        self.assertIn("Base, bull and bear evidence framework", text)
         page = (ROOT / "docs" / "index.html").read_text()
         self.assertIn("88.4%", page)
         attribution = (ROOT / "sql" / "contract_attribution.sql").read_text()
