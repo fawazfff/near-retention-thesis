@@ -185,7 +185,22 @@ def analyse(data: dict) -> dict:
     share_early = _mean([v for w, v in share.items() if w in early_weeks])
     share_recent = _mean([v for w, v in share.items() if w in recent_weeks])
     verdicts = {v: results[v]["verdict"] for v in VARIANT_ORDER}
+    mature = [c for c in data[HEADLINE_VARIANT] if HEADLINE_WEEK in c.retained]
+    sizes = sorted(c.size for c in mature)
+    total_accounts = sum(sizes)
+    top_five = sorted(mature, key=lambda c: c.size, reverse=True)[:5]
+    diagnostics = {
+        "mature_cohorts": len(mature),
+        "total_accounts": total_accounts,
+        "total_returned": sum(c.retained[HEADLINE_WEEK] for c in mature),
+        "pooled_rate": sum(c.retained[HEADLINE_WEEK] for c in mature) / total_accounts,
+        "mean_cohort_rate": _mean([c.p(HEADLINE_WEEK) for c in mature]),
+        "median_cohort_size": (sizes[(len(sizes) - 1) // 2] + sizes[len(sizes) // 2]) / 2,
+        "max_cohort_size": max(sizes),
+        "top_five_share": sum(c.size for c in top_five) / total_accounts,
+    }
     return {
+        "cohort_diagnostics": diagnostics,
         "variants": results,
         "headline": head,
         "robust": len(set(verdicts.values())) == 1,
