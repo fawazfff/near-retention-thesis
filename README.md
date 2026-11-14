@@ -59,21 +59,21 @@ Run the same cohort dates twice, changing only the burn-in. The script now write
 
 ```bash
 # 12-week burn-in
-python fetch_data.py --project YOUR_GCP_PROJECT --burn-in-weeks 12 --output-stem retention_12w --dry-run
-python fetch_data.py --project YOUR_GCP_PROJECT --burn-in-weeks 12 --output-stem retention_12w
+python fetch_data.py --project YOUR_GCP_PROJECT --cohort-weeks 40 --max-weeks 12 --last-week-start 2026-11-02 --burn-in-weeks 12 --output-stem retention_12w --dry-run
+python fetch_data.py --project YOUR_GCP_PROJECT --cohort-weeks 40 --max-weeks 12 --last-week-start 2026-11-02 --burn-in-weeks 12 --output-stem retention_12w
 
 # 26-week burn-in
-python fetch_data.py --project YOUR_GCP_PROJECT --burn-in-weeks 26 --output-stem retention_26w --dry-run
-python fetch_data.py --project YOUR_GCP_PROJECT --burn-in-weeks 26 --output-stem retention_26w
+python fetch_data.py --project YOUR_GCP_PROJECT --cohort-weeks 40 --max-weeks 12 --last-week-start 2026-11-02 --burn-in-weeks 26 --output-stem retention_26w --dry-run
+python fetch_data.py --project YOUR_GCP_PROJECT --cohort-weeks 40 --max-weeks 12 --last-week-start 2026-11-02 --burn-in-weeks 26 --output-stem retention_26w
 ```
 
 Compare the same cohort weeks, follow-up horizons and first-week activity filters:
 
 ```bash
-python compare_burnin.py
+python compare_burnin.py --cohort-csv docs/data/retention.csv
 ```
 
-This writes `data/burnin_comparison.json` with sample sizes, exact-week retention and early-to-late comparisons for every filter. The 26-week result is not yet run because the supplied export only contains the 12-week definition. The current dashboard must not be described as having passed the 26-week robustness test.
+This writes `data/burnin_comparison.json` with sample sizes, exact-week retention and early-to-late comparisons for every filter. The 26-week result is not yet run because the supplied export only contains the 12-week definition. The `--last-week-start 2026-11-02` option pins both exports to the same 40 cohort weeks as the supplied CSV. The comparison also reports the difference in newly classified accounts by cohort week. This tests how sensitive the results are to the look-back period, but it does not identify the reason for reactivation. The dashboard must not be described as having passed the 26-week robustness test.
 
 ### Attribute the large cohorts to applications
 
