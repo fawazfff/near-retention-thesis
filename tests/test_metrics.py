@@ -68,6 +68,8 @@ class VerdictTests(unittest.TestCase):
         self.assertGreaterEqual(d["mean_cohort_rate"], 0.0)
         self.assertGreaterEqual(d["pooled_rate"], 0.0)
         self.assertGreater(d["top_five_share"], 0.5)
+        self.assertGreaterEqual(d["top_five_return_share"], 0.0)
+        self.assertGreater(d["other_cohorts_pooled_rate"], 0.0)
         self.assertGreaterEqual(d["max_cohort_size"], d["median_cohort_size"])
 
     def test_group_size_and_ordering(self):
