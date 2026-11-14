@@ -1,5 +1,7 @@
 # Does NEAR Keep Its Users?
 
+[![Research tests](https://github.com/fawazfff/near-retention-thesis/actions/workflows/tests.yml/badge.svg)](https://github.com/fawazfff/near-retention-thesis/actions/workflows/tests.yml)
+
 An evidence-first investment thesis on NEAR, built for **NEAR HACKATHON 2026**, **Investment Thesis** track (`thesis`).
 
 **Live research dashboard:** https://near-retention-thesis.vercel.app  
@@ -38,16 +40,17 @@ Open http://localhost:8000 in your browser.
 
 ### Reproduce the published analysis
 
-Python 3.10 or newer is recommended.
+Python 3.12 is the version used by the repository's automated checks. From the repository root:
 
 ```bash
+python -m pip install -r requirements-dev.txt
 python -m unittest -v
 python rebuild.py
 ```
 
-- **Expected:** the standard-library test suite passes, and `THESIS.md` is regenerated from `data/retention.csv` and the analysis code.
+- **Expected:** all 23 tests pass, including the DuckDB and SQLGlot checks; `THESIS.md` is regenerated from `data/retention.csv` and the analysis code.
 - The normal rebuild does not replace the designed dashboard.
-- Optional SQL-to-reference tests use DuckDB and SQLGlot. Install them with `python -m pip install -r requirements-dev.txt`, then run `python -m unittest -v` again.
+- The test suite validates the Python calculations and the BigQuery-shaped SQL against generated test transactions. It does not independently verify the live BigQuery schema or the original data export.
 
 For the analysis SQL and the published calculations, see the repository files below. A fresh BigQuery export requires the judge or researcher to have Google Cloud / BigQuery access; it is not required to inspect the published result.
 
@@ -199,7 +202,7 @@ The dashboard is a published snapshot, not a live streaming dashboard. The sourc
 
 ### Submission checklist
 
-The repository is public. The project still needs a public X demo post that says it was built at **NEAR HACKATHON**, tags **@NEARProtocol**, includes **#NEARHackathon**, and attaches the demo video or screenshots. Submit the public repository URL and the X post URL through the official form, together with the NEAR account address for prize payout. The event allows one submission per project; if an already-submitted entry needs correction, use the official request-changes process rather than submitting a duplicate.
+The repository is public. The submission requires a public X demo post that says it was built at **NEAR HACKATHON**, tags **@NEARProtocol**, includes **#NEARHackathon**, and attaches the demo video or screenshots. The public repository URL and X post URL are both required in the official form, together with the NEAR account address for prize payout. The event allows one submission per project; if an already-submitted entry needs correction, use the official request-changes process rather than submitting a duplicate.
 
 Official rules and track brief: [NEAR HACKATHON](https://nearhackathon.com/) · [Investment Thesis starter brief](https://github.com/nearai/near-hackathon-prompt-examples/blob/main/tracks/02-thesis.md) · [Submission checklist](https://github.com/nearai/near-hackathon-prompt-examples/blob/main/SUBMITTING.md).
 
