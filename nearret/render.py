@@ -131,9 +131,9 @@ def build_thesis(a, meta, template_path: Path, demo: bool) -> str:
         "evidence_against": bullets(bad),
         "window": f"{day(date.fromisoformat(p['start_date']))} to {day(last_complete_week(meta))}",
         "burn_in": f"{p['scan_start']} to {p['start_date']}",
-        "fetched": str(meta.get("fetched_at_utc", "unknown")),
-        "bytes": f"{int(meta.get('bytes_processed', 0)) / 1e9:.1f} GB",
-        "sql_hash": str(meta.get("sql_sha256", "unknown"))[:12],
+        "fetched": str(meta.get("fetched_at_utc") or "not supplied with the CSV export"),
+        "bytes": (f"{int(meta['bytes_processed']) / 1e9:.1f} GB" if meta.get("bytes_processed") is not None else "not supplied"),
+        "sql_hash": str(meta.get("sql_sha256") or "not supplied")[:12],
         "headline_variant": HEADLINE_VARIANT,
     }
     text = template_path.read_text()
@@ -198,7 +198,7 @@ def build_html(a, meta, sql_text: str, demo: bool) -> str:
     banner = ('<div class="banner">SYNTHETIC DEMO DATA. Generated from fake transactions to preview the layout. '
               'It says nothing about NEAR.</div>') if demo else ""
     title = "Does NEAR keep its users?" + (" (synthetic demo)" if demo else "")
-    fetched = escape(str(meta.get("fetched_at_utc", "unknown")))
+    fetched = ("provided" if meta.get("fetched_at_utc") else "not provided with the supplied CSV export")
     return f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{escape(title)}</title><style>{CSS}</style></head>
@@ -238,6 +238,6 @@ def build_html(a, meta, sql_text: str, demo: bool) -> str:
 <h2>Reproduce</h2>
 <pre>python rebuild.py     # rebuilds this page and THESIS.md from data/retention.csv
 python -m unittest    # runs the tests</pre>
-<p class="muted">Data pulled {fetched} from <code>bigquery-public-data.crypto_near_mainnet_us.transactions</code>. Full instructions are in the README.</p>
+<p class="muted">The aggregate CSV was supplied from <code>bigquery-public-data.crypto_near_mainnet_us.transactions</code>. Its query execution timestamp was {fetched}; the BigQuery job ID and bytes processed were not supplied. This page reproduces calculations from the CSV and does not claim to rerun BigQuery.</p>
 <details><summary>Full SQL (sql/retention.sql)</summary><pre>{escape(sql_text)}</pre></details>
 </main></body></html>"""
