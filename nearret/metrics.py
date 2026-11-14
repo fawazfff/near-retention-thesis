@@ -189,15 +189,23 @@ def analyse(data: dict) -> dict:
     sizes = sorted(c.size for c in mature)
     total_accounts = sum(sizes)
     top_five = sorted(mature, key=lambda c: c.size, reverse=True)[:5]
+    other_cohorts = [c for c in mature if c not in top_five]
+    total_returned = sum(c.retained[HEADLINE_WEEK] for c in mature)
+    top_five_returned = sum(c.retained[HEADLINE_WEEK] for c in top_five)
+    cohort_rates = sorted(c.p(HEADLINE_WEEK) for c in mature)
     diagnostics = {
         "mature_cohorts": len(mature),
         "total_accounts": total_accounts,
-        "total_returned": sum(c.retained[HEADLINE_WEEK] for c in mature),
-        "pooled_rate": sum(c.retained[HEADLINE_WEEK] for c in mature) / total_accounts,
-        "mean_cohort_rate": _mean([c.p(HEADLINE_WEEK) for c in mature]),
+        "total_returned": total_returned,
+        "pooled_rate": total_returned / total_accounts,
+        "mean_cohort_rate": _mean(cohort_rates),
+        "median_cohort_rate": (cohort_rates[(len(cohort_rates) - 1) // 2] + cohort_rates[len(cohort_rates) // 2]) / 2,
         "median_cohort_size": (sizes[(len(sizes) - 1) // 2] + sizes[len(sizes) // 2]) / 2,
         "max_cohort_size": max(sizes),
         "top_five_share": sum(c.size for c in top_five) / total_accounts,
+        "top_five_return_share": top_five_returned / total_returned,
+        "top_five_pooled_rate": top_five_returned / sum(c.size for c in top_five),
+        "other_cohorts_pooled_rate": sum(c.retained[HEADLINE_WEEK] for c in other_cohorts) / sum(c.size for c in other_cohorts),
     }
     return {
         "cohort_diagnostics": diagnostics,
