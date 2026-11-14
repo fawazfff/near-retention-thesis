@@ -7,6 +7,8 @@ An evidence-first investment thesis on NEAR, built for **NEAR HACKATHON**, track
 The repository contains the BigQuery SQL and a script that can fetch a fresh snapshot when run by an authenticated researcher. The currently published analysis uses a supplied aggregate CSV export. Its original BigQuery job ID, execution timestamp, bytes processed and query hash were not provided, so this repository does not claim an independently verified rerun.
 
 - Dashboard: [docs/index.html](docs/index.html), backed by the supplied cohort CSV in `docs/data/retention.csv`.
+- Contract attribution: `sql/near_schema_check.sql` and `sql/contract_attribution.sql`.
+- Network economics and valuation: [research/network_economics_and_valuation.md](research/network_economics_and_valuation.md).
 - Written thesis: [THESIS.md](THESIS.md), calculated from the supplied CSV.
 - Canonical analysis input: `data/retention.csv`; published dashboard copy: `docs/data/retention.csv`; calculated summary: `docs/data/summary.json`.
 
@@ -51,10 +53,42 @@ python rebuild.py
 
 The default maximum billed bytes is 100 GB. The script refuses to run if the dry-run estimate exceeds `--max-gb`, and the real query also sets BigQuery's `maximum_bytes_billed` to the same cap.
 
+The default maximum billed bytes is 100 GB. The script refuses to run if the dry-run estimate exceeds `--max-gb`, and the real query also sets BigQuery's `maximum_bytes_billed` to the same cap.
+
+### Compare 12-week and 26-week definitions of “new”
+
+Run the same cohort dates twice, changing only the burn-in. The script now writes separate CSV and metadata files so one run does not overwrite the other:
+
+```bash
+# 12-week burn-in
+python fetch_data.py --project YOUR_GCP_PROJECT --burn-in-weeks 12 --output-stem retention_12w --dry-run
+python fetch_data.py --project YOUR_GCP_PROJECT --burn-in-weeks 12 --output-stem retention_12w
+
+# 26-week burn-in
+python fetch_data.py --project YOUR_GCP_PROJECT --burn-in-weeks 26 --output-stem retention_26w --dry-run
+python fetch_data.py --project YOUR_GCP_PROJECT --burn-in-weeks 26 --output-stem retention_26w
+```
+
+Compare the same cohort weeks, follow-up horizons and first-week activity filters. The 26-week result is not yet run because the supplied export only contains the 12-week definition. The current dashboard must not be described as having passed the 26-week robustness test.
+
+### Attribute the large cohorts to applications
+
+1. Run `sql/near_schema_check.sql` to inspect the available BigQuery fields.
+2. Review the estimated bytes for `sql/contract_attribution.sql` before running it.
+3. The query counts distinct cohort signers making `FUNCTION_CALL` receipts to receiver accounts, with cohort sizes as denominators.
+4. Resolve high-activity receiver accounts to verified application/contract names and compare their deployment dates with public campaign dates.
+
+A receiver account is only a contract candidate. Do not call it an application or campaign without confirming the deployed code/account and independent campaign evidence. The supplied aggregate CSV does not contain account IDs, so no application-level conclusion has been made yet.
+
+### Network economics and valuation
+
+See [the economics and valuation research framework](research/network_economics_and_valuation.md). It records the dated market snapshot, protocol issuance and fee mechanisms, required revenue verification, valuation ratios and key risks. The current retention CSV does not contain economic inputs, so the thesis does not yet claim that NEAR is cheap, expensive or undervalued.
+
 Useful options:
 
 - `--cohort-weeks 40`: number of cohort weeks, including both endpoints. Must be at least 19 for the week-4 trend comparison.
-- `--burn-in-weeks 12`: prior weeks used to decide whether an account is new.
+- `--burn-in-weeks 12` or `26`: prior weeks used to decide whether an account is new.
+- `--output-stem retention_26w`: write a separately named CSV and metadata file without overwriting the default export.
 - `--max-weeks 12`: furthest follow-up week to include. Must be at least 4.
 - `--max-gb 100`: hard cap for query processing.
 - `--literal-dates`: inline dates if BigQuery's dry-run estimate suggests parameterized partition pruning is not working.
