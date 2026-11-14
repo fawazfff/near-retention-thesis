@@ -8,7 +8,7 @@ I treat this as a test, not a conclusion. The verdict below is computed from the
 
 ## Verdict: {{verdict}}
 
-About **{{headline_per100}} of every 100** new accounts are still active {{week}} weeks later (95% interval {{headline_ci}} per 100), measured on the latest {{group}} weekly cohorts ({{recent_span}}) after removing accounts above the selected first-week transaction threshold.
+The pooled return rate is **{{headline_rate_pct}}** (95% interval {{headline_ci_pct}}) at week {{week}}, measured across the latest {{group}} weekly cohorts ({{recent_span}}) after excluding accounts above the selected first-week transaction threshold.
 
 Week-{{week}} retention was {{early_mean}} in the earliest {{group}} cohorts ({{early_span}}) and is {{recent_mean}} in the latest. Change: {{diff}} (95% interval {{diff_ci}}).
 
@@ -17,6 +17,10 @@ Week-{{week}} retention was {{early_mean}} in the earliest {{group}} cohorts ({{
 | Filter | Early mean | Recent mean | Change | 95% interval | Verdict |
 |---|---|---|---|---|---|
 {{variant_table_rows}}
+
+## Why the pooled rate needs context
+
+The pooled rate weights every account equally, so very large cohorts dominate it. The unweighted cohort average gives each weekly cohort equal weight. For the headline filter at week 4, the pooled rate is **{{pooled_rate}}**, while the average of the 36 individual cohort rates is **{{mean_cohort_rate}}**. The median mature cohort contains **{{median_cohort_size}}** accounts, while the largest contains **{{max_cohort_size}}**. The five largest cohorts account for **{{top_five_share}}** of all accounts in the 36 mature cohorts ({{diagnostic_accounts}} accounts total). This concentration means the pooled rate should not be read as a typical week's result. Neither weighting choice explains the cohort-size spikes.
 
 ## Why retention
 
