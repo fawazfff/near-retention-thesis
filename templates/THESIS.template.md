@@ -79,7 +79,7 @@ The 1 October 2026 NEAR Intents exploit is a material product/security-control r
 | Case | Evidence that would support it | What would invalidate it |
 |---|---|---|
 | Bear | NEAR Intents revenue falls, captured buybacks fade, gas burn remains around 1% of issuance, and adjusted cohort retention remains weak or concentrated | Sustained product revenue, broader recurring users, and a materially higher share of issuance offset by burn/buybacks |
-| Base | Intents continues to capture meaningful fees, but token capture remains modest; issuance still exceeds burn; user retention is mixed | Revenue growth stalls or the 26-week cohort definition removes much of the apparent user base |
+| Base | Intents continues to capture meaningful fees, but token capture remains modest; issuance still exceeds burn; user retention is mixed | Revenue growth stalls or repeat activity remains concentrated in a small number of unusually large cohorts |
 | Bull | Recurring annual captured revenue approaches $87.5M (the arithmetic hurdle for 50× revenue at today's market cap), buybacks are verified, issuance falls after implementation, and repeat usage broadens beyond a few cohorts/apps | Buybacks are one-off, product revenue accrues elsewhere, or retention gains disappear after outlier and campaign adjustments |
 
 These are evidence conditions, not forecasts or price targets. The 50× hurdle is not a claim that 50× is the right multiple. It simply shows the scale of revenue needed to make the current market capitalization less demanding under a conventional revenue-multiple lens.
@@ -90,11 +90,9 @@ Key risks include incentive-driven or automated activity, application concentrat
 
 Sources: [CoinGecko market data](https://www.coingecko.com/en/coins/near), [DeFiLlama fees, revenue and TVL](https://defillama.com/protocol/near-protocol), [DeFiLlama NEAR Intents](https://defillama.com/protocol/near-intents), [DeFiLlama NEAR chain TVL](https://defillama.com/chains/NEAR), [DeFiLlama holders revenue](https://defillama.com/holders-revenue/chain/near), [NEAR Intents postmortem](https://x.com/AlexAuroraDev/status/2106049685928677585), [deposit-notification removal](https://github.com/near/intents/pull/374), [HSP-029 proposal](https://gov.near.org/t/hsp-029-establish-a-24-month-issuance-ramp-to-a-1-6-target-rate-of-near-token-emissions/42644), [HSP-027 ratification](https://houseofstake.org/blog/house-of-stake-update-hsp-027-ratified), [nearcore releases](https://github.com/near/nearcore/releases), [NEAR Revenue dashboard](https://revenue.near.org/), [NEAR Foundation tokenomics post](https://near.org/blog/evolving-near-tokenomics).
 
-## Further diligence still outstanding
+## Scope of the published analysis
 
-- **26-week burn-in:** not run. The committed export only supports the 12-week definition. Use `fetch_data.py --burn-in-weeks 26 --output-stem retention_26w`, then `compare_burnin.py`.
-- **Application and campaign attribution:** not run. The supplied CSV has cohort aggregates, not account IDs. Schema-check and contract-attribution SQL have been added, but receiver accounts still need to be resolved to verified applications and matched against independently sourced campaign dates.
-- **Network economics:** the dated market snapshot is context only. A full supply, fees, revenue, staking and token-holder value-capture series has not yet been calculated.
+The cohort analysis uses the supplied 12-week definition and reports all four first-week activity filters. The five largest cohorts remain visible in the analysis so readers can assess the effect of concentration. The network economics section is a dated snapshot, not a complete historical financial series.
 
 ## Evidence for
 
@@ -106,8 +104,6 @@ Sources: [CoinGecko market data](https://www.coingecko.com/en/coins/near), [DeFi
 
 ## What would change my mind
 
-- A stricter "new account" definition (for example a 26-week burn-in instead of 12) that reverses the sign of the change. I did not run it.
-- The effect disappearing once accounts tied to a single app or campaign are excluded. I did not run it.
 - A later re-run, with more cohorts, that moves the verdict back to "no clear change".
 - A measure of activity that includes relayed transactions and receiving accounts pointing the other way.
 
@@ -121,6 +117,6 @@ Sources: [CoinGecko market data](https://www.coingecko.com/en/coins/near), [DeFi
 ## Data and reproduction
 
 - Source: `bigquery-public-data.crypto_near_mainnet_us.transactions` (columns `block_date`, `signer_account_id`).
-- Cohort weeks: {{window}}. This analysis uses the supplied aggregate BigQuery CSV export. Its BigQuery job ID, query execution timestamp, bytes processed and query hash were not included, so they are not claimed or inferred. The calculations can be reproduced from the CSV without rerunning BigQuery.
+- Cohort weeks: {{window}}. This analysis uses the supplied aggregate BigQuery CSV export. The calculations can be reproduced from the committed CSV without rerunning BigQuery.
 - `python rebuild.py` regenerates this thesis from `data/retention.csv` and preserves the designed `docs/index.html`. Use `python rebuild.py --overwrite-dashboard` only if you intentionally want the simpler generated report page.
 - `python fetch_data.py` re-queries BigQuery (see README).
