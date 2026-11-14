@@ -67,7 +67,8 @@ class VerdictTests(unittest.TestCase):
         self.assertEqual(d["mature_cohorts"], 36)
         self.assertGreaterEqual(d["mean_cohort_rate"], 0.0)
         self.assertGreaterEqual(d["pooled_rate"], 0.0)
-        self.assertGreater(d["top_five_share"], 0.5)
+        self.assertGreater(d["top_five_share"], 0.0)
+        self.assertLessEqual(d["top_five_share"], 1.0)
         self.assertGreaterEqual(d["top_five_return_share"], 0.0)
         self.assertGreater(d["other_cohorts_pooled_rate"], 0.0)
         self.assertGreaterEqual(d["max_cohort_size"], d["median_cohort_size"])
@@ -110,6 +111,8 @@ class RenderTests(unittest.TestCase):
         self.assertIn("0.41%", text)
         self.assertIn("job ID, query execution timestamp, bytes processed and query hash were not included", text)
         self.assertIn("Investment interpretation", text)
+        self.assertGreater(analysis["cohort_diagnostics"]["top_five_share"], 0.8)
+        self.assertAlmostEqual(analysis["cohort_diagnostics"]["top_five_return_share"], 0.24, places=2)
         page = (ROOT / "docs" / "index.html").read_text()
         self.assertIn("88.4%", page)
 
