@@ -63,5 +63,5 @@
       ]
     }
   },
-  "note": "Recomputed from the supplied CSV. BigQuery job ID, execution timestamp and bytes-processed metadata were not included."
+  "note": "Recomputed from the supplied CSV. The original BigQuery job ID, exact query execution timestamp, bytes processed, and query hash were not included. Calculations can be reproduced from this export; no independent BigQuery rerun is claimed."
 }
