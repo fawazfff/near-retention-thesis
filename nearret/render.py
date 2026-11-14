@@ -81,7 +81,7 @@ def evidence(a):
         bad.append(f"The share of first-week accounts removed by the high-activity filter moved from {pct(a['farm_share_early'], 0)} to "
                    f"{pct(a['farm_share_recent'], 0)}, so part of any change reflects who joins, not whether users stay.")
     if h["pooled_recent"][0] < 0.5:
-        bad.append(f"Even in the latest cohorts only about {per100(h['pooled_recent'][0])} of every 100 new accounts "
+        bad.append(f"Even in the latest cohorts only {pct(h['pooled_recent'][0], 2)} of accounts "
                    f"are active at week {k}; most new accounts never come back.")
     if h["new_accounts_recent"] > 1.25 * h["new_accounts_early"]:
         bad.append("New-account volume grew a lot over the same period, so raw account counts and retained accounts "
@@ -211,9 +211,9 @@ def build_html(a, meta, sql_text: str, demo: bool) -> str:
 <body>{banner}<main>
 <p class="muted">Investment thesis on NEAR, built for NEAR HACKATHON</p>
 <h1>Does NEAR keep its users?</h1>
-<div class="hero"><span class="num">{per100(h['pooled_recent'][0])}</span>
-<span class="hero-text">of every 100 new accounts are still active {k} weeks later</span></div>
-<p class="muted">Latest {h['group_size']} weekly cohorts ({escape(span(h['recent_span']))}), accounts above the 50-transaction first-week threshold excluded. 95% interval: {per100(h['pooled_recent'][1])} to {per100(h['pooled_recent'][2])} per 100.</p>
+<div class="hero"><span class="num">{pct(h['pooled_recent'][0], 2)}</span>
+<span class="hero-text">pooled return rate at week {k}</span></div>
+<p class="muted">Latest {h['group_size']} weekly cohorts ({escape(span(h['recent_span']))}), accounts above the 50-transaction first-week threshold excluded. 95% interval: {pct(h['pooled_recent'][1], 2)} to {pct(h['pooled_recent'][2], 2)}.</p>
 <p class="verdict"><strong>Retention: {escape(h['verdict'])}.</strong> In the earliest {h['group_size']} cohorts ({escape(span(h['early_span']))}) it was {pct(h['early_mean'])}; in the latest it is {pct(h['recent_mean'])} ({pp(h['diff'])}, 95% interval {pp(h['diff_lo'])} to {pp(h['diff_hi'])}). {escape(verdict_sentence(h))}</p>
 
 <h2>How retention decays</h2>
