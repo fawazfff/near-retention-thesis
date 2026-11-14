@@ -2,31 +2,40 @@
 
 **Status:** research framework, not a completed financial model. The current cohort CSV contains no fees, revenue, supply, staking or market-price observations.
 
-## 0. Dated market and revenue snapshot (14 November 2026)
+## 0. Dated market, usage and revenue snapshot (14 November 2026)
 
-CoinGecko showed NEAR around **$3.36**, **$4.40 billion market capitalization**, **$4.40 billion FDV**, **1.312 billion circulating NEAR**, **$107.1 million TVL**, and a **41.1× market-cap/TVL ratio**. DeFiLlama's NEAR Protocol page reported a materially different **$276.2 million TVL** on the same date. That implies a market-cap/TVL ratio closer to **15.9×**. The discrepancy likely reflects different protocol coverage or TVL definitions; it must be reconciled before using TVL in a valuation multiple. Do not choose the more attractive denominator without explaining it.
+CoinGecko showed NEAR around **$3.36**, market capitalization around **$4.40B**, fully diluted valuation around **$4.40B**, circulating supply around **1.312B NEAR**, and TVL around **$107.1M**. DeFiLlama's chain-level NEAR TVL was approximately **$125.08M**. These are much closer than the previously compared $276.2M figure: that larger DeFiLlama "NEAR Protocol (Combined)" figure aggregates assets across multiple chains, including roughly $110.31M on Ethereum. It is not a like-for-like NEAR-chain TVL denominator. The chain-only market-cap/TVL ratios are approximately **41×** using CoinGecko's TVL and **35×** using DeFiLlama's. Reconcile provider scope and token pricing timestamp before treating either as a valuation multiple.
 
-DeFiLlama reported approximately **$5.95 million fees** and **$1.93 million protocol revenue** over 30 days, and trailing-year annualized figures of **$54.14 million fees** and **$9.64 million revenue**. At a $4.376 billion market capitalization, that implies roughly **81× market-cap/trailing-year fees** and **454× market-cap/trailing-year revenue**. These are screening multiples, not a fair-value model. Product-level attribution, rebates, operator costs, and what reaches NEAR tokenholders must be checked. Do not treat gross cross-chain volume as revenue.
+DeFiLlama separately lists **NEAR Intents TVL of about $176.7M** as of 13 November. NEAR Intents operates across 26 chains, so its TVL is cross-chain collateral, not the same thing as NEAR-chain DeFi TVL. It may overlap with other protocol-level TVL aggregates and must not be added to them.
 
-A single 24-hour fee or revenue observation must not be multiplied by 365 and treated as sustainable. The trailing-year figures are more useful, but still require a source reconciliation and a consistent definition of protocol revenue.
+NEAR Intents processed approximately **$3.63B of DEX volume over 30 days**, generated **$5.83M of fees**, and captured about **$1.81M of protocol revenue**. The broader DeFiLlama NEAR Protocol view reported **$5.95M total fees**, **$1.93M protocol revenue** and **$1.81M holders revenue** over 30 days. Fees are gross charges, not the same as captured revenue. On these figures, captured protocol revenue is about **32.4% of gross fees**. The remaining fee amount should not be described as burned or retained by NEAR without checking the detailed fee split.
+
+DeFiLlama describes NEAR Intents holders revenue as captured revenue used to buy back NEAR on the open market since 23 February 2026. This is **buyback-based holder value capture, not a token burn**. The 30-day $1.81M figure implies a simple annualized run rate of about **$21.7M**, or around **0.50% of a $4.38B market capitalization**. That is an arithmetic snapshot, not a guaranteed recurring yield. Confirm actual buyback transactions, amounts, dates and execution wallet flows before treating it as realized value accrual.
+
+The trailing-year DeFiLlama figures were approximately **$54.14M fees** and **$9.64M protocol revenue**. At a roughly $4.376B market capitalization, the screening multiples are about **81× fees** and **454× protocol revenue**. These are high multiples relative to current captured economics. They do not prove NEAR is mispriced, but they mean a bullish valuation requires substantial durable revenue growth, broader value capture, or a defensible monetary premium beyond cash-flow multiples.
+
+### Revenue growth hurdles, not price targets
+
+At a constant $4.376B market capitalization:
+
+| Market cap / annual revenue | Annual revenue required | Multiple of current $9.64M |
+|---:|---:|---:|
+| 100× | $43.8M | 4.5× |
+| 50× | $87.5M | 9.1× |
+| 25× | $175.0M | 18.2× |
+
+These are arithmetic hurdles, not justified valuation multiples or price targets. They illustrate the scale of recurring revenue growth needed to reduce the current screening multiple.
+
+The $3.63B of monthly Intents volume is **not revenue**. Gross swap volume can be large while the net amount retained by NEAR is much smaller. The current 30-day fee/revenue split and buyback series are more relevant than volume headlines, but a 12-month monthly history is still needed to assess durability, cyclicality and concentration.
 
 Sources:
 - [CoinGecko NEAR market data](https://www.coingecko.com/en/coins/near)
-- [DeFiLlama NEAR Protocol fees, revenue and TVL](https://defillama.com/protocol/near-protocol)
+- [DeFiLlama NEAR Protocol combined TVL, fees and revenue](https://defillama.com/protocol/near-protocol)
+- [DeFiLlama NEAR Intents TVL, volume, fees and revenue](https://defillama.com/protocol/near-intents)
+- [DeFiLlama NEAR chain TVL](https://defillama.com/chains/NEAR)
+- [DeFiLlama NEAR holders revenue](https://defillama.com/holders-revenue/chain/near)
 - [NEAR Revenue dashboard](https://revenue.near.org/)
-
-## 0. Dated market and revenue snapshot (14 November 2026)
-
-CoinGecko showed NEAR around **$3.36**, **$4.40 billion market capitalization**, **$4.40 billion FDV**, **1.312 billion circulating NEAR**, **$107.1 million TVL**, and a **41.1× market-cap/TVL ratio**. DeFiLlama's NEAR Protocol page reported a materially different **$276.2 million TVL** on the same date. That implies a market-cap/TVL ratio closer to **15.9×**. The discrepancy likely reflects different protocol coverage or TVL definitions; it must be reconciled before using TVL in a valuation multiple. Do not choose the more attractive denominator without explaining it.
-
-DeFiLlama reported approximately **$5.95 million fees** and **$1.93 million protocol revenue** over 30 days, and trailing-year annualized figures of **$54.14 million fees** and **$9.64 million revenue**. At a $4.376 billion market capitalization, that implies roughly **81× market-cap/trailing-year fees** and **454× market-cap/trailing-year revenue**. These are screening multiples, not a fair-value model. Product-level attribution, rebates, operator costs, and what reaches NEAR tokenholders must be checked. Do not treat gross cross-chain volume as revenue.
-
-A single 24-hour fee or revenue observation must not be multiplied by 365 and treated as sustainable. The trailing-year figures are more useful, but still require a source reconciliation and a consistent definition of protocol revenue.
-
-Sources:
-- [CoinGecko NEAR market data](https://www.coingecko.com/en/coins/near)
-- [DeFiLlama NEAR Protocol fees, revenue and TVL](https://defillama.com/protocol/near-protocol)
-- [NEAR Revenue dashboard](https://revenue.near.org/)
+- [DeFiLlama fee adapter methodology](https://github.com/DefiLlama/dimension-adapters/blob/master/fees/near-intents/index.ts)
 
 ## 1. Protocol-level economics
 
@@ -70,7 +79,7 @@ A high market-cap / revenue ratio requires substantial future growth to justify 
 - Staking yield can be largely issuance-funded rather than organic cash flow.
 - Application concentration, validator concentration, governance changes, bridge/custody risk, smart-contract exploits, regulatory restrictions, liquidity and token unlock/treasury sales can impair the thesis.
 - Competitors may capture the same AI, chain-abstraction and cross-chain demand with stronger distribution or economics.
-- DeFiLlama's incident tracker lists a **$3.8 million bridge/cross-chain security incident on 1 October 2026**. The affected component, final loss, recovery and whether this is attributable to NEAR core or an ecosystem bridge need independent incident-level verification before assigning it to protocol fundamentals.
+- DeFiLlama's incident tracker lists a **$3.8M NEAR Intents bridge/cross-chain exploit on 1 October 2026**. Its description says the issue involved the Omni deposit/withdrawal infrastructure and the NEAR Intents contract; services were stopped, the contract-side issue was patched, and deposits/withdrawals were temporarily suspended while infrastructure fixes were completed. The tracker reports the team said affected users would be compensated in full. Treat compensation as a reported commitment until the reimbursement amounts and completion are verified on-chain. The incident is an ecosystem/product security risk, not evidence of a NEAR base-layer consensus failure.
 
 ## 5. Required evidence before a valuation conclusion
 
