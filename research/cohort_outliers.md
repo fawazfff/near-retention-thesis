@@ -1,7 +1,5 @@
 # Investigating the five unusually large NEAR cohorts
 
-**Status:** aggregate-data investigation completed; application and campaign attribution still requires account-level BigQuery results.
-
 ## Finding
 
 The supplied CSV contains 40 weekly cohorts, from 2 February through 2 November 2026. Under the headline `filtered_50` definition, 36 cohorts have a complete week-four observation.
@@ -53,22 +51,10 @@ The mean and median answer a different question from the pooled rate. Neither sh
 
 The current dataset cannot establish that these are bots or identify the applications behind them. It contains aggregate counts by cohort and follow-up week, not account IDs, transaction hashes, receiver accounts, campaign labels or application names.
 
-## Required attribution work
+## Interpretation
 
-1. Run `sql/near_schema_check.sql` in BigQuery. Confirm the exact column names and data types in `transactions` and `receipts`. Do not assume the receipt join fields exist.
-2. Run a BigQuery dry-run for `sql/contract_attribution.sql`. Check estimated bytes and the maximum billing cap before executing it.
-3. Execute the attribution query only after the schema check confirms the join fields. It currently counts receiver interactions from cohort signers and includes all receipt kinds. It is not yet a verified function-call-only query.
-4. Resolve high-frequency receiver accounts to verified deployed contracts using account/code metadata and public ecosystem directories. Do not infer a project name from an account string.
-5. Compare first-seen and activity dates with public launch, points, faucet, grant, airdrop and incentive campaign dates. A date coincidence is a lead, not proof of causation.
-6. Quantify concentration: share of cohort signers and receipts accounted for by the top 5, 10 and 20 receivers, separately for each outlier cohort and for the rest of the sample.
-7. Recalculate retention excluding identified campaign or application activity only when the attribution rule is independently documented and reproducible. Publish both original and adjusted results.
-
-## Interpretation to use until attribution is complete
-
-The February cohorts create a severe denominator and composition issue. The existing high-transaction filters do not resolve it. This weakens the use of the pooled rate as a standalone signal of durable user adoption. It does not by itself prove the underlying activity was artificial, nor does it show which application or campaign caused it.
-
-**Investment implication:** do not claim improving user retention or broad-based adoption from the aggregate cohort totals until the February spike is explained and the result is robust to the 26-week burn-in definition and application-level concentration checks.
+The aggregate export shows a strong concentration effect: a small number of unusually large cohorts account for most observed accounts but a much smaller share of week-four returns. The supplied data does not identify why those cohorts are unusually large. Possible explanations include campaign activity, automation, faucet usage, or other short-lived activity, but none can be confirmed from cohort-level counts alone. Treat the outlier finding as a composition risk, not proof of artificial activity.
 
 ## Reproduction
 
-The calculations in this note are derived from `docs/data/retention.csv`, using the `filtered_50` variant for the headline cohort table and all four variants for the threshold comparison. The source export's BigQuery job ID, execution timestamp and bytes processed were not supplied. The figures can be recalculated from the committed CSV, but this note does not claim an independent BigQuery rerun.
+The calculations in this note are derived from `docs/data/retention.csv`, using the `filtered_50` variant for the headline cohort table and all four variants for the threshold comparison. The figures can be recalculated from the committed CSV. This note describes the supplied aggregate snapshot.
