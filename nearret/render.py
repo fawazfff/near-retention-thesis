@@ -146,7 +146,7 @@ def build_thesis(a, meta, template_path: Path, demo: bool) -> str:
         ),
         "other_cohorts_rate": pct(a["cohort_diagnostics"]["other_cohorts_pooled_rate"], 2),
         "diagnostic_accounts": f"{a['cohort_diagnostics']['total_accounts']:,}",
-        "retention_window_rows": "\\n".join(
+        "retention_window_rows": "\n".join(
             f"| {r['week']} | {r['cohorts']} | {r['accounts']:,} | {r['returned']:,} | {pct(r['rate'], 2)} |"
             for r in a["retention_windows"]
         ),
