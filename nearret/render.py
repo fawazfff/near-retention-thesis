@@ -33,9 +33,6 @@ def span(s):
     return f"{day(s[0])} to {day(s[1])}"
 
 
-def per100(p):
-    return f"{p * 100:.0f}"
-
 
 def verdict_sentence(h):
     v = h["verdict"]
