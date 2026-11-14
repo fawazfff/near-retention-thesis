@@ -45,7 +45,9 @@ This dataset does not support a confident claim that NEAR's account retention is
 
 ### Investment economics and valuation
 
-A dated CoinGecko snapshot on 14 November 2026 showed NEAR around **$3.36**, market capitalization around **$4.40 billion**, FDV around **$4.40 billion**, circulating supply around **1.312 billion NEAR**, TVL around **$107.1 million**, and a market-cap/TVL ratio around **41.1×**. These are third-party snapshot figures, not a valuation conclusion. A one-day fee or revenue figure is not a sustainable annual run rate.
+A dated CoinGecko snapshot on 14 November 2026 showed NEAR around **$3.36**, market capitalization around **$4.40 billion**, FDV around **$4.40 billion**, circulating supply around **1.312 billion NEAR**, and TVL around **$107.1 million**. DeFiLlama reported a materially different **$276.2 million TVL** on the same date. This changes the market-cap/TVL ratio from about **41×** to about **16×**. The provider difference must be reconciled before using TVL as a valuation denominator.
+
+DeFiLlama reported approximately **$5.95 million fees** and **$1.93 million protocol revenue** over 30 days, with trailing-year figures of **$54.14 million fees** and **$9.64 million revenue**. At a roughly $4.38 billion market cap, these imply about **81× market-cap/trailing-year fees** and **454× market-cap/trailing-year revenue**. These are screening multiples, not a fair-value model. Product attribution, costs, and what reaches NEAR tokenholders still need verification. A single 24-hour figure must not be multiplied by 365 and treated as sustainable annual revenue.
 
 As of 14 November 2026, the active maximum annual issuance remains **2.5%**. House of Stake proposal HSP-029 passed its vote on 2 November and proposes a linear 24-month reduction to **1.6%**, but the Security Council veto window runs through 16 November and protocol implementation/validator adoption is still required. Do not model 1.6% as already active.
 
@@ -59,7 +61,7 @@ NEAR's February 2026 tokenomics post describes product-revenue capture and buyba
 
 Key risks include incentive-driven or automated activity, application concentration, cross-chain volume that does not create recurring NEAR-denominated revenue, product economics that accrue to operators rather than token holders, issuance dilution, bridge and smart-contract risk, governance changes, liquidity and competition.
 
-Sources: [CoinGecko market data](https://www.coingecko.com/en/coins/near), [HSP-029 proposal](https://gov.near.org/t/hsp-029-establish-a-24-month-issuance-ramp-to-a-1-6-target-rate-of-near-token-emissions/42644), [HSP-027 ratification](https://houseofstake.org/blog/house-of-stake-update-hsp-027), [nearcore releases](https://github.com/near/nearcore/releases), [NEAR Revenue dashboard](https://revenue.near.org/), [NEAR Foundation tokenomics post](https://near.org/blog/evolving-near-tokenomics).
+Sources: [CoinGecko market data](https://www.coingecko.com/en/coins/near), [DeFiLlama fees, revenue and TVL](https://defillama.com/protocol/near-protocol), [HSP-029 proposal](https://gov.near.org/t/hsp-029-establish-a-24-month-issuance-ramp-to-a-1-6-target-rate-of-near-token-emissions/42644), [HSP-027 ratification](https://houseofstake.org/blog/house-of-stake-update-hsp-027), [nearcore releases](https://github.com/near/nearcore/releases), [NEAR Revenue dashboard](https://revenue.near.org/), [NEAR Foundation tokenomics post](https://near.org/blog/evolving-near-tokenomics).
 
 ### Further diligence still outstanding
 
