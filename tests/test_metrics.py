@@ -126,6 +126,9 @@ class RenderTests(unittest.TestCase):
         self.assertEqual(meta["row_count"], len(canonical_csv.read_text().splitlines()) - 1)
         analysis = metrics.analyse(data)
         summary = json.loads((ROOT / "docs" / "data" / "summary.json").read_text())
+        self.assertEqual(summary["protocol_economics_status"]["active_maximum_annual_issuance_percent"], 2.5)
+        self.assertEqual(summary["protocol_economics_status"]["hsp_029"]["target_issuance_percent"], 1.6)
+        self.assertEqual(summary["protocol_economics_status"]["hsp_027"]["developer_gas_rebate_percent"], 0)
         self.assertAlmostEqual(summary["cohort_diagnostics"]["pooled_rate_percent"],
                                analysis["cohort_diagnostics"]["pooled_rate"] * 100, places=10)
         windows = analysis["retention_windows"]
