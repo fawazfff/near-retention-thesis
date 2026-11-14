@@ -14,7 +14,7 @@ The repository contains the BigQuery SQL and a script that can fetch a fresh sna
 
 1. `sql/retention.sql` groups accounts that sign transactions into weekly cohorts, then counts how many sign again in later weeks.
 2. It reports four versions: no filter, and three high-activity filters that exclude accounts with more than 200, 50, or 20 transactions in their first week. The headline uses the 50-transaction threshold as a sensitivity setting. It is not a verified bot classifier. All variants remain visible.
-3. `rebuild.py` turns `data/retention.csv` into every number, chart, the dashboard and `THESIS.md`. Nothing is typed into the thesis by hand.
+3. `rebuild.py` regenerates `THESIS.md` from `data/retention.csv` and the analysis code. The published interactive dashboard reads the committed CSV directly. Normal rebuilds preserve its design. Use `python rebuild.py --overwrite-dashboard` only if you intentionally want to replace it with the simpler generated report page.
 
 ## Quick start
 
@@ -22,10 +22,10 @@ Python 3.10+ is recommended.
 
 ```bash
 python -m unittest -v
-python rebuild.py --demo
+python rebuild.py
 ```
 
-The demo command writes a synthetic preview to `demo/`. It is fake data, prominently labelled as synthetic, and never overwrites `THESIS.md` or the real-data dashboard in `docs/`.
+The default rebuild regenerates the real-data thesis and leaves the designed dashboard untouched. `python rebuild.py --demo` writes a synthetic preview to `demo/`. It is fake data, prominently labelled as synthetic, and never overwrites `THESIS.md` or the real-data dashboard in `docs/`.
 
 ## Refreshing real data
 
