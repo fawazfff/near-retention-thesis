@@ -1,4 +1,5 @@
 import functools
+import json
 import tempfile
 import unittest
 from datetime import date
@@ -103,8 +104,16 @@ class RenderTests(unittest.TestCase):
         self.assertNotIn("SYNTHETIC DEMO DATA", html)
 
     def test_supplied_data_thesis_renders_without_unknown_metadata_claims(self):
-        data, meta = metrics.load(ROOT / "data" / "retention.csv", ROOT / "data" / "run_meta.json")
+        canonical_csv = ROOT / "data" / "retention.csv"
+        published_csv = ROOT / "docs" / "data" / "retention.csv"
+        meta_path = ROOT / "data" / "run_meta.json"
+        self.assertEqual(canonical_csv.read_bytes(), published_csv.read_bytes())
+        data, meta = metrics.load(canonical_csv, meta_path)
+        self.assertEqual(meta["row_count"], 1768)
         analysis = metrics.analyse(data)
+        summary = json.loads((ROOT / "docs" / "data" / "summary.json").read_text())
+        self.assertAlmostEqual(summary["cohort_diagnostics"]["pooled_rate_percent"],
+                               analysis["cohort_diagnostics"]["pooled_rate"] * 100, places=10)
         text = render.build_thesis(analysis, meta, ROOT / "templates" / "THESIS.template.md", demo=False)
         self.assertNotIn("{{", text)
         self.assertIn("2.41%", text)
