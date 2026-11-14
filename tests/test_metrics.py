@@ -114,6 +114,11 @@ class RenderTests(unittest.TestCase):
         summary = json.loads((ROOT / "docs" / "data" / "summary.json").read_text())
         self.assertAlmostEqual(summary["cohort_diagnostics"]["pooled_rate_percent"],
                                analysis["cohort_diagnostics"]["pooled_rate"] * 100, places=10)
+        windows = analysis["retention_windows"]
+        self.assertEqual([x["week"] for x in windows], [1, 4, 8, 12])
+        self.assertEqual([x["cohorts"] for x in windows], [39, 36, 32, 28])
+        self.assertEqual([x["accounts"] for x in windows], [4695104, 4627825, 3941854, 3906626])
+        self.assertEqual([x["returned"] for x in windows], [44255, 18989, 11345, 8007])
         text = render.build_thesis(analysis, meta, ROOT / "templates" / "THESIS.template.md", demo=False)
         self.assertNotIn("{{", text)
         self.assertIn("2.41%", text)
