@@ -78,7 +78,7 @@ def evidence(a):
                    ", ".join(f"{v}: {a['verdicts'][v]}" for v in VARIANT_ORDER) + ".")
     drift = a["farm_share_recent"] - a["farm_share_early"]
     if abs(drift) >= 0.05:
-        bad.append(f"The share of new accounts removed as bot-like moved from {pct(a['farm_share_early'], 0)} to "
+        bad.append(f"The share of first-week accounts removed by the high-activity filter moved from {pct(a['farm_share_early'], 0)} to "
                    f"{pct(a['farm_share_recent'], 0)}, so part of any change reflects who joins, not whether users stay.")
     if h["pooled_recent"][0] < 0.5:
         bad.append(f"Even in the latest cohorts only about {per100(h['pooled_recent'][0])} of every 100 new accounts "
@@ -213,7 +213,7 @@ def build_html(a, meta, sql_text: str, demo: bool) -> str:
 <h1>Does NEAR keep its users?</h1>
 <div class="hero"><span class="num">{per100(h['pooled_recent'][0])}</span>
 <span class="hero-text">of every 100 new accounts are still active {k} weeks later</span></div>
-<p class="muted">Latest {h['group_size']} weekly cohorts ({escape(span(h['recent_span']))}), bot-like accounts removed. 95% interval: {per100(h['pooled_recent'][1])} to {per100(h['pooled_recent'][2])} per 100.</p>
+<p class="muted">Latest {h['group_size']} weekly cohorts ({escape(span(h['recent_span']))}), accounts above the 50-transaction first-week threshold excluded. 95% interval: {per100(h['pooled_recent'][1])} to {per100(h['pooled_recent'][2])} per 100.</p>
 <p class="verdict"><strong>Retention: {escape(h['verdict'])}.</strong> In the earliest {h['group_size']} cohorts ({escape(span(h['early_span']))}) it was {pct(h['early_mean'])}; in the latest it is {pct(h['recent_mean'])} ({pp(h['diff'])}, 95% interval {pp(h['diff_lo'])} to {pp(h['diff_hi'])}). {escape(verdict_sentence(h))}</p>
 
 <h2>How retention decays</h2>
