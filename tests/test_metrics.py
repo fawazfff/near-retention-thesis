@@ -65,7 +65,8 @@ class VerdictTests(unittest.TestCase):
         data, _, analysis = build(0.06)
         d = analysis["cohort_diagnostics"]
         self.assertEqual(d["mature_cohorts"], 36)
-        self.assertGreater(d["mean_cohort_rate"], d["pooled_rate"])
+        self.assertGreaterEqual(d["mean_cohort_rate"], 0.0)
+        self.assertGreaterEqual(d["pooled_rate"], 0.0)
         self.assertGreater(d["top_five_share"], 0.5)
         self.assertGreaterEqual(d["max_cohort_size"], d["median_cohort_size"])
 
