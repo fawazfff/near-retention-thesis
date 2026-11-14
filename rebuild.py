@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Rebuild every number, chart and THESIS.md from data/retention.csv.
+"""Regenerate THESIS.md from data/retention.csv without replacing the designed dashboard by default.
 
     python rebuild.py                      # regenerate THESIS.md; preserve the designed dashboard
     python rebuild.py --overwrite-dashboard # also replace docs/index.html with the report renderer
@@ -48,7 +48,7 @@ def main(argv=None) -> int:
 
     h = analysis["headline"]
     print(("SYNTHETIC DEMO. " if demo else "") +
-          f"{render.per100(h['pooled_recent'][0])} of every 100 new accounts still active at week "
+          f"{render.pct(h['pooled_recent'][0], 2)} of accounts active in follow-up week "
           f"{metrics.HEADLINE_WEEK} (latest {h['group_size']} cohorts). Retention: {h['verdict']} "
           f"({render.pp(h['diff'])}, 95% interval {render.pp(h['diff_lo'])} to {render.pp(h['diff_hi'])}).")
     if args.demo or args.overwrite_dashboard:
