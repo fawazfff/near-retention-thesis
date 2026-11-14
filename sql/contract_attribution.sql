@@ -1,7 +1,9 @@
 -- Contract-touch analysis for the largest 12-week-burn-in cohort outliers.
 -- First run sql/near_schema_check.sql and confirm the listed fields exist.
--- This attributes FUNCTION_CALL receipts to the signer of the originating transaction.
--- A receiver is treated as a contract candidate, not a verified application label.
+-- This draft attributes receipts originating from transactions signed by cohort accounts.
+-- It is not yet schema-verified. Run near_schema_check.sql first and confirm every field.
+-- Receiver accounts are candidates only. This query does not prove they are contracts,
+-- identify the action kind, or establish a campaign/application name.
 -- Campaign attribution requires external campaign dates and should not be inferred here.
 --
 -- Parameters:
@@ -11,8 +13,9 @@
 -- @last_week_start DATE  Monday of last fully observed week
 -- @max_weeks INT64       maximum follow-up week
 --
--- Dry-run before executing. This query joins receipts/actions and may be materially
--- more expensive than the signer-only retention query.
+-- Dry-run before executing. This query joins transactions and receipts and may be materially
+-- more expensive than the signer-only retention query. It includes all receipt kinds;
+-- inspect the receipt schema and add action-level filters only after verifying their fields.
 
 WITH weekly_signers AS (
   SELECT
@@ -37,19 +40,19 @@ cohort_sizes AS (
   GROUP BY cohort_week
 ),
 function_calls AS (
-  SELECT
+  SELECT DISTINCT
     c.cohort_week,
     DATE_TRUNC(r.block_date, WEEK(MONDAY)) AS activity_week,
     c.signer_account_id,
-    ra.receipt_receiver_account_id AS receiver_account_id,
+    r.receiver_account_id,
     r.receipt_id
   FROM cohorts c
+  JOIN `bigquery-public-data.crypto_near_mainnet_us.transactions` t
+    ON t.signer_account_id = c.signer_account_id
+   AND t.block_date BETWEEN @start_date AND @end_date
   JOIN `bigquery-public-data.crypto_near_mainnet_us.receipts` r
-    ON r.transaction_signer_account_id = c.signer_account_id
+    ON r.originated_from_transaction_hash = t.transaction_hash
    AND r.block_date BETWEEN @start_date AND @end_date
-  JOIN `bigquery-public-data.crypto_near_mainnet_us.receipt_actions` ra
-    ON ra.receipt_id = r.receipt_id
-   AND ra.action_kind = 'FUNCTION_CALL'
   WHERE DATE_DIFF(DATE_TRUNC(r.block_date, WEEK(MONDAY)), c.cohort_week, DAY)
         BETWEEN 0 AND @max_weeks * 7
 ),
