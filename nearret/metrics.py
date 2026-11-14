@@ -20,7 +20,7 @@ MAX_GROUP = 8      # cohorts per comparison group (earliest vs latest)
 MIN_GROUP = 5
 
 # Two-sided 95% Student-t critical values, keyed by degrees of freedom.
-_T95 = {5: 2.571, 6: 2.447, 7: 2.365, 8: 2.306, 9: 2.262, 10: 2.228, 11: 2.201,
+_T95 = {4: 2.776, 5: 2.571, 6: 2.447, 7: 2.365, 8: 2.306, 9: 2.262, 10: 2.228, 11: 2.201,
         12: 2.179, 13: 2.160, 14: 2.145, 15: 2.131, 16: 2.120, 18: 2.101,
         20: 2.086, 25: 2.060, 30: 2.042}
 
