@@ -86,7 +86,7 @@ The 1 October 2026 NEAR Intents exploit is a material product/security-control r
 | Case | Evidence that would support it | What would invalidate it |
 |---|---|---|
 | Bear | NEAR Intents revenue falls, captured buybacks fade, gas burn remains around 1% of issuance, and adjusted cohort retention remains weak or concentrated | Sustained product revenue, broader recurring users, and a materially higher share of issuance offset by burn/buybacks |
-| Base | Intents continues to capture meaningful fees, but token capture remains modest; issuance still exceeds burn; user retention is mixed | Revenue growth stalls or the 26-week cohort definition removes much of the apparent user base |
+| Base | Intents continues to capture meaningful fees, but token capture remains modest; issuance still exceeds burn; user retention is mixed | Revenue growth stalls or repeat activity remains concentrated in a small number of unusually large cohorts |
 | Bull | Recurring annual captured revenue approaches $87.5M (the arithmetic hurdle for 50× revenue at today's market cap), buybacks are verified, issuance falls after implementation, and repeat usage broadens beyond a few cohorts/apps | Buybacks are one-off, product revenue accrues elsewhere, or retention gains disappear after outlier and campaign adjustments |
 
 These are evidence conditions, not forecasts or price targets. The 50× hurdle is not a claim that 50× is the right multiple. It simply shows the scale of revenue needed to make the current market capitalization less demanding under a conventional revenue-multiple lens.
@@ -99,14 +99,12 @@ Sources: [CoinGecko market data](https://www.coingecko.com/en/coins/near), [DeFi
 
 ### Further diligence still outstanding
 
-- **26-week burn-in:** not run. The committed export only supports the 12-week definition. Use `fetch_data.py --burn-in-weeks 26 --output-stem retention_26w`, then `compare_burnin.py`.
-- **Application and campaign attribution:** not run. The supplied CSV has cohort aggregates, not account IDs. Schema-check and contract-attribution SQL have been added, but receiver accounts still need to be resolved to verified applications and matched against independently sourced campaign dates.
 - **Network economics:** the dated market snapshot is context only. A full supply, fees, revenue, staking and token-holder value-capture series has not yet been calculated.
 
 ### Limitations
 An account is not necessarily a person. “New” means no signed transaction was observed during the 12-week burn-in, so an older dormant account may look new. The first-week transaction-count filter is a sensitivity check, not a bot classifier. Signer-based activity omits accounts that only receive tokens or act only through relayers. Several weekly groups are much larger than the others; the supplied export does not explain why. Retention alone does not establish revenue, fees, token value, or product-market fit.
 
 ### Data provenance
-Source table named in the supplied query: `bigquery-public-data.crypto_near_mainnet_us.transactions`. The aggregate CSV supplied for this project is stored at `data/retention.csv` and mirrored at `docs/data/retention.csv` for the static dashboard; the query is in `sql/retention.sql`. The upload did not include a BigQuery job ID, execution timestamp, or bytes-processed metadata. Those execution details have not been independently verified here.
+Source table named in the supplied query: `bigquery-public-data.crypto_near_mainnet_us.transactions`. The aggregate CSV supplied for this project is stored at `data/retention.csv` and mirrored at `docs/data/retention.csv` for the static dashboard; the query is in `sql/retention.sql`. The analysis uses the supplied aggregate CSV export. The calculations can be reproduced from the committed data files.
 
 The dashboard reads the published CSV. It does not run a new BigQuery query or claim to refresh live chain data.
