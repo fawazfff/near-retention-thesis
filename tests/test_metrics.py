@@ -129,6 +129,10 @@ class RenderTests(unittest.TestCase):
         self.assertAlmostEqual(analysis["cohort_diagnostics"]["top_five_return_share"], 0.24, places=2)
         page = (ROOT / "docs" / "index.html").read_text()
         self.assertIn("88.4%", page)
+        self.assertIn("id=\"milestoneRows\"", page)
+        self.assertIn("id=\"economics\"", page)
+        self.assertIn("26-week comparison", page)
+        self.assertIn("contract_attribution.sql", page)
 
 
 if __name__ == "__main__":
