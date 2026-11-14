@@ -1,0 +1,18 @@
+{
+  "version": "1.0.0",
+  "updated": "14 November 2026",
+  "source": "User-provided BigQuery CSV export",
+  "cohorts": 40,
+  "mature_cohorts": 36,
+  "latest_sample_accounts": 721199,
+  "week4_returning_accounts": 5727,
+  "pooled_week4_retention_percent": 0.79,
+  "early_eight_cohort_average_percent": 1.89,
+  "latest_eight_cohort_average_percent": 3.18,
+  "change_percentage_points": 1.29,
+  "welch_95_interval_percentage_points": [
+    -0.92,
+    3.51
+  ],
+  "note": "Snapshot check only. It does not execute a new BigQuery query."
+}
