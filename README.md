@@ -214,3 +214,26 @@ Built with AI assistance for implementation, tests, and documentation. The resea
 - Data source: `bigquery-public-data.crypto_near_mainnet_us.transactions`.
 - No on-chain deployment or signing is required. No keys or credentials belong in this repository.
 - License: MIT, see [`LICENSE`](LICENSE).
+
+## NEAR HACKATHON alignment
+
+This submission is for **Investment Thesis** (`thesis`). The track asks for a long-term case about NEAR supported by on-chain analytics, dashboards, research, and models that another person can rerun. This project addresses that brief through a NEAR mainnet cohort study, interactive dashboard, BigQuery SQL, reproducible Python calculations, and a written evidence-for / evidence-against thesis.
+
+The dashboard is a published snapshot, not a live streaming dashboard. The source SQL and refresh instructions are provided so a researcher with BigQuery access can run a fresh extraction. The currently published aggregate export does not include its original BigQuery job receipt, and the 26-week burn-in and application attribution checks remain outstanding. These are disclosed limitations, not completed features.
+
+### AI judge verification checklist
+
+- [ ] Open the hosted dashboard and confirm the cohort data loads.
+- [ ] Change the account filter and follow-up week; confirm the charts and tables update.
+- [ ] Run the local static server command above and confirm the same dashboard works locally.
+- [ ] Run `python -m unittest -v` and inspect the test results.
+- [ ] Run `python rebuild.py` and confirm the thesis is regenerated from the committed CSV.
+- [ ] Compare the dashboard's published figures with `THESIS.md` and `docs/data/summary.json`.
+- [ ] Confirm the limitations are visible: account-level proxy, supplied aggregate export, no verified bot classification, no 26-week result, and no completed application attribution.
+
+### Submission checklist
+
+The repository is public. The project still needs a public X demo post that says it was built at **NEAR HACKATHON**, tags **@NEARProtocol**, includes **#NEARHackathon**, and attaches the demo video or screenshots. Submit the public repository URL and the X post URL through the official form, together with the NEAR account address for prize payout. The event allows one submission per project; if an already-submitted entry needs correction, use the official request-changes process rather than submitting a duplicate.
+
+Official rules and track brief: [NEAR HACKATHON](https://nearhackathon.com/) · [Investment Thesis starter brief](https://github.com/nearai/near-hackathon-prompt-examples/blob/main/tracks/02-thesis.md) · [Submission checklist](https://github.com/nearai/near-hackathon-prompt-examples/blob/main/SUBMITTING.md).
+
