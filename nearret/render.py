@@ -140,6 +140,10 @@ def build_thesis(a, meta, template_path: Path, demo: bool) -> str:
         "median_cohort_size": f"{a['cohort_diagnostics']['median_cohort_size']:,.0f}",
         "max_cohort_size": f"{a['cohort_diagnostics']['max_cohort_size']:,.0f}",
         "top_five_share": pct(a["cohort_diagnostics"]["top_five_share"]),
+        "top_five_return_share": pct(a["cohort_diagnostics"]["top_five_return_share"]),
+        "median_cohort_rate": pct(a["cohort_diagnostics"]["median_cohort_rate"], 2),
+        "top_five_rate": pct(a["cohort_diagnostics"]["top_five_pooled_rate"], 2),
+        "other_cohorts_rate": pct(a["cohort_diagnostics"]["other_cohorts_pooled_rate"], 2),
         "diagnostic_accounts": f"{a['cohort_diagnostics']['total_accounts']:,}",
     }
     text = template_path.read_text()
