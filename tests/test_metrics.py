@@ -23,7 +23,9 @@ def build(trend, seed=7):
 class BurnInComparisonTests(unittest.TestCase):
     def test_same_export_compares_to_zero_difference(self):
         data, meta, _ = build(0.06)
-        result = compare_burn_in(data, meta, data, meta)
+        meta12, meta26 = dict(meta), dict(meta)
+        meta12["burn_in_weeks"], meta26["burn_in_weeks"] = 12, 26
+        result = compare_burn_in(data, meta12, data, meta26)
         row = result["variants"]["filtered_50"]
         self.assertEqual(row["12_week_burn_in"]["week4_trend"]["verdict"],
                          row["26_week_burn_in"]["week4_trend"]["verdict"])
