@@ -14,4 +14,6 @@ jobs:
           python-version: '3.12'
       - run: python -m pip install -r requirements-dev.txt
       - run: python -m unittest -v
+      - name: Validate published research dataset
+        run: python -c "from pathlib import Path; from nearret.metrics import load, analyse; data, meta = load(Path('data/retention.csv'), Path('data/run_meta.json')); result = analyse(data); assert len(data['filtered_50']) == 40; assert result['headline']['verdict'] == 'no clear change'; print('Validated 40 cohorts; week-4 verdict:', result['headline']['verdict'])"
       - run: python rebuild.py --demo
