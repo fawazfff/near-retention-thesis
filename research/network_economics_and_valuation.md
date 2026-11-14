@@ -81,6 +81,8 @@ A high market-cap / revenue ratio requires substantial future growth to justify 
 - Competitors may capture the same AI, chain-abstraction and cross-chain demand with stronger distribution or economics.
 - DeFiLlama's incident tracker lists a **$3.8M NEAR Intents bridge/cross-chain exploit on 1 October 2026**. Its description says the issue involved the Omni deposit/withdrawal infrastructure and the NEAR Intents contract; services were stopped, the contract-side issue was patched, and deposits/withdrawals were temporarily suspended while infrastructure fixes were completed. The tracker reports the team said affected users would be compensated in full. Treat compensation as a reported commitment until the reimbursement amounts and completion are verified on-chain. The incident is an ecosystem/product security risk, not evidence of a NEAR base-layer consensus failure.
 
+Incident sources: [NEAR Intents postmortem, 16 October 2026](https://x.com/AlexAuroraDev/status/2106049685928677585), [deposit-notification removal, near/intents PR #374](https://github.com/near/intents/pull/374), [DeFiLlama incident record](https://defillama.com/protocol/near-intents).
+
 ## 5. Required evidence before a valuation conclusion
 
 1. Reproducible monthly supply/issuance/burn series from protocol data.
