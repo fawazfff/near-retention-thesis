@@ -32,6 +32,29 @@ The interval includes zero. The latest eight groups have a higher average in thi
 
 The pooled rate weights every account equally, so very large cohorts dominate it. The unweighted cohort average gives each weekly cohort equal weight. For the headline filter at week 4, the pooled rate is **0.41%**, the average cohort rate is **2.41%**, and the median cohort rate is **2.31%**. The median mature cohort contains **18,439 accounts**, while the largest contains **1,660,162**. The five largest cohorts account for **88.4%** of all accounts, but only **24.0%** of week-4 returns. Their pooled week-4 rate is **0.11%**, compared with **2.68%** across the other 31 cohorts. The reason for this difference is unknown. The pooled rate should not be read as a typical week's result.
 
+The same five weeks remain the largest under all first-week transaction thresholds. The >20 filter removes only 3,355 accounts (0.082%) from these five cohorts compared with no filter. That rules out a simple explanation based on accounts signing more than 20 transactions in their first week; it does not rule out one-time or low-frequency automation or campaign activity.
+
+| First observed week | All accounts | After >50 filter | After >20 filter | Week-four active (>50) | Week-four rate |
+|---|---:|---:|---:|---:|---:|
+| 2026-02-09 | 1,660,185 | 1,660,162 | 1,660,089 | 671 | 0.040% |
+| 2026-02-16 | 1,059,473 | 1,059,422 | 1,059,195 | 877 | 0.083% |
+| 2026-02-02 | 750,129 | 750,108 | 749,997 | 999 | 0.133% |
+| 2026-09-28 | 345,045 | 344,247 | 342,698 | 828 | 0.241% |
+| 2026-10-05 | 276,536 | 276,298 | 276,034 | 1,182 | 0.428% |
+
+
+
+### Retention across follow-up windows
+
+| Follow-up week | Eligible cohorts | Accounts | Accounts active | Pooled retention |
+|---:|---:|---:|---:|---:|
+| 1 | 39 | 4,695,104 | 44,255 | 0.943% |
+| 4 | 36 | 4,627,825 | 18,989 | 0.410% |
+| 8 | 32 | 3,941,854 | 11,345 | 0.288% |
+| 12 | 28 | 3,906,626 | 8,007 | 0.205% |
+
+These are exact-week activity measures. The eligible denominator falls at longer horizons because newer cohorts have not yet had enough follow-up time. These numbers do not mean that the same accounts stayed continuously active between weeks 1 and 12.
+
 ### Method
 - Activity means at least one signed transaction (`signer_account_id`) in a Monday-start UTC week.
 - A group contains accounts whose first observed signed transaction falls in that week, after a 12-week burn-in.
@@ -45,17 +68,17 @@ This dataset does not support a confident claim that NEAR's account retention is
 
 ### Investment economics and valuation
 
-A dated CoinGecko snapshot on 14 November 2026 showed NEAR around **$3.36**, market capitalization around **$4.40 billion**, FDV around **$4.40 billion**, circulating supply around **1.312 billion NEAR**, and TVL around **$107.1 million**. DeFiLlama reported a materially different **$276.2 million TVL** on the same date. This changes the market-cap/TVL ratio from about **41×** to about **16×**. The provider difference must be reconciled before using TVL as a valuation denominator.
+A dated 14 November 2026 snapshot showed NEAR around **$3.36** and a market capitalization around **$4.40B**. CoinGecko listed about **$107.1M** TVL. DeFiLlama's chain-only NEAR TVL was about **$125.08M**, while its **$276.2M NEAR Protocol Combined** figure includes assets on multiple chains, including Ethereum. Use chain-only figures for a chain TVL multiple. NEAR Intents separately reported about **$176.7M** TVL across 26 chains; this is cross-chain collateral and may overlap with other protocol totals. Do not add these TVL figures together.
 
-DeFiLlama reported approximately **$5.95 million fees** and **$1.93 million protocol revenue** over 30 days, with trailing-year figures of **$54.14 million fees** and **$9.64 million revenue**. At a roughly $4.38 billion market cap, these imply about **81× market-cap/trailing-year fees** and **454× market-cap/trailing-year revenue**. These are screening multiples, not a fair-value model. Product attribution, costs, and what reaches NEAR tokenholders still need verification. A single 24-hour figure must not be multiplied by 365 and treated as sustainable annual revenue.
+NEAR Intents processed about **$3.63B** of DEX volume in 30 days, generated **$5.83M** of fees and captured **$1.81M** of revenue. The wider NEAR Protocol view showed **$5.95M** fees, **$1.93M** protocol revenue and **$1.81M** holders revenue over 30 days. Captured revenue was about **32.4%** of gross fees. DeFiLlama describes holders revenue as captured Intents revenue used to buy back NEAR since 23 February 2026. This is buyback-based value capture, **not a burn**. The 30-day $1.81M holder-revenue figure annualizes mechanically to about $21.7M, around 0.50% of current market capitalization. This is a snapshot, not a guaranteed yield.
 
-As of 14 November 2026, the active maximum annual issuance remains **2.5%**. House of Stake proposal HSP-029 passed its vote on 2 November and proposes a linear 24-month reduction to **1.6%**, but the Security Council veto window runs through 16 November and protocol implementation/validator adoption is still required. Do not model 1.6% as already active.
+Trailing-year DeFiLlama fees were about **$54.14M** and protocol revenue about **$9.64M**. These imply roughly **81× market-cap/fees** and **454× market-cap/revenue**. At the same market capitalization, 100× revenue requires $43.8M a year (4.5× current revenue), 50× requires $87.5M (9.1×), and 25× requires $175M (18.2×). These are arithmetic hurdles, not price targets or justified valuation multiples. The **$3.63B of monthly volume is not revenue**.
 
-The developer gas rebate was removed under HSP-027 and protocol version 87, activated on **4 November 2026**. Eligible execution gas that previously generated a 30% contract rebate is now fully burned. This is a change from the older 70% burn / 30% developer-rebate model. Confirm live protocol parameters and distinguish fee components before modelling.
+As of 14 November 2026, the active maximum annual issuance remains **2.5%**. HSP-029 passed its House of Stake vote to target **1.6%** over 24 months, but the Security Council review, grace period, protocol upgrade and validator adoption still matter. Do not model the target as active before implementation.
 
-NEAR's February 2026 tokenomics post describes product-revenue capture and buyback mechanisms. Verify governance status, on-chain transfers and realized token amounts before treating buybacks or revenue capture as completed. The NEAR Revenue dashboard provides a live source to reconcile product fees, net revenue, emissions and buybacks.
+HSP-027 and protocol version 87 removed the former 30% developer gas rebate, effective 4 November 2026. Eligible execution fees that previously funded that rebate are now burned. Keep this base-layer gas mechanism separate from NEAR Intents buybacks: one reduces supply, the other purchases tokens on the market.
 
-
+The 1 October 2026 NEAR Intents exploit is a material product/bridge risk. DeFiLlama reports a $3.8M incident involving Omni deposit/withdrawal infrastructure and the Intents contract. The tracker says the vulnerability was patched and affected users were to be compensated in full. Verify completed reimbursement on-chain. This is not evidence of a NEAR base-layer consensus failure.
 
 **Current valuation status: not yet underwritten.** Retention does not establish revenue. Product volume is not revenue, protocol fees are not automatically holder cash flow, and staking yield can be issuance-funded. A credible valuation needs at least 12 months of comparable protocol fees, product net revenue, net issuance, buybacks, staking participation and market data, plus explicit base, bull and bear cases.
 
