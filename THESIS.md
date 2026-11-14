@@ -47,13 +47,19 @@ This dataset does not support a confident claim that NEAR's account retention is
 
 A dated CoinGecko snapshot on 14 November 2026 showed NEAR around **$3.36**, market capitalization around **$4.40 billion**, FDV around **$4.40 billion**, circulating supply around **1.312 billion NEAR**, TVL around **$107.1 million**, and a market-cap/TVL ratio around **41.1×**. These are third-party snapshot figures, not a valuation conclusion. A one-day fee or revenue figure is not a sustainable annual run rate.
 
-NEAR's February 2026 tokenomics post describes a reduction in maximum annual issuance to **2.5%** and new product-revenue capture mechanisms. The base transaction fee mechanism is described as 70% burn and 30% contract rebate. These mechanisms need to be reconciled against live governance decisions, issuance, fee burn and verified buyback transactions before estimating net supply effects or holder value capture.
+As of 14 November 2026, the active maximum annual issuance remains **2.5%**. House of Stake proposal HSP-029 passed its vote on 2 November and proposes a linear 24-month reduction to **1.6%**, but the Security Council veto window runs through 16 November and protocol implementation/validator adoption is still required. Do not model 1.6% as already active.
+
+The developer gas rebate was removed under HSP-027 and protocol version 87, activated on **4 November 2026**. Eligible execution gas that previously generated a 30% contract rebate is now fully burned. This is a change from the older 70% burn / 30% developer-rebate model. Confirm live protocol parameters and distinguish fee components before modelling.
+
+NEAR's February 2026 tokenomics post describes product-revenue capture and buyback mechanisms. Verify governance status, on-chain transfers and realized token amounts before treating buybacks or revenue capture as completed. The NEAR Revenue dashboard provides a live source to reconcile product fees, net revenue, emissions and buybacks.
+
+
 
 **Current valuation status: not yet underwritten.** Retention does not establish revenue. Product volume is not revenue, protocol fees are not automatically holder cash flow, and staking yield can be issuance-funded. A credible valuation needs at least 12 months of comparable protocol fees, product net revenue, net issuance, buybacks, staking participation and market data, plus explicit base, bull and bear cases.
 
 Key risks include incentive-driven or automated activity, application concentration, cross-chain volume that does not create recurring NEAR-denominated revenue, product economics that accrue to operators rather than token holders, issuance dilution, bridge and smart-contract risk, governance changes, liquidity and competition.
 
-Sources: [CoinGecko market and financial data](https://www.coingecko.com/en/coins/near), [NEAR Foundation tokenomics post (24 February 2026)](https://near.org/blog/evolving-near-tokenomics), [SEC filing (16 September 2026)](https://www.sec.gov/Archives/edgar/data/2067111/000119312526393240/ck0002067111-20260916.htm).
+Sources: [CoinGecko market data](https://www.coingecko.com/en/coins/near), [HSP-029 proposal](https://gov.near.org/t/hsp-029-establish-a-24-month-issuance-ramp-to-a-1-6-target-rate-of-near-token-emissions/42644), [HSP-027 ratification](https://houseofstake.org/blog/house-of-stake-update-hsp-027), [nearcore releases](https://github.com/near/nearcore/releases), [NEAR Revenue dashboard](https://revenue.near.org/), [NEAR Foundation tokenomics post](https://near.org/blog/evolving-near-tokenomics).
 
 ### Further diligence still outstanding
 
