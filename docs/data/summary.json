@@ -184,7 +184,7 @@
   "protocol_economics_status": {
     "active_maximum_annual_issuance_percent": 2.5,
     "hsp_029": {
-      "status": "Passed House of Stake vote; Security Council veto window through 2026-11-16; protocol release and validator adoption still required",
+      "status": "Passed House of Stake vote; Security Council veto window through 2026-11-16, then 90-day grace period, protocol upgrade and validator adoption required",
       "target_issuance_percent": 1.6,
       "ramp_months": 24
     },
@@ -194,5 +194,14 @@
       "eligible_execution_fee_burn_percent": 100
     },
     "note": "Do not present the HSP-029 1.6% target as active before ratification and protocol adoption. Do not use the superseded 70% burn / 30% developer rebate split after 2026-11-04."
-  }
+  },
+  "security_risks": [
+    {
+      "source": "DeFiLlama incident tracker",
+      "date": "2026-10-01",
+      "category": "Bridge & Cross-Chain",
+      "reported_amount_usd": 3800000,
+      "note": "Affected component, final net loss, recovery and attribution to NEAR core versus an ecosystem bridge require independent verification."
+    }
+  ]
 }
