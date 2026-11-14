@@ -129,6 +129,8 @@ class RenderTests(unittest.TestCase):
         self.assertEqual(summary["protocol_economics_status"]["active_maximum_annual_issuance_percent"], 2.5)
         self.assertEqual(summary["protocol_economics_status"]["hsp_029"]["target_issuance_percent"], 1.6)
         self.assertEqual(summary["protocol_economics_status"]["hsp_027"]["developer_gas_rebate_percent"], 0)
+        self.assertIn("90-day grace period", summary["protocol_economics_status"]["hsp_029"]["status"])
+        self.assertEqual(summary["security_risks"][0]["reported_amount_usd"], 3800000)
         self.assertEqual(summary["market_context"]["defillama_trailing_year_revenue_usd"], 9640000)
         self.assertGreater(summary["market_context"]["defillama_tvl_usd"], summary["market_context"]["coingecko_tvl_usd"])
         self.assertAlmostEqual(summary["cohort_diagnostics"]["pooled_rate_percent"],
