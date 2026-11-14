@@ -6,6 +6,7 @@ from datetime import date
 from pathlib import Path
 
 from nearret import metrics, render, synthetic
+from compare_burnin import compare as compare_burn_in
 
 ROOT = Path(__file__).resolve().parent.parent
 LAST_WEEK = date(2026, 11, 2)  # a Monday
@@ -17,6 +18,17 @@ def build(trend, seed=7):
     synthetic.write_demo(tmp, LAST_WEEK, trend=trend, seed=seed)
     data, meta = metrics.load(tmp / "retention.csv", tmp / "run_meta.json")
     return data, meta, metrics.analyse(data)
+
+
+class BurnInComparisonTests(unittest.TestCase):
+    def test_same_export_compares_to_zero_difference(self):
+        data, meta, _ = build(0.06)
+        result = compare_burn_in(data, meta, data, meta)
+        row = result["variants"]["filtered_50"]
+        self.assertEqual(row["12_week_burn_in"]["week4_trend"]["verdict"],
+                         row["26_week_burn_in"]["week4_trend"]["verdict"])
+        self.assertEqual(row["12_week_burn_in"]["retention_by_week"],
+                         row["26_week_burn_in"]["retention_by_week"])
 
 
 class WilsonTests(unittest.TestCase):
