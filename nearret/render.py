@@ -140,6 +140,10 @@ def build_thesis(a, meta, template_path: Path, demo: bool) -> str:
         "top_five_return_share": pct(a["cohort_diagnostics"]["top_five_return_share"]),
         "median_cohort_rate": pct(a["cohort_diagnostics"]["median_cohort_rate"], 2),
         "top_five_rate": pct(a["cohort_diagnostics"]["top_five_pooled_rate"], 2),
+        "top_five_rows": "\\n".join(
+            f"| {r['week']} | {r['all_accounts']:,} | {r['accounts']:,} | {r['filtered20_accounts']:,} | {r['week4_active']:,} | {pct(r['week4_rate'], 3)} |"
+            for r in a["cohort_diagnostics"]["top_five_cohorts"]
+        ),
         "other_cohorts_rate": pct(a["cohort_diagnostics"]["other_cohorts_pooled_rate"], 2),
         "diagnostic_accounts": f"{a['cohort_diagnostics']['total_accounts']:,}",
         "retention_window_rows": "\\n".join(
