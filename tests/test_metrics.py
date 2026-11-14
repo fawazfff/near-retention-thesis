@@ -61,6 +61,14 @@ class VerdictTests(unittest.TestCase):
     def test_flat_trend_is_not_called_a_change(self):
         self.assertEqual(build(0.0)[2]["headline"]["verdict"], "no clear change")
 
+    def test_cohort_diagnostics_report_weighting_and_concentration(self):
+        data, _, analysis = build(0.06)
+        d = analysis["cohort_diagnostics"]
+        self.assertEqual(d["mature_cohorts"], 36)
+        self.assertGreater(d["mean_cohort_rate"], d["pooled_rate"])
+        self.assertGreater(d["top_five_share"], 0.5)
+        self.assertGreaterEqual(d["max_cohort_size"], d["median_cohort_size"])
+
     def test_group_size_and_ordering(self):
         h = build(0.06)[2]["headline"]
         self.assertEqual(h["group_size"], 8)
