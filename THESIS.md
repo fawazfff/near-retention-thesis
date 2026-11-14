@@ -43,6 +43,24 @@ The pooled rate weights every account equally, so very large cohorts dominate it
 
 This dataset does not support a confident claim that NEAR's account retention is improving. The observed early-to-late difference is positive, but its 95% interval crosses zero. The pooled result is heavily affected by a handful of unusually large cohorts, and the reason for those spikes is unknown. Treat this as an exploratory usage signal, not evidence of durable customer retention, revenue growth, token value accrual, or an investment recommendation. A stronger thesis would require explaining the cohort spikes, testing alternative definitions of new accounts and activity, and showing the pattern persists in later data.
 
+### Investment economics and valuation
+
+A dated CoinGecko snapshot on 14 November 2026 showed NEAR around **$3.36**, market capitalization around **$4.40 billion**, FDV around **$4.40 billion**, circulating supply around **1.312 billion NEAR**, TVL around **$107.1 million**, and a market-cap/TVL ratio around **41.1×**. These are third-party snapshot figures, not a valuation conclusion. A one-day fee or revenue figure is not a sustainable annual run rate.
+
+NEAR's February 2026 tokenomics post describes a reduction in maximum annual issuance to **2.5%** and new product-revenue capture mechanisms. The base transaction fee mechanism is described as 70% burn and 30% contract rebate. These mechanisms need to be reconciled against live governance decisions, issuance, fee burn and verified buyback transactions before estimating net supply effects or holder value capture.
+
+**Current valuation status: not yet underwritten.** Retention does not establish revenue. Product volume is not revenue, protocol fees are not automatically holder cash flow, and staking yield can be issuance-funded. A credible valuation needs at least 12 months of comparable protocol fees, product net revenue, net issuance, buybacks, staking participation and market data, plus explicit base, bull and bear cases.
+
+Key risks include incentive-driven or automated activity, application concentration, cross-chain volume that does not create recurring NEAR-denominated revenue, product economics that accrue to operators rather than token holders, issuance dilution, bridge and smart-contract risk, governance changes, liquidity and competition.
+
+Sources: [CoinGecko market and financial data](https://www.coingecko.com/en/coins/near), [NEAR Foundation tokenomics post (24 February 2026)](https://near.org/blog/evolving-near-tokenomics), [SEC filing (16 September 2026)](https://www.sec.gov/Archives/edgar/data/2067111/000119312526393240/ck0002067111-20260916.htm).
+
+### Further diligence still outstanding
+
+- **26-week burn-in:** not run. The committed export only supports the 12-week definition. Use `fetch_data.py --burn-in-weeks 26 --output-stem retention_26w`, then `compare_burnin.py`.
+- **Application and campaign attribution:** not run. The supplied CSV has cohort aggregates, not account IDs. Schema-check and contract-attribution SQL have been added, but receiver accounts still need to be resolved to verified applications and matched against independently sourced campaign dates.
+- **Network economics:** the dated market snapshot is context only. A full supply, fees, revenue, staking and token-holder value-capture series has not yet been calculated.
+
 ### Limitations
 An account is not necessarily a person. “New” means no signed transaction was observed during the 12-week burn-in, so an older dormant account may look new. The first-week transaction-count filter is a sensitivity check, not a bot classifier. Signer-based activity omits accounts that only receive tokens or act only through relayers. Several weekly groups are much larger than the others; the supplied export does not explain why. Retention alone does not establish revenue, fees, token value, or product-market fit.
 
