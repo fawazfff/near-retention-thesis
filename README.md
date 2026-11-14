@@ -21,7 +21,7 @@ This is a research dashboard, not a wallet app. You do not need a NEAR wallet, p
 4. Select a point in the cohort chart or a bar in the group-size chart.
    - **Expected:** the dashboard shows the selected cohort's exact date and figures.
 5. Scroll to the method, caveats, and research sections. Open [THESIS.md](THESIS.md) and [the outlier investigation](research/cohort_outliers.md).
-   - **Expected:** you can inspect the cohort definition, the difference between pooled and median retention, the five unusually large cohorts, and the outstanding attribution work.
+   - **Expected:** you can inspect the cohort definition, the difference between pooled and median retention, the five unusually large cohorts, and the large-cohort concentration.
 
 ### Run the dashboard locally
 
@@ -127,14 +127,13 @@ See [the economics and valuation research](research/network_economics_and_valuat
 
 ### What the five large cohorts tell us
 
-See [the outlier investigation](research/cohort_outliers.md). The five largest groups contain 88.4% of the mature filtered-50 denominator but only 24.0% of week-four returns. Their pooled week-four rate is 0.11%, versus 2.68% for the other 31 groups. Excluding accounts above 20 first-week transactions barely changes the top-five combined size: 4.091 million accounts under no filter versus 4.088 million under the >20 filter. This means the simple high-frequency exclusion does not explain the outliers. It does not rule out one-time automation, campaign-driven activity or other low-frequency sources. Application attribution still requires account-level BigQuery data.
+See [the outlier investigation](research/cohort_outliers.md). The five largest groups contain 88.4% of the mature filtered-50 denominator but only 24.0% of week-four returns. Their pooled week-four rate is 0.11%, versus 2.68% for the other 31 groups. Excluding accounts above 20 first-week transactions barely changes the top-five combined size: 4.091 million accounts under no filter versus 4.088 million under the >20 filter. This means the simple high-frequency exclusion does not explain the outliers. It does not rule out one-time automation, campaign-driven activity or other low-frequency sources. The aggregate data does not identify the cause of these unusually large cohorts.
 
 Useful options:
 
 - `--cohort-weeks 40`: number of cohort weeks, including both endpoints. Must be at least 19 for the week-4 trend comparison.
 - `--burn-in-weeks 12` or `26`: prior weeks used to decide whether an account is new.
 - `--output-stem retention_26w`: write a separately named CSV and metadata file without overwriting the default export.
-- `--last-week-start 2026-11-02`: pin the final cohort week so 12-week and 26-week burn-in exports use identical cohort dates.
 - `--max-weeks 12`: furthest follow-up week to include. Must be at least 4.
 - `--max-gb 100`: hard cap for query processing.
 - `--literal-dates`: inline dates if BigQuery's dry-run estimate suggests parameterized partition pruning is not working.
