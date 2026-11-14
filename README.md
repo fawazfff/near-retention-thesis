@@ -2,7 +2,7 @@
 
 An evidence-first investment thesis on NEAR, built for **NEAR HACKATHON**, track **Investment Thesis** (`thesis`).
 
-**The question:** of every 100 newly observed NEAR accounts, how many are still signing transactions four weeks later, and is that changing across weekly cohorts?
+**The question:** what share of newly observed NEAR accounts signs a transaction in the exact fourth follow-up week, and is that changing across weekly cohorts?
 
 The repository contains the BigQuery SQL and a script that can fetch a fresh snapshot when run by an authenticated researcher. The currently published analysis uses a supplied aggregate CSV export. Its original BigQuery job ID, execution timestamp, bytes processed and query hash were not provided, so this repository does not claim an independently verified rerun.
 
@@ -61,7 +61,7 @@ Useful options:
 
 ## Method
 
-An account is active in a week if it signed at least one transaction (`signer_account_id`) in a Monday-start UTC week. A cohort contains accounts whose first observed signed transaction occurs in that week after a 12-week burn-in. Retention at week 4 is the share of the cohort that signs again in the fourth following week.
+An account is active in a week if it signed at least one transaction (`signer_account_id`) in a Monday-start UTC week. A cohort contains accounts whose first observed signed transaction occurs in that week after a 12-week burn-in. Retention at week 4 is the share of the cohort that signs in that exact fourth follow-up week, not the share that was active at any time during the first four weeks.
 
 The trend test compares the eight earliest and eight latest cohorts with a complete week-4 observation, using one retention rate per cohort and a Welch 95% interval. A change is called improving or declining only if the interval excludes zero and the difference is at least one percentage point. If there are too few eligible cohorts, the analysis stops with an explicit error instead of producing a weak headline.
 
