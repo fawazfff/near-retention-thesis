@@ -30,9 +30,9 @@ Raw new-account counts can be affected by automation, incentive campaigns and sh
 
 - **Active**: the account signed at least one transaction (`signer_account_id`) in a Monday-start UTC week.
 - **New account**: first signed transaction falls in the cohort week, and it signed nothing in the burn-in period {{burn_in}}.
-- **Retention at week k**: share of a cohort that signed again in the k-th week after its cohort week.
+- **Retention at week k**: share of a cohort that signed in that exact k-th follow-up week, not the share that was active at any time during the weeks before it.
 - **Headline filter** (`{{headline_variant}}`): exclude accounts that signed more than 50 transactions in their first observed week. This is a sensitivity check only. Thresholds of 20 and 200 and no filter are reported too.
-- **Trend test**: compare the {{group}} earliest and {{group}} latest cohorts using one retention number per weekly cohort (Welch interval). A change counts only if its interval excludes zero and it is at least {{min_effect}} percentage point.
+- **Trend test**: compare the {{group}} earliest and {{group}} latest cohorts with a complete week-{{week}} observation, using one retention rate per cohort (Welch interval). The middle cohorts are not included in this endpoint comparison. The interval is exploratory and does not adjust for correlation between adjacent weeks or shared shocks. A change counts only if its interval excludes zero and is at least {{min_effect}} percentage point.
 
 ## Investment interpretation
 
