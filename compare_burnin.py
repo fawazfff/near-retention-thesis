@@ -76,10 +76,36 @@ def main():
     parser.add_argument("--long-csv", type=Path, default=Path("data/retention_26w.csv"))
     parser.add_argument("--long-meta", type=Path, default=Path("data/retention_26w_meta.json"))
     parser.add_argument("--output", type=Path, default=Path("data/burnin_comparison.json"))
+    parser.add_argument("--cohort-csv", type=Path, default=Path("data/retention_12w.csv"),
+                        help="also compare new-account counts by cohort week against the supplied 12-week CSV")
     args = parser.parse_args()
     short_data, short_meta = metrics.load(args.short_csv, args.short_meta)
     long_data, long_meta = metrics.load(args.long_csv, args.long_meta)
     result = compare(short_data, short_meta, long_data, long_meta)
+    # Cohort-size differences are a direct diagnostic for accounts reclassified as
+    # "new" by the shorter look-back. They do not identify the cause of reactivation.
+    if args.cohort_csv.exists():
+        import csv
+        counts = {}
+        with args.cohort_csv.open(newline="") as fh:
+            for row in csv.DictReader(fh):
+                if row["variant"] == "all" and int(row["k"]) == 0:
+                    counts[row["cohort_week"]] = int(row["accounts_active"])
+        result["cohort_size_sensitivity_vs_12w_supplied_export"] = {}
+        for variant in metrics.VARIANT_ORDER:
+            w12 = result["variants"][variant]["12_week_burn_in"]["new_accounts_by_week"]
+            w26 = result["variants"][variant]["26_week_burn_in"]["new_accounts_by_week"]
+            result["cohort_size_sensitivity_vs_12w_supplied_export"][variant] = {
+                week: {
+                    "supplied_12w_accounts": counts.get(week),
+                    "rerun_12w_accounts": w12[week],
+                    "rerun_26w_accounts": w26[week],
+                    "additional_accounts_in_12w_definition": w12[week] - w26[week],
+                    "relative_increase_percent": (
+                        (w12[week] - w26[week]) / w26[week] * 100 if w26[week] else None
+                    ),
+                } for week in w12
+            }
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, indent=2) + "\n")
     print(f"Wrote burn-in comparison to {args.output}")
