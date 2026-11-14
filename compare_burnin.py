@@ -13,6 +13,8 @@ from nearret import metrics
 
 def compare(data12, meta12, data26, meta26):
     p12, p26 = meta12["params"], meta26["params"]
+    if meta12.get("burn_in_weeks") != 12 or meta26.get("burn_in_weeks") != 26:
+        raise ValueError("Expected a 12-week export and a 26-week export; check the metadata files.")
     if p12["start_date"] != p26["start_date"] or p12["last_week_start"] != p26["last_week_start"]:
         raise ValueError("Burn-in exports must use identical cohort start and last-week dates.")
     if p12["max_weeks"] != p26["max_weeks"]:
