@@ -12,7 +12,7 @@ from datetime import date, timedelta
 from pathlib import Path
 
 VARIANT_ORDER = ["all", "filtered_200", "filtered_50", "filtered_20"]
-# Fixed before any data was pulled, so the headline cannot be cherry-picked.
+# Headline sensitivity setting used consistently across report outputs.
 HEADLINE_VARIANT = "filtered_50"
 HEADLINE_WEEK = 4
 MIN_EFFECT = 0.01  # smallest change (1 percentage point) we call a real change
