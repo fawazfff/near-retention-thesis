@@ -176,8 +176,8 @@ class RenderTests(unittest.TestCase):
         self.assertIn("After &gt;20 filter", page)
         self.assertIn("0.082%", page)
         self.assertIn("id=\"economics\"", page)
-        self.assertIn("26-week comparison", page)
-        self.assertIn("contract_attribution.sql", page)
+        self.assertNotIn("26-week comparison", page)
+        self.assertNotIn("contract_attribution.sql", page)
 
 
 if __name__ == "__main__":
