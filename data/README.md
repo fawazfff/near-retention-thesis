@@ -14,6 +14,7 @@ To validate the production data locally:
 ```bash
 python -c "from pathlib import Path; from nearret.metrics import load, analyse; data, meta = load(Path('data/retention.csv'), Path('data/run_meta.json')); print(analyse(data)['headline']['verdict'])"
 python -m unittest -v
+python rebuild.py  # refresh THESIS.md without overwriting docs/index.html
 ```
 
 Do not use `python rebuild.py --demo` for submission data. Demo data is synthetic and lives under the ignored `demo/` directory.
