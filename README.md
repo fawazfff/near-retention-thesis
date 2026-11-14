@@ -56,12 +56,16 @@ For the analysis SQL and the published calculations, see the repository files be
 
 ## What this project is
 
-The project asks whether NEAR accounts that first appear signing transactions return to sign transactions in later weeks. It combines:
+The problem is that transaction totals and first-time activity can look impressive even when accounts do not return. This project tests a narrower question: after an account first appears signing a NEAR transaction, does it sign again in later weeks?
+
+It combines:
 
 - An interactive cohort dashboard with selectable activity filters and follow-up weeks.
-- A reproducible analysis script and BigQuery SQL.
+- BigQuery SQL for the cohort extraction and a Python analysis pipeline that can be rerun from the published CSV.
 - A written investment thesis covering usage, network economics, token value capture, valuation hurdles, and risks.
-- Explicit limitations and follow-up diligence tasks.
+- Clear definitions so readers can distinguish account activity from human users and exact-week returns from continuous retention.
+
+**Why it matters:** an investment case needs evidence of repeat usage, not just a large transaction count. The dashboard makes cohort size and return rates visible together, including the unusually large cohorts that materially affect the pooled result.
 
 **How NEAR fits:** NEAR is the network being studied. The analysis uses the public NEAR mainnet transactions dataset in BigQuery. This is an Investment Thesis research project, not an on-chain application; it does not deploy a contract, connect a wallet, or ask users to sign transactions. The track does not require a particular protocol integration.
 
