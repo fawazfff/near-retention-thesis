@@ -73,6 +73,17 @@ HSP-027 and protocol version 87 removed the former 30% developer gas rebate, eff
 
 The 1 October 2026 NEAR Intents exploit is a material product/security-control risk. The 16 October postmortem says the root cause was a deposit-notification bug in the NEAR Intents contract, not an Omni bridge bug. Twenty-three failed notifications created unbacked internal balances. The team says all funds were returned on 2 October and affected users were made whole. The notification feature was removed on 7 October after another critical report. The reported recovery reduces the direct financial loss, but the incident exposed weaknesses in contract accounting and monitoring. It is not evidence of a NEAR base-layer consensus failure.
 
+
+### Base, bull and bear evidence framework
+
+| Case | Evidence that would support it | What would invalidate it |
+|---|---|---|
+| Bear | NEAR Intents revenue falls, captured buybacks fade, gas burn remains around 1% of issuance, and adjusted cohort retention remains weak or concentrated | Sustained product revenue, broader recurring users, and a materially higher share of issuance offset by burn/buybacks |
+| Base | Intents continues to capture meaningful fees, but token capture remains modest; issuance still exceeds burn; user retention is mixed | Revenue growth stalls or the 26-week cohort definition removes much of the apparent user base |
+| Bull | Recurring annual captured revenue approaches $87.5M (the arithmetic hurdle for 50× revenue at today's market cap), buybacks are verified, issuance falls after implementation, and repeat usage broadens beyond a few cohorts/apps | Buybacks are one-off, product revenue accrues elsewhere, or retention gains disappear after outlier and campaign adjustments |
+
+These are evidence conditions, not forecasts or price targets. The 50× hurdle is not a claim that 50× is the right multiple. It simply shows the scale of revenue needed to make the current market capitalization less demanding under a conventional revenue-multiple lens.
+
 **Current valuation status: not yet underwritten.** Retention does not establish revenue. Product volume is not revenue, protocol fees are not automatically holder cash flow, and staking yield can be issuance-funded. A credible valuation needs at least 12 months of comparable protocol fees, product net revenue, net issuance, buybacks, staking participation and market data, plus explicit base, bull and bear cases.
 
 Key risks include incentive-driven or automated activity, application concentration, cross-chain volume that does not create recurring NEAR-denominated revenue, product economics that accrue to operators rather than token holders, issuance dilution, bridge and smart-contract risk, governance changes, liquidity and competition.
