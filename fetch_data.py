@@ -21,10 +21,16 @@ SQL_PATH = ROOT / "sql" / "retention.sql"
 DATA = ROOT / "data"
 
 
-def window(today: date, cohort_weeks: int, burn_in_weeks: int, max_weeks: int) -> dict:
-    """Last complete Monday-start week is the week before the current one."""
+def window(today: date, cohort_weeks: int, burn_in_weeks: int, max_weeks: int,
+           fixed_last_week_start: date | None = None) -> dict:
+    """Build a Monday-aligned window; optionally pin it for reproducible comparisons."""
     this_monday = today - timedelta(days=today.weekday())
-    last_week_start = this_monday - timedelta(weeks=1)
+    latest_complete_monday = this_monday - timedelta(weeks=1)
+    last_week_start = fixed_last_week_start or latest_complete_monday
+    if last_week_start.weekday() != 0:
+        raise ValueError("--last-week-start must be a Monday")
+    if last_week_start > latest_complete_monday:
+        raise ValueError("--last-week-start cannot be later than the latest complete week")
     if cohort_weeks < 19:
         raise ValueError("--cohort-weeks must be at least 19 so 15 cohorts can be compared at week 4")
     if burn_in_weeks < 1:
@@ -61,6 +67,8 @@ def main() -> int:
     ap.add_argument("--cohort-weeks", type=int, default=40, help="weekly cohorts to analyse (default 40)")
     ap.add_argument("--burn-in-weeks", type=int, default=12, help="weeks before the first cohort used to decide who is new")
     ap.add_argument("--max-weeks", type=int, default=12, help="largest k (weeks since first activity)")
+    ap.add_argument("--last-week-start", type=date.fromisoformat,
+                    help="pin the final complete cohort week (Monday, YYYY-MM-DD) for reproducible reruns")
     ap.add_argument("--max-gb", type=float, default=100.0, help="refuse to run, and cap billing, above this many GB")
     ap.add_argument("--dry-run", action="store_true", help="only estimate bytes scanned")
     ap.add_argument("--output-stem", default="retention", help="output filename stem, e.g. retention_26w (default retention)")
@@ -75,7 +83,8 @@ def main() -> int:
         return 1
 
     try:
-        params = window(datetime.now(timezone.utc).date(), args.cohort_weeks, args.burn_in_weeks, args.max_weeks)
+        params = window(datetime.now(timezone.utc).date(), args.cohort_weeks, args.burn_in_weeks,
+                        args.max_weeks, args.last_week_start)
     except ValueError as err:
         print(f"error: {err}", file=sys.stderr)
         return 2
