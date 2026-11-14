@@ -111,8 +111,8 @@ def build_thesis(a, meta, template_path: Path, demo: bool) -> str:
     values = {
         "banner": ("> **SYNTHETIC DEMO DATA. This file was generated from fake transactions to preview the layout. "
                    "It says nothing about NEAR.**\n\n") if demo else "",
-        "headline_per100": per100(h["pooled_recent"][0]),
-        "headline_ci": f"{per100(h['pooled_recent'][1])} to {per100(h['pooled_recent'][2])}",
+        "headline_rate_pct": pct(h["pooled_recent"][0], 2),
+        "headline_ci_pct": f"{pct(h['pooled_recent'][1], 2)} to {pct(h['pooled_recent'][2], 2)}",
         "week": str(HEADLINE_WEEK),
         "group": str(h["group_size"]),
         "early_span": span(h["early_span"]),
