@@ -48,7 +48,7 @@ python -m unittest -v
 python rebuild.py
 ```
 
-- **Expected:** all 23 tests pass, including the DuckDB and SQLGlot checks; `THESIS.md` is regenerated from `data/retention.csv` and the analysis code.
+- **Expected:** the full test suite passes, including the DuckDB and SQLGlot checks; `THESIS.md` is regenerated from `data/retention.csv` and the analysis code.
 - The normal rebuild does not replace the designed dashboard.
 - The test suite validates the Python calculations and the BigQuery-shaped SQL against generated test transactions. It does not independently verify the live BigQuery schema or the original data export.
 
