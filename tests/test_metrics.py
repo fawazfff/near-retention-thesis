@@ -87,6 +87,9 @@ class VerdictTests(unittest.TestCase):
         self.assertGreaterEqual(d["top_five_return_share"], 0.0)
         self.assertGreater(d["other_cohorts_pooled_rate"], 0.0)
         self.assertGreaterEqual(d["max_cohort_size"], d["median_cohort_size"])
+        self.assertEqual(len(d["top_five_cohorts"]), 5)
+        self.assertGreater(d["top_five_accounts_all"], d["top_five_accounts_filtered20"])
+        self.assertIn("all_accounts", d["top_five_cohorts"][0])
 
     def test_group_size_and_ordering(self):
         h = build(0.06)[2]["headline"]
@@ -159,6 +162,8 @@ class RenderTests(unittest.TestCase):
         self.assertNotIn("bigquery-public-data.crypto_near_mainnet.transactions", sql)
         self.assertIn("id=\"milestoneRows\"", page)
         self.assertIn("id=\"outlierRows\"", page)
+        self.assertIn("After &gt;20 filter", page)
+        self.assertIn("0.082%", page)
         self.assertIn("id=\"economics\"", page)
         self.assertIn("26-week comparison", page)
         self.assertIn("contract_attribution.sql", page)
