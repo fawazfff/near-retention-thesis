@@ -175,6 +175,18 @@ def farm_share(all_cohorts: list, filtered: list) -> dict:
     return {c.week: 1 - kept.get(c.week, 0) / c.size for c in all_cohorts if c.size}
 
 
+def retention_windows(cohorts: list, weeks=(1, 4, 8, 12)) -> list:
+    """Pooled exact-week retention with an explicit mature-cohort denominator."""
+    rows = []
+    for k in weeks:
+        eligible = [c for c in cohorts if k in c.retained]
+        accounts = sum(c.size for c in eligible)
+        returned = sum(c.retained[k] for c in eligible)
+        rows.append({"week": k, "cohorts": len(eligible), "accounts": accounts,
+                     "returned": returned, "rate": returned / accounts if accounts else math.nan})
+    return rows
+
+
 def analyse(data: dict) -> dict:
     """Run the comparison for every variant plus the supporting numbers."""
     results = {v: compare_groups(data[v]) for v in VARIANT_ORDER}
@@ -209,6 +221,7 @@ def analyse(data: dict) -> dict:
     }
     return {
         "cohort_diagnostics": diagnostics,
+        "retention_windows": retention_windows(data[HEADLINE_VARIANT]),
         "variants": results,
         "headline": head,
         "robust": len(set(verdicts.values())) == 1,
