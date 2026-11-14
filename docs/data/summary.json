@@ -1,18 +1,67 @@
 {
-  "version": "1.0.0",
+  "version": "2.0.0",
   "updated": "14 November 2026",
   "source": "User-provided BigQuery CSV export",
+  "source_table": "bigquery-public-data.crypto_near_mainnet_us.transactions",
   "cohorts": 40,
   "mature_cohorts": 36,
-  "latest_sample_accounts": 721199,
-  "week4_returning_accounts": 5727,
-  "pooled_week4_retention_percent": 0.79,
-  "early_eight_cohort_average_percent": 1.89,
-  "latest_eight_cohort_average_percent": 3.18,
-  "change_percentage_points": 1.29,
+  "headline_variant": "filtered_50",
+  "headline_week": 4,
+  "accounts_in_mature_cohorts": 4627825,
+  "week4_returning_accounts": 18989,
+  "pooled_week4_retention_percent": 0.4103223436495546,
+  "early_eight_cohort_average_percent": 1.8864592242193228,
+  "latest_eight_cohort_average_percent": 3.18094311660639,
+  "change_percentage_points": 1.2944838923870672,
   "welch_95_interval_percentage_points": [
-    -0.92,
-    3.51
+    -0.9166738621892135,
+    3.5056416469633476
   ],
-  "note": "Snapshot check only. It does not execute a new BigQuery query."
+  "variants": {
+    "all": {
+      "mature_cohorts": 36,
+      "accounts": 4630464,
+      "returned": 19657,
+      "retention_percent": 0.4245146922641014,
+      "change_pp": 1.3894832681657976,
+      "interval_pp": [
+        -0.8463511172977448,
+        3.62531765362934
+      ]
+    },
+    "filtered_200": {
+      "mature_cohorts": 36,
+      "accounts": 4629912,
+      "returned": 19506,
+      "retention_percent": 0.4213039038322975,
+      "change_pp": 1.3646758294174985,
+      "interval_pp": [
+        -0.8616763430693203,
+        3.5910280019043173
+      ]
+    },
+    "filtered_50": {
+      "mature_cohorts": 36,
+      "accounts": 4627825,
+      "returned": 18989,
+      "retention_percent": 0.4103223436495546,
+      "change_pp": 1.2944838923870672,
+      "interval_pp": [
+        -0.9166738621892135,
+        3.5056416469633476
+      ]
+    },
+    "filtered_20": {
+      "mature_cohorts": 36,
+      "accounts": 4622006,
+      "returned": 17288,
+      "retention_percent": 0.3740367277757753,
+      "change_pp": 1.3442166508074922,
+      "interval_pp": [
+        -0.7824464540917276,
+        3.4708797557067115
+      ]
+    }
+  },
+  "note": "Recomputed from the supplied CSV. BigQuery job ID, execution timestamp and bytes-processed metadata were not included."
 }

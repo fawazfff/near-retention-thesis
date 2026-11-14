@@ -1,35 +1,44 @@
 # Does NEAR Keep Its Users?
 
+## NEAR HACKATHON 2026 · Investment Thesis
 
-## Research status: data not yet fetched
+### Research question
+When an account first appears signing transactions on NEAR, does it return to sign transactions in later weeks?
 
-This repository contains the analysis pipeline and a local synthetic dashboard preview. It does not yet contain a real BigQuery result, so no investment conclusion is published here.
+The study groups accounts by the Monday-start UTC week of their first observed signed transaction after a 12-week look-back period.
 
-The research question is whether NEAR mainnet accounts that first sign a transaction in a given week return to sign transactions in later weeks, and whether week-4 retention changes across cohorts.
+### Results from the supplied CSV
+The supplied file contains 40 weekly groups from 2 February to 2 November 2026. The headline filter excludes accounts with more than 50 transactions in their first observed week. 36 groups have enough follow-up to reach week 4.
 
-## What must happen before a conclusion is possible
+- Accounts in groups with complete four-week follow-up: 4,627,825
+- Accounts that signed again in follow-up week 4: 18,989
+- Pooled week-4 return rate: 0.410% (about 4 in every 1,000 accounts)
+- Earliest eight-group average: 1.89%
+- Latest eight-group average: 3.18%
+- Difference: 1.29 percentage points
+- Approximate Welch 95% interval: -0.92 to 3.51 percentage points
 
-1. Fetch the public NEAR mainnet transactions table using `python fetch_data.py --project YOUR_GCP_PROJECT --dry-run` first.
-2. Confirm the estimated bytes processed are within the configured cap, then run `python fetch_data.py --project YOUR_GCP_PROJECT`.
-3. Run `python rebuild.py`. This generates the metrics, charts, dashboard, and this thesis from the fetched CSV and metadata.
-4. Review the query assumptions, bot-filter sensitivity, confidence intervals, and limitations before interpreting the result.
+The interval includes zero. The latest eight groups have a higher average in this sample, but this comparison does not establish that retention improved.
 
-## Fixed research choices
+### Filter sensitivity
+| Filter | Week-4 returned | Week-4 accounts | Pooled rate | Early-to-recent change |
+|---|---:|---:|---:|---:|
+| all | 19,657 | 4,630,464 | 0.425% | 1.39 pp |
+| filtered_200 | 19,506 | 4,629,912 | 0.421% | 1.36 pp |
+| filtered_50 | 18,989 | 4,627,825 | 0.410% | 1.29 pp |
+| filtered_20 | 17,288 | 4,622,006 | 0.374% | 1.34 pp |
 
+### Method
 - Activity means at least one signed transaction (`signer_account_id`) in a Monday-start UTC week.
-- New accounts have no signed transaction in the preceding 12-week burn-in window.
-- Week-4 retention is the share of a cohort that signs again four weeks after its cohort week.
-- The headline sensitivity variant excludes accounts with more than 50 transactions in their first week. Unfiltered, 200, and 20 transaction thresholds are also reported.
-- The trend comparison uses the eight earliest and eight latest eligible cohorts, with a Welch 95% interval. A directional label requires the interval to exclude zero and a change of at least one percentage point.
+- A group contains accounts whose first observed signed transaction falls in that week, after a 12-week burn-in.
+- Week 4 counts accounts that sign again in the fourth follow-up week.
+- Four variants are reported: no filter, and excluding accounts with more than 200, 50, or 20 transactions in their first week. The 50-transaction filter is the headline setting.
+- The trend comparison uses the earliest eight and latest eight groups with a complete week-4 observation. It uses one retention rate per group and a Welch confidence interval.
 
-## Current evidence
+### Limitations
+An account is not necessarily a person. “New” means no signed transaction was observed during the 12-week burn-in, so an older dormant account may look new. The transaction-count filter is a sensitivity check, not proof of automation. Signer-based activity omits accounts that only receive tokens or act only through relayers. Several weekly groups are much larger than the others; the supplied export does not explain why. Retention alone does not establish revenue, fees, token value, or product-market fit.
 
-No real retention result has been computed. The dashboard preview uses synthetic transactions only. Synthetic numbers must not be cited as evidence about NEAR.
+### Data provenance
+Source table named in the supplied query: `bigquery-public-data.crypto_near_mainnet_us.transactions`. The aggregate CSV supplied for this project is stored at `docs/data/retention.csv`; the query is in `sql/retention.sql`. The upload did not include a BigQuery job ID, execution timestamp, or bytes-processed metadata. Those execution details have not been independently verified here.
 
-## Limitations to keep visible
-
-- An account is not necessarily a person.
-- The 12-week burn-in can classify long-dormant accounts as new.
-- The transaction-count filter is a heuristic, not proof of automation.
-- Signer-based activity omits accounts that only receive tokens or act exclusively through relayers.
-- Retention alone does not establish revenue, fees, token value, or product-market fit.
+The dashboard reads the published CSV. It does not run a new BigQuery query or claim to refresh live chain data.

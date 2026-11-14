@@ -6,9 +6,9 @@ An evidence-first investment thesis on NEAR, built for **NEAR HACKATHON**, track
 
 The project fetches public NEAR mainnet data from BigQuery, calculates cohort retention, tests whether the change is meaningful, and generates both the dashboard and `THESIS.md` from the same source data.
 
-- Dashboard preview: [`docs/index.html`](docs/index.html). It is clearly labelled **synthetic demo data**, not real NEAR results.
-- Written thesis: [`THESIS.md`](THESIS.md). It is generated only from fetched data and is not replaced by demo mode.
-- Source data: `data/retention.csv` and `data/run_meta.json` after a real fetch.
+- Dashboard: [docs/index.html](docs/index.html), backed by the published cohort CSV in `docs/data/retention.csv`.
+- Written thesis: [THESIS.md](THESIS.md), recomputed from the supplied CSV.
+- Source data: `docs/data/retention.csv`; calculated summary: `docs/data/summary.json`.
 
 ## What it does
 
