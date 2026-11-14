@@ -30,14 +30,14 @@ The interval includes zero. The latest eight groups have a higher average in thi
 
 ### Why the pooled rate needs context
 
-The pooled rate weights every account equally, so very large cohorts dominate it. The unweighted cohort average gives each weekly cohort equal weight. For the headline filter at week 4, the pooled rate is **0.41%**, while the average of the 36 individual cohort rates is **2.41%**. The median mature cohort contains **18,439 accounts**, while the largest contains **1,660,162**. The five largest cohorts account for **88.4%** of all accounts in the 36 mature cohorts. This concentration means the pooled rate should not be read as a typical week's result. Neither weighting choice explains the cohort-size spikes.
+The pooled rate weights every account equally, so very large cohorts dominate it. The unweighted cohort average gives each weekly cohort equal weight. For the headline filter at week 4, the pooled rate is **0.41%**, the average cohort rate is **2.41%**, and the median cohort rate is **2.31%**. The median mature cohort contains **18,439 accounts**, while the largest contains **1,660,162**. The five largest cohorts account for **88.4%** of all accounts, but only **24.0%** of week-4 returns. Their pooled week-4 rate is **0.11%**, compared with **2.68%** across the other 31 cohorts. The reason for this difference is unknown. The pooled rate should not be read as a typical week's result.
 
 ### Method
 - Activity means at least one signed transaction (`signer_account_id`) in a Monday-start UTC week.
 - A group contains accounts whose first observed signed transaction falls in that week, after a 12-week burn-in.
-- Week 4 counts accounts that sign again in the fourth follow-up week.
+- Week 4 counts accounts that sign in that exact fourth follow-up week, not accounts that were active at any point during the first four weeks.
 - Four variants are reported: no filter, and excluding accounts with more than 200, 50, or 20 transactions in their first week. The 50-transaction filter is the headline sensitivity setting, not a verified bot classifier.
-- The trend comparison uses the earliest eight and latest eight groups with a complete week-4 observation. It uses one retention rate per group and a Welch confidence interval.
+- The trend comparison uses the earliest eight and latest eight groups with a complete week-4 observation. It uses one retention rate per group and a Welch confidence interval. The 20 middle groups are not part of this endpoint comparison. The interval is exploratory and does not adjust for correlation between adjacent weeks or explain shared shocks.
 
 ### Investment interpretation
 
