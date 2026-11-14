@@ -39,6 +39,6 @@ The interval includes zero. The latest eight groups have a higher average in thi
 An account is not necessarily a person. “New” means no signed transaction was observed during the 12-week burn-in, so an older dormant account may look new. The transaction-count filter is a sensitivity check, not proof of automation. Signer-based activity omits accounts that only receive tokens or act only through relayers. Several weekly groups are much larger than the others; the supplied export does not explain why. Retention alone does not establish revenue, fees, token value, or product-market fit.
 
 ### Data provenance
-Source table named in the supplied query: `bigquery-public-data.crypto_near_mainnet_us.transactions`. The aggregate CSV supplied for this project is stored at `docs/data/retention.csv`; the query is in `sql/retention.sql`. The upload did not include a BigQuery job ID, execution timestamp, or bytes-processed metadata. Those execution details have not been independently verified here.
+Source table named in the supplied query: `bigquery-public-data.crypto_near_mainnet_us.transactions`. The aggregate CSV supplied for this project is stored at `data/retention.csv` and mirrored at `docs/data/retention.csv` for the static dashboard; the query is in `sql/retention.sql`. The upload did not include a BigQuery job ID, execution timestamp, or bytes-processed metadata. Those execution details have not been independently verified here.
 
 The dashboard reads the published CSV. It does not run a new BigQuery query or claim to refresh live chain data.
