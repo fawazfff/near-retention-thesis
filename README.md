@@ -13,7 +13,7 @@ The repository contains the BigQuery SQL and a script that can fetch a fresh sna
 ## What it does
 
 1. `sql/retention.sql` groups accounts that sign transactions into weekly cohorts, then counts how many sign again in later weeks.
-2. It reports four versions: no filter, and three bot-like filters that exclude accounts with more than 200, 50, or 20 transactions in their first week. The headline uses the 50-transaction threshold as a sensitivity setting. It is not a verified bot classifier. All variants remain visible.
+2. It reports four versions: no filter, and three high-activity filters that exclude accounts with more than 200, 50, or 20 transactions in their first week. The headline uses the 50-transaction threshold as a sensitivity setting. It is not a verified bot classifier. All variants remain visible.
 3. `rebuild.py` turns `data/retention.csv` into every number, chart, the dashboard and `THESIS.md`. Nothing is typed into the thesis by hand.
 
 ## Quick start
@@ -72,7 +72,7 @@ The SQL's scan window includes exactly the requested number of cohort weeks. The
 - This measures accounts signing transactions, not unique humans.
 - Accounts that only act through relayers or only receive tokens are not counted.
 - A 12-week burn-in cannot distinguish a genuinely new account from one that was dormant for longer than 12 weeks.
-- The transaction-count filter is a sensitivity check, not proof that an account is a bot or airdrop farmer.
+- The first-week transaction-count filter is a sensitivity check, not a bot classifier.
 - Retention is not value. This says nothing by itself about price, fees, revenue, or product-market fit.
 - The query reads the public BigQuery dataset. Always dry-run before executing and inspect the reported bytes.
 
