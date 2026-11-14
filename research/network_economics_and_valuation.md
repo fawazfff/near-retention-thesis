@@ -8,9 +8,13 @@ CoinGecko's page snapshot showed approximately **$3.36 per NEAR**, **$4.40 billi
 
 These are third-party, time-sensitive snapshot figures, not independently reconciled protocol accounts. A single 24-hour revenue observation must not be multiplied by 365 and treated as sustainable annual revenue. Market-cap/TVL is a rough capital-efficiency screen, not a cash-flow valuation.
 
-NEAR's February 2026 tokenomics post describes a reduction in maximum annual issuance to 2.5%, a fee switch for NEAR Intents, and revenue-directed buyback mechanisms. These are issuer-reported claims. Verify governance proposals, on-chain transfers and realized token amounts before treating buybacks or revenue capture as completed. A September 2026 SEC filing also describes 2.5% issuance and a 70% base transaction-fee burn / 30% contract rebate, but legal filings are not a substitute for live protocol parameter checks.
+As of 14 November 2026, the active maximum annual issuance remains 2.5%. House of Stake proposal HSP-029 passed its vote on 2 November and proposes a linear 24-month reduction to 1.6%, but the Security Council veto window runs through 16 November and protocol implementation/validator adoption is still required. Do not model 1.6% as already active. NEAR's February 2026 tokenomics post describes product-revenue capture and buyback mechanisms; verify governance status, on-chain transfers and realized token amounts before treating buybacks or revenue capture as completed. A September 2026 SEC filing also describes 2.5% issuance and a 70% base transaction-fee burn / 30% contract rebate, but legal filings are not a substitute for live protocol parameter checks.
 
 Sources:
+- House of Stake HSP-029 proposal and status: https://gov.near.org/t/hsp-029-establish-a-24-month-issuance-ramp-to-a-1-6-target-rate-of-near-token-emissions/42644
+- House of Stake HSP-027 ratification: https://houseofstake.org/blog/house-of-stake-update-hsp-027-ratified
+- nearcore release notes (protocol version 87, removal of gas rewards): https://github.com/near/nearcore/releases
+- NEAR Revenue dashboard: https://revenue.near.org/
 - CoinGecko live market, TVL and financial data: https://www.coingecko.com/en/coins/near
 - NEAR Foundation, *Evolving NEAR Tokenomics*, 24 February 2026: https://near.org/blog/evolving-near-tokenomics
 - SEC filing, 16 September 2026: https://www.sec.gov/Archives/edgar/data/2067111/000119312526393240/ck0002067111-20260916.htm
@@ -19,8 +23,8 @@ Sources:
 
 Track these separately rather than treating all fees as token value accrual:
 
-- Gross transaction fees paid by users.
-- 70% protocol fee burn and 30% contract rebate under the published base-layer mechanism. Confirm the active protocol parameters and any governance changes before modelling.
+- Gross transaction fees paid by users, separated by base-layer gas and NEAR Intents/product fees.
+- The developer gas rebate was removed under HSP-027 and protocol version 87, activated on 4 November 2026. Eligible execution gas that previously generated a 30% contract rebate is now fully burned. Confirm live protocol parameters and distinguish fee components before modelling.
 - Validator issuance and treasury issuance.
 - Net issuance = new tokens issued minus tokens burned. Report both NEAR and percentage of circulating supply.
 - NEAR locked in storage and staked, with care not to count the same token twice.
