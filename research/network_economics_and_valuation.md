@@ -2,6 +2,19 @@
 
 **Status:** research framework, not a completed financial model. The current cohort CSV contains no fees, revenue, supply, staking or market-price observations.
 
+## 0. Dated market snapshot (14 November 2026)
+
+CoinGecko's page snapshot showed approximately **$3.36 per NEAR**, **$4.40 billion market capitalization**, **$4.40 billion FDV**, **1.312 billion circulating NEAR**, **$107.1 million TVL**, and a **41.1× market-cap/TVL ratio**. The same page displayed roughly **$35.4k 24-hour fees** and **$30.4k 24-hour project revenue**.
+
+These are third-party, time-sensitive snapshot figures, not independently reconciled protocol accounts. A single 24-hour revenue observation must not be multiplied by 365 and treated as sustainable annual revenue. Market-cap/TVL is a rough capital-efficiency screen, not a cash-flow valuation.
+
+NEAR's February 2026 tokenomics post describes a reduction in maximum annual issuance to 2.5%, a fee switch for NEAR Intents, and revenue-directed buyback mechanisms. These are issuer-reported claims. Verify governance proposals, on-chain transfers and realized token amounts before treating buybacks or revenue capture as completed. A September 2026 SEC filing also describes 2.5% issuance and a 70% base transaction-fee burn / 30% contract rebate, but legal filings are not a substitute for live protocol parameter checks.
+
+Sources:
+- CoinGecko live market, TVL and financial data: https://www.coingecko.com/en/coins/near
+- NEAR Foundation, *Evolving NEAR Tokenomics*, 24 February 2026: https://near.org/blog/evolving-near-tokenomics
+- SEC filing, 16 September 2026: https://www.sec.gov/Archives/edgar/data/2067111/000119312526393240/ck0002067111-20260916.htm
+
 ## 1. Protocol-level economics
 
 Track these separately rather than treating all fees as token value accrual:
