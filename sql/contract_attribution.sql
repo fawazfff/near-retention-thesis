@@ -7,7 +7,7 @@
 -- Campaign attribution requires external campaign dates and should not be inferred here.
 --
 -- Parameters:
--- @scan_start DATE       26-week burn-in start (for comparable 12w/26w cohorts)
+-- @scan_start DATE       start of the selected burn-in window (2025-11-10 for the supplied 12w study)
 -- @start_date DATE       first Monday of cohort window
 -- @end_date DATE         Sunday ending last fully observed week
 -- @last_week_start DATE  Monday of last fully observed week
