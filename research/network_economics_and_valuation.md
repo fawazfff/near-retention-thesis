@@ -70,6 +70,7 @@ A high market-cap / revenue ratio requires substantial future growth to justify 
 - Staking yield can be largely issuance-funded rather than organic cash flow.
 - Application concentration, validator concentration, governance changes, bridge/custody risk, smart-contract exploits, regulatory restrictions, liquidity and token unlock/treasury sales can impair the thesis.
 - Competitors may capture the same AI, chain-abstraction and cross-chain demand with stronger distribution or economics.
+- DeFiLlama's incident tracker lists a **$3.8 million bridge/cross-chain security incident on 1 October 2026**. The affected component, final loss, recovery and whether this is attributable to NEAR core or an ecosystem bridge need independent incident-level verification before assigning it to protocol fundamentals.
 
 ## 5. Required evidence before a valuation conclusion
 
