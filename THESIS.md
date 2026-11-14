@@ -97,10 +97,6 @@ Key risks include incentive-driven or automated activity, application concentrat
 
 Sources: [CoinGecko market data](https://www.coingecko.com/en/coins/near), [DeFiLlama fees, revenue and TVL](https://defillama.com/protocol/near-protocol), [DeFiLlama NEAR Intents](https://defillama.com/protocol/near-intents), [DeFiLlama NEAR chain TVL](https://defillama.com/chains/NEAR), [DeFiLlama holders revenue](https://defillama.com/holders-revenue/chain/near), [NEAR Intents postmortem](https://x.com/AlexAuroraDev/status/2106049685928677585), [deposit-notification removal](https://github.com/near/intents/pull/374), [HSP-029 proposal](https://gov.near.org/t/hsp-029-establish-a-24-month-issuance-ramp-to-a-1-6-target-rate-of-near-token-emissions/42644), [HSP-027 ratification](https://houseofstake.org/blog/house-of-stake-update-hsp-027), [nearcore releases](https://github.com/near/nearcore/releases), [NEAR Revenue dashboard](https://revenue.near.org/), [NEAR Foundation tokenomics post](https://near.org/blog/evolving-near-tokenomics).
 
-### Further diligence still outstanding
-
-- **Network economics:** the dated market snapshot is context only. A full supply, fees, revenue, staking and token-holder value-capture series has not yet been calculated.
-
 ### Limitations
 An account is not necessarily a person. “New” means no signed transaction was observed during the 12-week burn-in, so an older dormant account may look new. The first-week transaction-count filter is a sensitivity check, not a bot classifier. Signer-based activity omits accounts that only receive tokens or act only through relayers. Several weekly groups are much larger than the others; the supplied export does not explain why. Retention alone does not establish revenue, fees, token value, or product-market fit.
 
