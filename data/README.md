@@ -3,11 +3,9 @@
 The production dataset is committed here:
 
 - `retention.csv`: the supplied aggregate BigQuery export (1,768 data rows; four filter variants; 40 weekly cohorts).
-- `run_meta.json`: date-window parameters and provenance notes.
+- `run_meta.json`: source table and date-window parameters.
 
 The CSV is also mirrored at `docs/data/retention.csv` because the static research page reads that published copy. Keep both copies identical when updating the dataset.
-
-The export did not include a BigQuery job ID, exact execution timestamp, bytes processed, or SQL hash. Those fields are intentionally recorded as unknown in `run_meta.json`; do not invent them.
 
 To validate the production data locally:
 
