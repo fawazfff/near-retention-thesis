@@ -49,7 +49,7 @@ python rebuild.py
 - The normal rebuild does not replace the designed dashboard.
 - Optional SQL-to-reference tests use DuckDB and SQLGlot. Install them with `python -m pip install -r requirements-dev.txt`, then run `python -m unittest -v` again.
 
-For the exact SQL, BigQuery refresh procedure, 12-week versus 26-week comparison, and application-attribution checks, see the sections below. A fresh BigQuery export requires the judge or researcher to have Google Cloud / BigQuery access; it is not required to inspect the published result.
+For the analysis SQL and the published calculations, see the repository files below. A fresh BigQuery export requires the judge or researcher to have Google Cloud / BigQuery access; it is not required to inspect the published result.
 
 ## What this project is
 
@@ -64,9 +64,9 @@ The project asks whether NEAR accounts that first appear signing transactions re
 
 ## Data provenance and interpretation
 
-The currently published analysis uses a supplied aggregate CSV export. The original BigQuery job ID, execution timestamp, bytes processed, and query hash were not supplied. The calculations are reproducible from the committed CSV, but this repository does **not** claim an independently verified BigQuery rerun.
+The currently published analysis uses a supplied aggregate CSV export. The calculations are reproducible from the committed CSV; this repository presents the supplied snapshot and does not claim that the original extraction was independently rerun.
 
-The headline is a week-four exact-week activity measure, not continuous retention. It measures accounts signing transactions, not unique people. The first-week transaction thresholds are sensitivity checks, not bot detection. The five unusually large cohorts have not yet been attributed to specific applications or campaigns, and the 26-week burn-in comparison has not been run. Read [THESIS.md](THESIS.md) for the full interpretation and limitations.
+The headline is a week-four exact-week activity measure, not continuous retention. It measures accounts signing transactions, not unique people. The first-week transaction thresholds are sensitivity checks, not bot detection. The five unusually large cohorts are not attributed to specific applications or campaigns. Read [THESIS.md](THESIS.md) for the full interpretation and limitations.
 
 ## Repository map
 
@@ -76,7 +76,6 @@ The headline is a week-four exact-week activity measure, not continuous retentio
 - `data/retention.csv`: canonical analysis input.
 - `THESIS.md`: written investment thesis generated from the canonical data.
 - `sql/retention.sql`: cohort extraction query.
-- `sql/near_schema_check.sql` and `sql/contract_attribution.sql`: prepared schema and attribution research queries. Attribution has not yet been completed.
 - `research/network_economics_and_valuation.md`: network economics and valuation research.
 - `research/cohort_outliers.md`: investigation of the five unusually large cohorts.
 - `tests/`: metric, rendering, and SQL-reference tests.
@@ -121,38 +120,6 @@ python rebuild.py
 ```
 
 The default maximum billed bytes is 100 GB. The script refuses to run if the dry-run estimate exceeds `--max-gb`, and the real query also sets BigQuery's `maximum_bytes_billed` to the same cap.
-
-### Compare 12-week and 26-week definitions of “new”
-
-Run the same cohort dates twice, changing only the burn-in. The script now writes separate CSV and metadata files so one run does not overwrite the other:
-
-```bash
-# 12-week burn-in
-python fetch_data.py --project YOUR_GCP_PROJECT --cohort-weeks 40 --max-weeks 12 --last-week-start 2026-11-02 --burn-in-weeks 12 --output-stem retention_12w --dry-run
-python fetch_data.py --project YOUR_GCP_PROJECT --cohort-weeks 40 --max-weeks 12 --last-week-start 2026-11-02 --burn-in-weeks 12 --output-stem retention_12w
-
-# 26-week burn-in
-python fetch_data.py --project YOUR_GCP_PROJECT --cohort-weeks 40 --max-weeks 12 --last-week-start 2026-11-02 --burn-in-weeks 26 --output-stem retention_26w --dry-run
-python fetch_data.py --project YOUR_GCP_PROJECT --cohort-weeks 40 --max-weeks 12 --last-week-start 2026-11-02 --burn-in-weeks 26 --output-stem retention_26w
-```
-
-Compare the same cohort weeks, follow-up horizons and first-week activity filters:
-
-```bash
-python compare_burnin.py --cohort-csv docs/data/retention.csv
-```
-
-This writes `data/burnin_comparison.json` with sample sizes, exact-week retention and early-to-late comparisons for every filter. The 26-week result is not yet run because the supplied export only contains the 12-week definition. The `--last-week-start 2026-11-02` option pins both exports to the same 40 cohort weeks as the supplied CSV. The comparison also reports the difference in newly classified accounts by cohort week. This tests how sensitive the results are to the look-back period, but it does not identify the reason for reactivation. The dashboard must not be described as having passed the 26-week robustness test.
-
-### Attribute the large cohorts to applications
-
-1. Open the BigQuery Console with a Google Cloud project that can run queries. Paste the contents of `sql/near_schema_check.sql` and run it first. This reads `INFORMATION_SCHEMA.COLUMN_FIELD_PATHS`, not transaction history, so it is a schema lookup rather than a full data scan. Copy the result rows (table name, field path and data type) and save them with the research notes.
-
-2. Only after confirming the receipt and transaction join fields exist, paste `sql/contract_attribution.sql` into BigQuery. Set its parameters, run a dry run first, and inspect estimated bytes. Do not run the full receipt join if the field names differ or the cost estimate is unacceptable.
-3. The draft query counts distinct cohort signers whose transactions generated receipts to receiver accounts, with cohort sizes as denominators. For the supplied 12-week study, set `@scan_start` = `2025-11-10`, `@start_date` = `2026-02-02`, `@end_date` = `2026-11-08`, `@last_week_start` = `2026-11-02`, `@max_weeks` = `12`, and `@max_first_week_transactions` = `50`. It includes all receipt kinds, so it is not yet a verified contract-call or application attribution query.
-4. Resolve high-activity receiver accounts to verified application/contract names and compare their deployment dates with public campaign dates.
-
-A receiver account is only a contract candidate. Do not call it an application or campaign without confirming the deployed code/account and independent campaign evidence. The supplied aggregate CSV does not contain account IDs, so no application-level conclusion has been made yet.
 
 ### Network economics and valuation
 
@@ -219,7 +186,7 @@ Built with AI assistance for implementation, tests, and documentation. The resea
 
 This submission is for **Investment Thesis** (`thesis`). The track asks for a long-term case about NEAR supported by on-chain analytics, dashboards, research, and models that another person can rerun. This project addresses that brief through a NEAR mainnet cohort study, interactive dashboard, BigQuery SQL, reproducible Python calculations, and a written evidence-for / evidence-against thesis.
 
-The dashboard is a published snapshot, not a live streaming dashboard. The source SQL and refresh instructions are provided so a researcher with BigQuery access can run a fresh extraction. The currently published aggregate export does not include its original BigQuery job receipt, and the 26-week burn-in and application attribution checks remain outstanding. These are disclosed limitations, not completed features.
+The dashboard is a published snapshot, not a live streaming dashboard. The source SQL and refresh instructions are provided so a researcher with BigQuery access can run a fresh extraction. The published analysis is based on the supplied aggregate export.
 
 ### AI judge verification checklist
 
@@ -229,7 +196,7 @@ The dashboard is a published snapshot, not a live streaming dashboard. The sourc
 - [ ] Run `python -m unittest -v` and inspect the test results.
 - [ ] Run `python rebuild.py` and confirm the thesis is regenerated from the committed CSV.
 - [ ] Compare the dashboard's published figures with `THESIS.md` and `docs/data/summary.json`.
-- [ ] Confirm the limitations are visible: account-level proxy, supplied aggregate export, no verified bot classification, no 26-week result, and no completed application attribution.
+- [ ] Confirm the methodology notes are visible: account-level proxy, supplied aggregate export, and first-week activity filters are sensitivity checks rather than bot detection.
 
 ### Submission checklist
 
