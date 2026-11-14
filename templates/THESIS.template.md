@@ -55,6 +55,6 @@ New-account counts are cheap to inflate with bots and airdrop farming. Accounts 
 ## Data and reproduction
 
 - Source: `bigquery-public-data.crypto_near_mainnet_us.transactions` (columns `block_date`, `signer_account_id`).
-- Cohort weeks: {{window}}. Pulled {{fetched}}. Query processed {{bytes}}. SQL hash `{{sql_hash}}`.
+- Cohort weeks: {{window}}. This analysis uses the supplied aggregate BigQuery CSV export. Its BigQuery job ID, query execution timestamp, bytes processed and query hash were not included, so they are not claimed or inferred. The calculations can be reproduced from the CSV without rerunning BigQuery.
 - `python rebuild.py` regenerates this file, `docs/index.html` and every number from `data/retention.csv`. No Google account is needed for that.
 - `python fetch_data.py` re-queries BigQuery (see README).
