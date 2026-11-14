@@ -77,9 +77,10 @@ This writes `data/burnin_comparison.json` with sample sizes, exact-week retentio
 
 ### Attribute the large cohorts to applications
 
-1. Run `sql/near_schema_check.sql` to inspect the available BigQuery fields.
-2. Review the estimated bytes for `sql/contract_attribution.sql` before running it.
-3. The draft query counts distinct cohort signers whose transactions generated receipts to receiver accounts, with cohort sizes as denominators. Set `@scan_start` to the selected burn-in start, `@start_date` to 2026-02-02, `@end_date` to 2026-11-08, `@last_week_start` to 2026-11-02, `@max_weeks` to 12, and `@max_first_week_transactions` to 50 for the supplied headline definition. It includes all receipt kinds, so it is not yet a verified contract-call or application attribution query.
+1. Open the BigQuery Console with a Google Cloud project that can run queries. Paste the contents of `sql/near_schema_check.sql` and run it first. This reads `INFORMATION_SCHEMA.COLUMN_FIELD_PATHS`, not transaction history, so it is a schema lookup rather than a full data scan. Copy the result rows (table name, field path and data type) and save them with the research notes.
+
+2. Only after confirming the receipt and transaction join fields exist, paste `sql/contract_attribution.sql` into BigQuery. Set its parameters, run a dry run first, and inspect estimated bytes. Do not run the full receipt join if the field names differ or the cost estimate is unacceptable.
+3. The draft query counts distinct cohort signers whose transactions generated receipts to receiver accounts, with cohort sizes as denominators. For the supplied 12-week study, set `@scan_start` = `2025-11-10`, `@start_date` = `2026-02-02`, `@end_date` = `2026-11-08`, `@last_week_start` = `2026-11-02`, `@max_weeks` = `12`, and `@max_first_week_transactions` = `50`. It includes all receipt kinds, so it is not yet a verified contract-call or application attribution query.
 4. Resolve high-activity receiver accounts to verified application/contract names and compare their deployment dates with public campaign dates.
 
 A receiver account is only a contract candidate. Do not call it an application or campaign without confirming the deployed code/account and independent campaign evidence. The supplied aggregate CSV does not contain account IDs, so no application-level conclusion has been made yet.
@@ -97,6 +98,7 @@ Useful options:
 - `--cohort-weeks 40`: number of cohort weeks, including both endpoints. Must be at least 19 for the week-4 trend comparison.
 - `--burn-in-weeks 12` or `26`: prior weeks used to decide whether an account is new.
 - `--output-stem retention_26w`: write a separately named CSV and metadata file without overwriting the default export.
+- `--last-week-start 2026-11-02`: pin the final cohort week so 12-week and 26-week burn-in exports use identical cohort dates.
 - `--max-weeks 12`: furthest follow-up week to include. Must be at least 4.
 - `--max-gb 100`: hard cap for query processing.
 - `--literal-dates`: inline dates if BigQuery's dry-run estimate suggests parameterized partition pruning is not working.
