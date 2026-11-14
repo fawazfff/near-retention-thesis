@@ -48,6 +48,14 @@ Track these separately rather than treating all fees as token value accrual:
 - NEAR locked in storage and staked, with care not to count the same token twice.
 - Validator gross staking yield and real yield after issuance dilution. Staking yield is not the same as protocol revenue.
 
+### Does fee burn offset issuance?
+
+A recent chain-data analysis measured about **88,000 NEAR issued per day** and about **890 NEAR burned per day** after protocol version 87 took effect on 4 November. That is only about **1.0% of daily issuance** offset by gas burn in the first eight days. At those observed rates, net issuance remains strongly positive. The sample is short and daily fees vary, so do not treat it as a forecast. It does show why “100% of eligible gas is burned” must not be confused with “NEAR is deflationary”: the burn base is currently small relative to issuance.
+
+The same analysis estimated that even ten times the observed fee burn would offset only about 10% of issuance. The 2.5% maximum issuance setting therefore remains the dominant supply-side input until actual issuance changes or fee activity grows substantially.
+
+Source: [Unlocks Insights, NEAR inflation and fee-burn analysis (13 November 2026)](https://insights.unlocks.app/near-halved-its-inflation-a-year-ago-the-chain-shows-the-cut-held/).
+
 ## 2. Product and ecosystem economics
 
 NEAR Intents and other products can generate revenue outside the base transaction-fee line. For each product, collect:
