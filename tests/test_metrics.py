@@ -98,6 +98,18 @@ class RenderTests(unittest.TestCase):
         html = render.build_html(a, meta, "SELECT 1", demo=False)
         self.assertNotIn("SYNTHETIC DEMO DATA", html)
 
+    def test_supplied_data_thesis_renders_without_unknown_metadata_claims(self):
+        data, meta = metrics.load(ROOT / "data" / "retention.csv", ROOT / "data" / "run_meta.json")
+        analysis = metrics.analyse(data)
+        text = render.build_thesis(analysis, meta, ROOT / "templates" / "THESIS.template.md", demo=False)
+        self.assertNotIn("{{", text)
+        self.assertIn("2.41%", text)
+        self.assertIn("0.41%", text)
+        self.assertIn("job ID, query execution timestamp, bytes processed and query hash were not included", text)
+        self.assertIn("Investment interpretation", text)
+        page = (ROOT / "docs" / "index.html").read_text()
+        self.assertIn("88.4%", page)
+
 
 if __name__ == "__main__":
     unittest.main()
