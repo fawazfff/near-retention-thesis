@@ -163,6 +163,15 @@ if __name__ == "__main__":
 
 
 class FetchHelpersTests(unittest.TestCase):
+    def test_output_paths_keep_default_rebuild_compatible(self):
+        import fetch_data
+        default_csv, default_meta = fetch_data.output_paths(ROOT / "data", "retention")
+        long_csv, long_meta = fetch_data.output_paths(ROOT / "data", "retention_26w")
+        self.assertEqual(default_csv.name, "retention.csv")
+        self.assertEqual(default_meta.name, "run_meta.json")
+        self.assertEqual(long_csv.name, "retention_26w.csv")
+        self.assertEqual(long_meta.name, "retention_26w_meta.json")
+
     def test_window_is_monday_aligned_and_complete(self):
         import fetch_data
         w = fetch_data.window(date(2026, 11, 13), cohort_weeks=40, burn_in_weeks=12, max_weeks=12)
