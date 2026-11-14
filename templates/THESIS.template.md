@@ -22,6 +22,16 @@ Week-{{week}} retention was {{early_mean}} in the earliest {{group}} cohorts ({{
 
 The pooled rate weights every account equally, so very large cohorts dominate it. The unweighted cohort average gives each weekly cohort equal weight. For the headline filter at week 4, the pooled rate is **{{pooled_rate}}**, the average cohort rate is **{{mean_cohort_rate}}**, and the median cohort rate is **{{median_cohort_rate}}**. The median mature cohort contains **{{median_cohort_size}}** accounts, while the largest contains **{{max_cohort_size}}**. The five largest cohorts account for **{{top_five_share}}** of all accounts, but only **{{top_five_return_share}}** of week-4 returns. Their pooled week-4 rate is **{{top_five_rate}}**, compared with **{{other_cohorts_rate}}** across the other 31 cohorts. The reason for this difference is unknown. The pooled rate should not be read as a typical week's result.
 
+## Retention across follow-up windows
+
+The denominator changes at each horizon because newer cohorts have not had enough time to reach later weeks. Each row includes only cohorts with a complete observation for that exact week.
+
+| Follow-up week | Eligible cohorts | Accounts | Accounts active | Pooled retention |
+|---:|---:|---:|---:|---:|
+{{retention_window_rows}}
+
+These are separate exact-week activity measures. They do not mean that an account remained continuously active from week 1 through week 12.
+
 ## Why retention
 
 Raw new-account counts can be affected by automation, incentive campaigns and short-lived activity. Accounts that keep coming back provide a stronger usage signal than a first transaction alone, although repeat activity does not prove human use. This study measures returning signers and compares retention with cohort size. It cannot identify which accounts belong to real people.
