@@ -64,5 +64,5 @@ This dataset does not support a confident claim that NEAR's account retention is
 
 - Source: `bigquery-public-data.crypto_near_mainnet_us.transactions` (columns `block_date`, `signer_account_id`).
 - Cohort weeks: {{window}}. This analysis uses the supplied aggregate BigQuery CSV export. Its BigQuery job ID, query execution timestamp, bytes processed and query hash were not included, so they are not claimed or inferred. The calculations can be reproduced from the CSV without rerunning BigQuery.
-- `python rebuild.py` regenerates this file, `docs/index.html` and every number from `data/retention.csv`. No Google account is needed for that.
+- `python rebuild.py` regenerates this thesis from `data/retention.csv` and preserves the designed `docs/index.html`. Use `python rebuild.py --overwrite-dashboard` only if you intentionally want the simpler generated report page.
 - `python fetch_data.py` re-queries BigQuery (see README).
