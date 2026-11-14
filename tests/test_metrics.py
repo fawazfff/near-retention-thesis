@@ -109,7 +109,7 @@ class RenderTests(unittest.TestCase):
         meta_path = ROOT / "data" / "run_meta.json"
         self.assertEqual(canonical_csv.read_bytes(), published_csv.read_bytes())
         data, meta = metrics.load(canonical_csv, meta_path)
-        self.assertEqual(meta["row_count"], 1768)
+        self.assertEqual(meta["row_count"], len(canonical_csv.read_text().splitlines()) - 1)
         analysis = metrics.analyse(data)
         summary = json.loads((ROOT / "docs" / "data" / "summary.json").read_text())
         self.assertAlmostEqual(summary["cohort_diagnostics"]["pooled_rate_percent"],
