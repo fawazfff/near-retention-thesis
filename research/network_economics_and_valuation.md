@@ -2,22 +2,31 @@
 
 **Status:** research framework, not a completed financial model. The current cohort CSV contains no fees, revenue, supply, staking or market-price observations.
 
-## 0. Dated market snapshot (14 November 2026)
+## 0. Dated market and revenue snapshot (14 November 2026)
 
-CoinGecko's page snapshot showed approximately **$3.36 per NEAR**, **$4.40 billion market capitalization**, **$4.40 billion FDV**, **1.312 billion circulating NEAR**, **$107.1 million TVL**, and a **41.1× market-cap/TVL ratio**. The same page displayed roughly **$35.4k 24-hour fees** and **$30.4k 24-hour project revenue**.
+CoinGecko showed NEAR around **$3.36**, **$4.40 billion market capitalization**, **$4.40 billion FDV**, **1.312 billion circulating NEAR**, **$107.1 million TVL**, and a **41.1× market-cap/TVL ratio**. DeFiLlama's NEAR Protocol page reported a materially different **$276.2 million TVL** on the same date. That implies a market-cap/TVL ratio closer to **15.9×**. The discrepancy likely reflects different protocol coverage or TVL definitions; it must be reconciled before using TVL in a valuation multiple. Do not choose the more attractive denominator without explaining it.
 
-These are third-party, time-sensitive snapshot figures, not independently reconciled protocol accounts. A single 24-hour revenue observation must not be multiplied by 365 and treated as sustainable annual revenue. Market-cap/TVL is a rough capital-efficiency screen, not a cash-flow valuation.
+DeFiLlama reported approximately **$5.95 million fees** and **$1.93 million protocol revenue** over 30 days, and trailing-year annualized figures of **$54.14 million fees** and **$9.64 million revenue**. At a $4.376 billion market capitalization, that implies roughly **81× market-cap/trailing-year fees** and **454× market-cap/trailing-year revenue**. These are screening multiples, not a fair-value model. Product-level attribution, rebates, operator costs, and what reaches NEAR tokenholders must be checked. Do not treat gross cross-chain volume as revenue.
 
-As of 14 November 2026, the active maximum annual issuance remains 2.5%. House of Stake proposal HSP-029 passed its vote on 2 November and proposes a linear 24-month reduction to 1.6%, but the Security Council veto window runs through 16 November and protocol implementation/validator adoption is still required. Do not model 1.6% as already active. NEAR's February 2026 tokenomics post describes product-revenue capture and buyback mechanisms; verify governance status, on-chain transfers and realized token amounts before treating buybacks or revenue capture as completed. A September 2026 SEC filing predates the November 4 rebate removal and therefore describes the previous 70% burn / 30% contract rebate. Do not use that older split as the current fee rule.
+A single 24-hour fee or revenue observation must not be multiplied by 365 and treated as sustainable. The trailing-year figures are more useful, but still require a source reconciliation and a consistent definition of protocol revenue.
 
 Sources:
-- House of Stake HSP-029 proposal and status: https://gov.near.org/t/hsp-029-establish-a-24-month-issuance-ramp-to-a-1-6-target-rate-of-near-token-emissions/42644
-- House of Stake HSP-027 ratification: https://houseofstake.org/blog/house-of-stake-update-hsp-027-ratified
-- nearcore release notes (protocol version 87, removal of gas rewards): https://github.com/near/nearcore/releases
-- NEAR Revenue dashboard: https://revenue.near.org/
-- CoinGecko live market, TVL and financial data: https://www.coingecko.com/en/coins/near
-- NEAR Foundation, *Evolving NEAR Tokenomics*, 24 February 2026: https://near.org/blog/evolving-near-tokenomics
-- SEC filing, 16 September 2026: https://www.sec.gov/Archives/edgar/data/2067111/000119312526393240/ck0002067111-20260916.htm
+- [CoinGecko NEAR market data](https://www.coingecko.com/en/coins/near)
+- [DeFiLlama NEAR Protocol fees, revenue and TVL](https://defillama.com/protocol/near-protocol)
+- [NEAR Revenue dashboard](https://revenue.near.org/)
+
+## 0. Dated market and revenue snapshot (14 November 2026)
+
+CoinGecko showed NEAR around **$3.36**, **$4.40 billion market capitalization**, **$4.40 billion FDV**, **1.312 billion circulating NEAR**, **$107.1 million TVL**, and a **41.1× market-cap/TVL ratio**. DeFiLlama's NEAR Protocol page reported a materially different **$276.2 million TVL** on the same date. That implies a market-cap/TVL ratio closer to **15.9×**. The discrepancy likely reflects different protocol coverage or TVL definitions; it must be reconciled before using TVL in a valuation multiple. Do not choose the more attractive denominator without explaining it.
+
+DeFiLlama reported approximately **$5.95 million fees** and **$1.93 million protocol revenue** over 30 days, and trailing-year annualized figures of **$54.14 million fees** and **$9.64 million revenue**. At a $4.376 billion market capitalization, that implies roughly **81× market-cap/trailing-year fees** and **454× market-cap/trailing-year revenue**. These are screening multiples, not a fair-value model. Product-level attribution, rebates, operator costs, and what reaches NEAR tokenholders must be checked. Do not treat gross cross-chain volume as revenue.
+
+A single 24-hour fee or revenue observation must not be multiplied by 365 and treated as sustainable. The trailing-year figures are more useful, but still require a source reconciliation and a consistent definition of protocol revenue.
+
+Sources:
+- [CoinGecko NEAR market data](https://www.coingecko.com/en/coins/near)
+- [DeFiLlama NEAR Protocol fees, revenue and TVL](https://defillama.com/protocol/near-protocol)
+- [NEAR Revenue dashboard](https://revenue.near.org/)
 
 ## 1. Protocol-level economics
 
