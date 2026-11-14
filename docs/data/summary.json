@@ -77,7 +77,55 @@
     "top_five_return_share_percent": 23.99810416556954,
     "top_five_pooled_rate_percent": 0.11141163702738986,
     "other_31_cohorts_pooled_rate_percent": 2.684583733233556,
-    "note": "Pooled rate weights accounts equally; mean and median cohort rates describe weekly cohorts. The five largest cohorts account for 88.4% of the denominator but only 24.0% of week-four returns. The cause is unknown."
+    "note": "Pooled rate weights accounts equally; mean and median cohort rates describe weekly cohorts. The five largest cohorts account for 88.4% of the denominator but only 24.0% of week-four returns. The cause is unknown.",
+    "top_five_cohorts": [
+      {
+        "cohort_week": "2026-02-09",
+        "accounts_filtered_50": 1660162,
+        "accounts_all": 1660185,
+        "accounts_filtered_20": 1660089,
+        "week4_active_filtered_50": 671,
+        "week4_rate_percent_filtered_50": 0.0404
+      },
+      {
+        "cohort_week": "2026-02-16",
+        "accounts_filtered_50": 1059422,
+        "accounts_all": 1059473,
+        "accounts_filtered_20": 1059195,
+        "week4_active_filtered_50": 877,
+        "week4_rate_percent_filtered_50": 0.0828
+      },
+      {
+        "cohort_week": "2026-02-02",
+        "accounts_filtered_50": 750108,
+        "accounts_all": 750129,
+        "accounts_filtered_20": 749997,
+        "week4_active_filtered_50": 999,
+        "week4_rate_percent_filtered_50": 0.1332
+      },
+      {
+        "cohort_week": "2026-09-28",
+        "accounts_filtered_50": 344247,
+        "accounts_all": 345045,
+        "accounts_filtered_20": 342698,
+        "week4_active_filtered_50": 828,
+        "week4_rate_percent_filtered_50": 0.2405
+      },
+      {
+        "cohort_week": "2026-10-05",
+        "accounts_filtered_50": 276298,
+        "accounts_all": 276536,
+        "accounts_filtered_20": 276034,
+        "week4_active_filtered_50": 1182,
+        "week4_rate_percent_filtered_50": 0.4278
+      }
+    ],
+    "top_five_accounts_all": 4091368,
+    "top_five_accounts_filtered_20": 4088013,
+    "top_five_accounts_filtered_50": 4090237,
+    "high_activity_filter_effect": "The top five cohorts lose only 3,355 accounts (0.082%) from all to the >20 first-week transaction filter. The >50 filter removes 1,131 (0.028%). High-frequency filtering therefore does not explain the size spikes. This does not rule out low-frequency automation or campaign-driven one-time accounts.",
+    "first_three_february_cohort_share_percent": 74.9746,
+    "top_five_rate_vs_other_cohorts": "0.111% versus 2.685% pooled week-four retention"
   },
   "params": {
     "scan_start": "2025-11-10",
@@ -171,8 +219,40 @@
     "defillama_trailing_30d_revenue_usd": 1930000,
     "defillama_trailing_year_fees_usd": 54140000,
     "defillama_trailing_year_revenue_usd": 9640000,
-    "market_cap_to_trailing_year_fees": 80.9,
-    "market_cap_to_trailing_year_revenue": 454
+    "market_cap_to_trailing_year_fees": 80.8,
+    "market_cap_to_trailing_year_revenue": 453.9,
+    "defillama_combined_protocol_tvl_usd": 276200000,
+    "defillama_near_chain_tvl_usd": 125080000,
+    "near_intents_multichain_tvl_usd": 176710000,
+    "near_intents_supported_chains": 26,
+    "near_intents_volume_30d_usd": 3629000000,
+    "near_intents_fees_30d_usd": 5830000,
+    "near_intents_captured_revenue_30d_usd": 1810000,
+    "defillama_holders_revenue_30d_usd": 1810000,
+    "defillama_trailing_30d_holder_revenue_usd": 1810000,
+    "holder_revenue_annualized_30d_run_rate_usd": 21720000,
+    "holder_revenue_run_rate_as_market_cap_percent": 0.496,
+    "coingecko_market_cap_to_chain_tvl": 41.1,
+    "defillama_market_cap_to_chain_tvl": 35,
+    "annual_revenue_hurdles_at_current_market_cap_usd": {
+      "multiple_100": 43760000,
+      "multiple_50": 87520000,
+      "multiple_25": 175040000
+    },
+    "annual_revenue_hurdles_vs_current_revenue": {
+      "multiple_100": 4.54,
+      "multiple_50": 9.08,
+      "multiple_25": 18.16
+    },
+    "tvl_scope_note": "The $276.2m NEAR Protocol Combined figure aggregates multiple chains; the Near chain component is about $125.08m. NEAR Intents separately reports about $176.71m across 26 chains. These scopes overlap and must not be added. Compare chain-only TVL with chain-only TVL.",
+    "holders_revenue_note": "DeFiLlama defines NEAR Intents holders revenue as captured revenue used to buy back NEAR since 2026-02-23. It is buyback-based holder value capture, not a burn. A 30-day annualization is not guaranteed recurring yield.",
+    "source_urls": {
+      "defillama_near_protocol": "https://defillama.com/protocol/near-protocol",
+      "defillama_near_intents": "https://defillama.com/protocol/near-intents",
+      "defillama_near_chain": "https://defillama.com/chains/NEAR",
+      "defillama_holders_revenue": "https://defillama.com/holders-revenue/chain/near",
+      "near_revenue": "https://revenue.near.org/"
+    }
   },
   "diligence_status": {
     "burn_in_12_weeks": "Available in supplied aggregate CSV",
@@ -199,9 +279,10 @@
     {
       "source": "DeFiLlama incident tracker",
       "date": "2026-10-01",
+      "protocol": "NEAR Intents",
       "category": "Bridge & Cross-Chain",
       "reported_amount_usd": 3800000,
-      "note": "Affected component, final net loss, recovery and attribution to NEAR core versus an ecosystem bridge require independent verification."
+      "note": "DeFiLlama says the exploit involved the Omni deposit/withdrawal infrastructure and NEAR Intents contract, that the team patched the issue and said affected users would be compensated in full. Verify completed reimbursement on-chain. This is a product/bridge risk, not evidence of a NEAR base-layer consensus failure."
     }
   ]
 }
