@@ -162,7 +162,17 @@
     "circulating_supply_near": 1312000000,
     "tvl_usd": 107100000,
     "market_cap_to_tvl": 41.1,
-    "note": "Approximate third-party snapshot figures. Not a fair-value estimate; a single day of fees/revenue is not a sustainable annual run rate."
+    "note": "CoinGecko and DefiLlama reported materially different TVL ($107.1m vs $276.2m) on 14 Nov 2026. TVL definitions/coverage must be reconciled. Revenue/fees multiples use DefiLlama trailing-year values and are screening ratios, not fair value.",
+    "defillama_tvl_usd": 276200000,
+    "coingecko_tvl_usd": 107087000,
+    "coingecko_market_cap_usd": 4401000000,
+    "defillama_market_cap_usd": 4376000000,
+    "defillama_trailing_30d_fees_usd": 5950000,
+    "defillama_trailing_30d_revenue_usd": 1930000,
+    "defillama_trailing_year_fees_usd": 54140000,
+    "defillama_trailing_year_revenue_usd": 9640000,
+    "market_cap_to_trailing_year_fees": 80.9,
+    "market_cap_to_trailing_year_revenue": 454
   },
   "diligence_status": {
     "burn_in_12_weeks": "Available in supplied aggregate CSV",
