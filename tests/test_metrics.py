@@ -135,7 +135,10 @@ class RenderTests(unittest.TestCase):
         self.assertIn("90-day grace period", summary["protocol_economics_status"]["hsp_029"]["status"])
         self.assertEqual(summary["security_risks"][0]["reported_amount_usd"], 3800000)
         self.assertEqual(summary["market_context"]["defillama_trailing_year_revenue_usd"], 9640000)
-        self.assertGreater(summary["market_context"]["defillama_tvl_usd"], summary["market_context"]["coingecko_tvl_usd"])
+        self.assertGreater(summary["market_context"]["defillama_near_chain_tvl_usd"], summary["market_context"]["coingecko_tvl_usd"])
+        self.assertEqual(summary["market_context"]["near_intents_supported_chains"], 26)
+        self.assertEqual(summary["market_context"]["defillama_holders_revenue_30d_usd"], 1810000)
+        self.assertIn("buyback-based", summary["market_context"]["holders_revenue_note"])
         self.assertAlmostEqual(summary["cohort_diagnostics"]["pooled_rate_percent"],
                                analysis["cohort_diagnostics"]["pooled_rate"] * 100, places=10)
         windows = analysis["retention_windows"]
@@ -151,6 +154,10 @@ class RenderTests(unittest.TestCase):
         self.assertIn("Investment interpretation", text)
         self.assertGreater(analysis["cohort_diagnostics"]["top_five_share"], 0.8)
         self.assertAlmostEqual(analysis["cohort_diagnostics"]["top_five_return_share"], 0.24, places=2)
+        self.assertEqual(len(analysis["cohort_diagnostics"]["top_five_cohorts"]), 5)
+        self.assertIn("1,660,185", text)
+        self.assertIn("1,660,089", text)
+        self.assertIn("NEAR Intents processed about", text)
         page = (ROOT / "docs" / "index.html").read_text()
         self.assertIn("88.4%", page)
         attribution = (ROOT / "sql" / "contract_attribution.sql").read_text()
