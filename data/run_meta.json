@@ -1,0 +1,16 @@
+{
+  "source": "User-provided BigQuery CSV export",
+  "source_table": "bigquery-public-data.crypto_near_mainnet_us.transactions",
+  "synthetic": false,
+  "fetched_at_utc": null,
+  "bytes_processed": null,
+  "sql_sha256": null,
+  "row_count": 1768,
+  "params": {
+    "scan_start": "2025-11-10",
+    "start_date": "2026-02-02",
+    "last_week_start": "2026-11-02",
+    "max_weeks": 12
+  },
+  "metadata_note": "The supplied export did not include a BigQuery job ID, exact execution timestamp, bytes processed, or query hash. These values are intentionally left unknown."
+}
