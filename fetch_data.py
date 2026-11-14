@@ -41,6 +41,13 @@ def window(today: date, cohort_weeks: int, burn_in_weeks: int, max_weeks: int) -
     }
 
 
+def output_paths(data_dir: Path, stem: str):
+    """Keep the canonical default metadata filename compatible with rebuild.py."""
+    csv_path = data_dir / f"{stem}.csv"
+    meta_path = data_dir / ("run_meta.json" if stem == "retention" else f"{stem}_meta.json")
+    return csv_path, meta_path
+
+
 def with_literals(sql: str, params: dict) -> str:
     """Inline the parameters as literals (fallback if partition pruning ignores parameters)."""
     for k, v in params.items():
@@ -97,8 +104,7 @@ def main() -> int:
     job = client.query(sql, job_config=cfg)
     rows = list(job.result())
     DATA.mkdir(exist_ok=True)
-    csv_path = DATA / f"{args.output_stem}.csv"
-    meta_path = DATA / f"{args.output_stem}_meta.json"
+    csv_path, meta_path = output_paths(DATA, args.output_stem)
     with csv_path.open("w", newline="") as fh:
         w = csv.writer(fh)
         w.writerow(["variant", "cohort_week", "k", "accounts_active"])
