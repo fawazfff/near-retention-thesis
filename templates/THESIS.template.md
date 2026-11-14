@@ -20,7 +20,7 @@ Week-{{week}} retention was {{early_mean}} in the earliest {{group}} cohorts ({{
 
 ## Why retention
 
-New-account counts are cheap to inflate with bots and airdrop farming. Accounts that keep coming back are a stronger sign of usage than a raw count, though bots can come back too. So I measure retention directly and put it next to new-account volume, so the two can be compared. I cannot prove which accounts are real users, only how many keep signing transactions.
+Raw new-account counts can be affected by automation, incentive campaigns and short-lived activity. Accounts that keep coming back provide a stronger usage signal than a first transaction alone, although repeat activity does not prove human use. This study measures returning signers and compares retention with cohort size. It cannot identify which accounts belong to real people.
 
 ## Definitions (fixed before pulling any data)
 
