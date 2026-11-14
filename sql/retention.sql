@@ -9,7 +9,7 @@
 --                    were dormant for longer than the burn-in look "new" (limitation).
 --   k              : whole weeks since the cohort week (0 = cohort week itself)
 --   variants       : 'all' keeps every new account; 'filtered_N' drops accounts that signed
---                    more than N transactions in their first week (bot / airdrop-farm proxy).
+--                    more than N transactions in their first week (high-activity sensitivity check, not bot detection).
 --
 -- Parameters (set by fetch_data.py; in the BigQuery console add matching DECLARE lines):
 --   @scan_start      DATE  first day scanned (start_date minus the burn-in)
