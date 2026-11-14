@@ -186,6 +186,16 @@ class FetchHelpersTests(unittest.TestCase):
         self.assertEqual(date.fromisoformat(w["start_date"]).weekday(), 0)
         self.assertEqual(date.fromisoformat(w["scan_start"]).weekday(), 0)
         self.assertEqual((date.fromisoformat(w["last_week_start"]) - date.fromisoformat(w["start_date"])).days // 7 + 1, 40)
+        w26 = fetch_data.window(date(2026, 11, 13), 40, 26, 12, date(2026, 11, 2))
+        self.assertEqual(w26["start_date"], w["start_date"])
+        self.assertEqual(w26["last_week_start"], w["last_week_start"])
+        self.assertEqual(w26["scan_start"], "2025-08-04")
+        self.assertEqual(w["scan_start"], "2025-11-10")
+
+    def test_fixed_last_week_start_rejects_non_monday(self):
+        import fetch_data
+        with self.assertRaises(ValueError):
+            fetch_data.window(date(2026, 11, 13), 40, 26, 12, date(2026, 11, 3))
 
     def test_window_rejects_too_short_cohort_history(self):
         import fetch_data
