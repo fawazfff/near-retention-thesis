@@ -22,6 +22,14 @@ Week-{{week}} retention was {{early_mean}} in the earliest {{group}} cohorts ({{
 
 The pooled rate weights every account equally, so very large cohorts dominate it. The unweighted cohort average gives each weekly cohort equal weight. For the headline filter at week 4, the pooled rate is **{{pooled_rate}}**, the average cohort rate is **{{mean_cohort_rate}}**, and the median cohort rate is **{{median_cohort_rate}}**. The median mature cohort contains **{{median_cohort_size}}** accounts, while the largest contains **{{max_cohort_size}}**. The five largest cohorts account for **{{top_five_share}}** of all accounts, but only **{{top_five_return_share}}** of week-4 returns. Their pooled week-4 rate is **{{top_five_rate}}**, compared with **{{other_cohorts_rate}}** across the other 31 cohorts. The reason for this difference is unknown. The pooled rate should not be read as a typical week's result.
 
+The same five weeks remain the largest under all first-week transaction thresholds. The >20 filter removes only 3,355 accounts (0.082%) from these five cohorts compared with no filter. That rules out a simple explanation based on accounts signing more than 20 transactions in their first week; it does not rule out one-time or low-frequency automation or campaign activity.
+
+| First observed week | All accounts | After >50 filter | After >20 filter | Week-four active (>50) | Week-four rate |
+|---|---:|---:|---:|---:|---:|
+{{top_five_rows}}
+
+
+
 ## Retention across follow-up windows
 
 The denominator changes at each horizon because newer cohorts have not had enough time to reach later weeks. Each row includes only cohorts with a complete observation for that exact week.
