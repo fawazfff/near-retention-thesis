@@ -4,16 +4,16 @@ An evidence-first investment thesis on NEAR, built for **NEAR HACKATHON**, track
 
 **The question:** of every 100 newly observed NEAR accounts, how many are still signing transactions four weeks later, and is that changing across weekly cohorts?
 
-The project fetches public NEAR mainnet data from BigQuery, calculates cohort retention, tests whether the change is meaningful, and generates both the dashboard and `THESIS.md` from the same source data.
+The repository contains the BigQuery SQL and a script that can fetch a fresh snapshot when run by an authenticated researcher. The currently published analysis uses a supplied aggregate CSV export. Its original BigQuery job ID, execution timestamp, bytes processed and query hash were not provided, so this repository does not claim an independently verified rerun.
 
-- Dashboard: [docs/index.html](docs/index.html), backed by the published cohort CSV in `docs/data/retention.csv`.
-- Written thesis: [THESIS.md](THESIS.md), recomputed from the supplied CSV.
-- Source data: `docs/data/retention.csv`; calculated summary: `docs/data/summary.json`.
+- Dashboard: [docs/index.html](docs/index.html), backed by the supplied cohort CSV in `docs/data/retention.csv`.
+- Written thesis: [THESIS.md](THESIS.md), calculated from the supplied CSV.
+- Canonical analysis input: `data/retention.csv`; published dashboard copy: `docs/data/retention.csv`; calculated summary: `docs/data/summary.json`.
 
 ## What it does
 
 1. `sql/retention.sql` groups accounts that sign transactions into weekly cohorts, then counts how many sign again in later weeks.
-2. It reports four versions: no filter, and three bot-like filters that exclude accounts with more than 200, 50, or 20 transactions in their first week. The headline uses 50, fixed before data was pulled. All variants remain visible.
+2. It reports four versions: no filter, and three bot-like filters that exclude accounts with more than 200, 50, or 20 transactions in their first week. The headline uses the 50-transaction threshold as a sensitivity setting. It is not a verified bot classifier. All variants remain visible.
 3. `rebuild.py` turns `data/retention.csv` into every number, chart, the dashboard and `THESIS.md`. Nothing is typed into the thesis by hand.
 
 ## Quick start
