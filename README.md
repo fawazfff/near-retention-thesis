@@ -1,16 +1,85 @@
 # Does NEAR Keep Its Users?
 
-An evidence-first investment thesis on NEAR, built for **NEAR HACKATHON**, track **Investment Thesis** (`thesis`).
+An evidence-first investment thesis on NEAR, built for **NEAR HACKATHON 2026**, **Investment Thesis** track (`thesis`).
 
-**The question:** what share of newly observed NEAR accounts signs a transaction in the exact fourth follow-up week, and is that changing across weekly cohorts?
+**Live research dashboard:** https://near-retention-thesis.vercel.app  
+**Source code:** https://github.com/fawazfff/near-retention-thesis  
+**Written thesis:** [THESIS.md](THESIS.md)
 
-The repository contains the BigQuery SQL and a script that can fetch a fresh snapshot when run by an authenticated researcher. The currently published analysis uses a supplied aggregate CSV export. Its original BigQuery job ID, execution timestamp, bytes processed and query hash were not provided, so this repository does not claim an independently verified rerun.
+## Judge quickstart
 
-- Dashboard: [docs/index.html](docs/index.html), backed by the supplied cohort CSV in `docs/data/retention.csv`.
-- Contract attribution: `sql/near_schema_check.sql` and `sql/contract_attribution.sql`.
-- Network economics and valuation: [research/network_economics_and_valuation.md](research/network_economics_and_valuation.md).
-- Written thesis: [THESIS.md](THESIS.md), calculated from the supplied CSV.
-- Canonical analysis input: `data/retention.csv`; published dashboard copy: `docs/data/retention.csv`; calculated summary: `docs/data/summary.json`.
+This is a research dashboard, not a wallet app. You do not need a NEAR wallet, private key, testnet funds, API key, or blockchain transaction to inspect it. The dashboard reads the committed cohort CSV and summary JSON. It does not claim to stream live data.
+
+### Try the hosted project
+
+1. Open **https://near-retention-thesis.vercel.app**.
+   - **Expected:** the page title is “Does NEAR keep its users?” and the retention dashboard loads.
+2. In **Account filter**, switch between all accounts and the three first-week transaction thresholds.
+   - **Expected:** the KPI values, cohort chart, group-size chart, return curve, and tables update to the selected filter.
+3. In **Check activity in follow-up week**, choose week 1, 4, 8, or 12.
+   - **Expected:** the eligible cohort count and return figures change. Newer cohorts are excluded when they do not yet have enough follow-up.
+4. Select a point in the cohort chart or a bar in the group-size chart.
+   - **Expected:** the dashboard shows the selected cohort's exact date and figures.
+5. Scroll to the method, caveats, and research sections. Open [THESIS.md](THESIS.md) and [the outlier investigation](research/cohort_outliers.md).
+   - **Expected:** you can inspect the cohort definition, the difference between pooled and median retention, the five unusually large cohorts, and the outstanding attribution work.
+
+### Run the dashboard locally
+
+Python 3 is enough to serve the static dashboard. From the repository root:
+
+```bash
+python -m http.server 8000 --directory docs
+```
+
+Open http://localhost:8000 in your browser.
+
+- **Expected:** the same dashboard loads from `docs/index.html` and reads `docs/data/retention.csv` plus `docs/data/summary.json`.
+- Keep the terminal running while you use the page. Press Ctrl+C to stop the local server.
+
+### Reproduce the published analysis
+
+Python 3.10 or newer is recommended.
+
+```bash
+python -m unittest -v
+python rebuild.py
+```
+
+- **Expected:** the standard-library test suite passes, and `THESIS.md` is regenerated from `data/retention.csv` and the analysis code.
+- The normal rebuild does not replace the designed dashboard.
+- Optional SQL-to-reference tests use DuckDB and SQLGlot. Install them with `python -m pip install -r requirements-dev.txt`, then run `python -m unittest -v` again.
+
+For the exact SQL, BigQuery refresh procedure, 12-week versus 26-week comparison, and application-attribution checks, see the sections below. A fresh BigQuery export requires the judge or researcher to have Google Cloud / BigQuery access; it is not required to inspect the published result.
+
+## What this project is
+
+The project asks whether NEAR accounts that first appear signing transactions return to sign transactions in later weeks. It combines:
+
+- An interactive cohort dashboard with selectable activity filters and follow-up weeks.
+- A reproducible analysis script and BigQuery SQL.
+- A written investment thesis covering usage, network economics, token value capture, valuation hurdles, and risks.
+- Explicit limitations and follow-up diligence tasks.
+
+**How NEAR fits:** NEAR is the network being studied. The analysis uses the public NEAR mainnet transactions dataset in BigQuery. This is an Investment Thesis research project, not an on-chain application; it does not deploy a contract, connect a wallet, or ask users to sign transactions. The track does not require a particular protocol integration.
+
+## Data provenance and interpretation
+
+The currently published analysis uses a supplied aggregate CSV export. The original BigQuery job ID, execution timestamp, bytes processed, and query hash were not supplied. The calculations are reproducible from the committed CSV, but this repository does **not** claim an independently verified BigQuery rerun.
+
+The headline is a week-four exact-week activity measure, not continuous retention. It measures accounts signing transactions, not unique people. The first-week transaction thresholds are sensitivity checks, not bot detection. The five unusually large cohorts have not yet been attributed to specific applications or campaigns, and the 26-week burn-in comparison has not been run. Read [THESIS.md](THESIS.md) for the full interpretation and limitations.
+
+## Repository map
+
+- `docs/index.html`: static interactive dashboard.
+- `docs/data/retention.csv`: dashboard cohort data.
+- `docs/data/summary.json`: calculated metrics and diligence status.
+- `data/retention.csv`: canonical analysis input.
+- `THESIS.md`: written investment thesis generated from the canonical data.
+- `sql/retention.sql`: cohort extraction query.
+- `sql/near_schema_check.sql` and `sql/contract_attribution.sql`: prepared schema and attribution research queries. Attribution has not yet been completed.
+- `research/network_economics_and_valuation.md`: network economics and valuation research.
+- `research/cohort_outliers.md`: investigation of the five unusually large cohorts.
+- `tests/`: metric, rendering, and SQL-reference tests.
 
 ## What it does
 
