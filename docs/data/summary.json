@@ -152,5 +152,23 @@
     "burn_in_26_weeks": "Not run. Requires a separate BigQuery export.",
     "contract_attribution": "Query prepared. Must validate BigQuery schema and run before making application-level claims.",
     "note": "No account-level records were supplied, so the five large cohort weeks cannot yet be attributed to applications or campaigns."
+  },
+  "market_context": {
+    "snapshot_date": "2026-11-14",
+    "source": "CoinGecko",
+    "near_price_usd": 3.36,
+    "market_cap_usd": 4400000000,
+    "fully_diluted_valuation_usd": 4400000000,
+    "circulating_supply_near": 1312000000,
+    "tvl_usd": 107100000,
+    "market_cap_to_tvl": 41.1,
+    "note": "Approximate third-party snapshot figures. Not a fair-value estimate; a single day of fees/revenue is not a sustainable annual run rate."
+  },
+  "diligence_status": {
+    "burn_in_12_weeks": "Available in supplied aggregate CSV",
+    "burn_in_26_weeks": "Not run; separate BigQuery export required",
+    "contract_attribution": "SQL prepared; schema check and query execution required",
+    "network_economics": "Framework and dated market snapshot added; full time series not calculated",
+    "valuation": "Not yet underwritten"
   }
 }
