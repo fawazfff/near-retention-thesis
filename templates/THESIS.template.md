@@ -8,7 +8,7 @@ I treat this as a test, not a conclusion. The verdict below is computed from the
 
 ## Verdict: {{verdict}}
 
-About **{{headline_per100}} of every 100** new accounts are still active {{week}} weeks later (95% interval {{headline_ci}} per 100), measured on the latest {{group}} weekly cohorts ({{recent_span}}) after removing bot-like accounts.
+About **{{headline_per100}} of every 100** new accounts are still active {{week}} weeks later (95% interval {{headline_ci}} per 100), measured on the latest {{group}} weekly cohorts ({{recent_span}}) after removing accounts above the selected first-week transaction threshold.
 
 Week-{{week}} retention was {{early_mean}} in the earliest {{group}} cohorts ({{early_span}}) and is {{recent_mean}} in the latest. Change: {{diff}} (95% interval {{diff_ci}}).
 
@@ -27,8 +27,12 @@ New-account counts are cheap to inflate with bots and airdrop farming. Accounts 
 - **Active**: the account signed at least one transaction (`signer_account_id`) in a Monday-start UTC week.
 - **New account**: first signed transaction falls in the cohort week, and it signed nothing in the burn-in period {{burn_in}}.
 - **Retention at week k**: share of a cohort that signed again in the k-th week after its cohort week.
-- **Headline filter** (`{{headline_variant}}`): drop accounts that signed more than 50 transactions in their first week, a proxy for bots and airdrop farms. Thresholds of 20 and 200 and "no filter" are reported too.
+- **Headline filter** (`{{headline_variant}}`): exclude accounts that signed more than 50 transactions in their first observed week. This is a sensitivity check only. Thresholds of 20 and 200 and no filter are reported too.
 - **Trend test**: compare the {{group}} earliest and {{group}} latest cohorts using one retention number per weekly cohort (Welch interval). A change counts only if its interval excludes zero and it is at least {{min_effect}} percentage point.
+
+## Investment interpretation
+
+This dataset does not support a confident claim that NEAR's account retention is improving. The observed early-to-late difference is positive, but its 95% interval crosses zero. The pooled result is heavily affected by a handful of unusually large cohorts, and the reason for those spikes is unknown. Treat this as an exploratory usage signal, not evidence of durable customer retention, revenue growth, token value accrual, or an investment recommendation. A stronger thesis would require explaining the cohort spikes, testing alternative new-account definitions and activity measures, and showing the pattern persists in later data.
 
 ## Evidence for
 
