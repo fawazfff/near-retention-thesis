@@ -145,6 +145,7 @@ class RenderTests(unittest.TestCase):
         self.assertIn("bigquery-public-data.crypto_near_mainnet_us.transactions", sql)
         self.assertNotIn("bigquery-public-data.crypto_near_mainnet.transactions", sql)
         self.assertIn("id=\"milestoneRows\"", page)
+        self.assertIn("id=\"outlierRows\"", page)
         self.assertIn("id=\"economics\"", page)
         self.assertIn("26-week comparison", page)
         self.assertIn("contract_attribution.sql", page)
