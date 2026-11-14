@@ -210,7 +210,7 @@
     "circulating_supply_near": 1312000000,
     "tvl_usd": 107100000,
     "market_cap_to_tvl": 41.1,
-    "note": "CoinGecko and DefiLlama reported materially different TVL ($107.1m vs $276.2m) on 14 Nov 2026. TVL definitions/coverage must be reconciled. Revenue/fees multiples use DefiLlama trailing-year values and are screening ratios, not fair value.",
+    "note": "TVL figures have different scopes: CoinGecko's $107.1m and DeFiLlama's $125.08m are chain-level NEAR figures, while DeFiLlama's $276.2m NEAR Protocol Combined figure aggregates multiple chains. NEAR Intents separately reports cross-chain TVL. Compare like-for-like scopes and do not add overlapping totals.",
     "defillama_tvl_usd": 276200000,
     "coingecko_tvl_usd": 107087000,
     "coingecko_market_cap_usd": 4401000000,
