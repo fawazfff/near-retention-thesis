@@ -53,8 +53,6 @@ python rebuild.py
 
 The default maximum billed bytes is 100 GB. The script refuses to run if the dry-run estimate exceeds `--max-gb`, and the real query also sets BigQuery's `maximum_bytes_billed` to the same cap.
 
-The default maximum billed bytes is 100 GB. The script refuses to run if the dry-run estimate exceeds `--max-gb`, and the real query also sets BigQuery's `maximum_bytes_billed` to the same cap.
-
 ### Compare 12-week and 26-week definitions of “new”
 
 Run the same cohort dates twice, changing only the burn-in. The script now writes separate CSV and metadata files so one run does not overwrite the other:
@@ -88,7 +86,11 @@ A receiver account is only a contract candidate. Do not call it an application o
 
 ### Network economics and valuation
 
-See [the economics and valuation research framework](research/network_economics_and_valuation.md). It records the dated market snapshot, protocol issuance and fee mechanisms, required revenue verification, valuation ratios and key risks. The current retention CSV does not contain economic inputs, so the thesis does not yet claim that NEAR is cheap, expensive or undervalued.
+See [the economics and valuation research](research/network_economics_and_valuation.md). It now separates chain-only TVL from multi-chain protocol TVL, NEAR Intents volume from fees and captured revenue, and captured buybacks from gas burns. The dated 14 November 2026 snapshot implies approximately 81× market-cap/trailing-year fees and 454× market-cap/trailing-year protocol revenue. Those are screening multiples, not fair value. The current revenue run-rate is small relative to the token's market value, and the report sets out the growth required to reach 100×, 50× and 25× revenue multiples. It does not call NEAR undervalued without a defensible 12-month financial series and explicit token-capture analysis.
+
+### What the five large cohorts tell us
+
+See [the outlier investigation](research/cohort_outliers.md). The five largest groups contain 88.4% of the mature filtered-50 denominator but only 24.0% of week-four returns. Their pooled week-four rate is 0.11%, versus 2.68% for the other 31 groups. Excluding accounts above 20 first-week transactions barely changes the top-five combined size: 4.091 million accounts under no filter versus 4.088 million under the >20 filter. This means the simple high-frequency exclusion does not explain the outliers. It does not rule out one-time automation, campaign-driven activity or other low-frequency sources. Application attribution still requires account-level BigQuery data.
 
 Useful options:
 
