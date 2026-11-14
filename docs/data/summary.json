@@ -78,5 +78,79 @@
     "top_five_pooled_rate_percent": 0.11141163702738986,
     "other_31_cohorts_pooled_rate_percent": 2.684583733233556,
     "note": "Pooled rate weights accounts equally; mean and median cohort rates describe weekly cohorts. The five largest cohorts account for 88.4% of the denominator but only 24.0% of week-four returns. The cause is unknown."
+  },
+  "params": {
+    "scan_start": "2025-11-10",
+    "start_date": "2026-02-02",
+    "last_week_start": "2026-11-02",
+    "max_weeks": 12
+  },
+  "retention_windows": [
+    {
+      "week": 1,
+      "eligible_cohorts": 39,
+      "accounts": 4695104,
+      "active_accounts": 44255,
+      "pooled_retention_percent": 0.9425776298033015
+    },
+    {
+      "week": 4,
+      "eligible_cohorts": 36,
+      "accounts": 4627825,
+      "active_accounts": 18989,
+      "pooled_retention_percent": 0.4103223436495546
+    },
+    {
+      "week": 8,
+      "eligible_cohorts": 32,
+      "accounts": 3941854,
+      "active_accounts": 11345,
+      "pooled_retention_percent": 0.28780873162730025
+    },
+    {
+      "week": 12,
+      "eligible_cohorts": 28,
+      "accounts": 3906626,
+      "active_accounts": 8007,
+      "pooled_retention_percent": 0.2049594714211189
+    }
+  ],
+  "largest_cohorts": [
+    {
+      "cohort_week": "2026-02-09",
+      "accounts": 1660162,
+      "week4_active": 671,
+      "week4_rate_percent": 0.0404
+    },
+    {
+      "cohort_week": "2026-02-16",
+      "accounts": 1059422,
+      "week4_active": 877,
+      "week4_rate_percent": 0.0828
+    },
+    {
+      "cohort_week": "2026-02-02",
+      "accounts": 750108,
+      "week4_active": 999,
+      "week4_rate_percent": 0.1332
+    },
+    {
+      "cohort_week": "2026-09-28",
+      "accounts": 344247,
+      "week4_active": 828,
+      "week4_rate_percent": 0.2405
+    },
+    {
+      "cohort_week": "2026-10-05",
+      "accounts": 276298,
+      "week4_active": 1182,
+      "week4_rate_percent": 0.4278
+    }
+  ],
+  "robustness_status": {
+    "burn_in_12_weeks": "Existing supplied export",
+    "burn_in_26_weeks": "Not run. Requires a separate BigQuery export.",
+    "contract_attribution": "Query prepared. Must validate BigQuery schema and run before making application-level claims.",
+    "note": "No account-level records were supplied, so the five large cohort weeks cannot yet be attributed to applications or campaigns."
   }
 }
