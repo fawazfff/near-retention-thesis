@@ -81,7 +81,7 @@ This writes `data/burnin_comparison.json` with sample sizes, exact-week retentio
 
 1. Run `sql/near_schema_check.sql` to inspect the available BigQuery fields.
 2. Review the estimated bytes for `sql/contract_attribution.sql` before running it.
-3. The query counts distinct cohort signers making `FUNCTION_CALL` receipts to receiver accounts, with cohort sizes as denominators.
+3. The draft query counts distinct cohort signers whose transactions generated receipts to receiver accounts, with cohort sizes as denominators. It includes all receipt kinds, so it is not yet a verified contract-call or application attribution query.
 4. Resolve high-activity receiver accounts to verified application/contract names and compare their deployment dates with public campaign dates.
 
 A receiver account is only a contract candidate. Do not call it an application or campaign without confirming the deployed code/account and independent campaign evidence. The supplied aggregate CSV does not contain account IDs, so no application-level conclusion has been made yet.
