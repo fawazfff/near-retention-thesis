@@ -69,7 +69,13 @@ python fetch_data.py --project YOUR_GCP_PROJECT --burn-in-weeks 26 --output-stem
 python fetch_data.py --project YOUR_GCP_PROJECT --burn-in-weeks 26 --output-stem retention_26w
 ```
 
-Compare the same cohort weeks, follow-up horizons and first-week activity filters. The 26-week result is not yet run because the supplied export only contains the 12-week definition. The current dashboard must not be described as having passed the 26-week robustness test.
+Compare the same cohort weeks, follow-up horizons and first-week activity filters:
+
+```bash
+python compare_burnin.py
+```
+
+This writes `data/burnin_comparison.json` with sample sizes, exact-week retention and early-to-late comparisons for every filter. The 26-week result is not yet run because the supplied export only contains the 12-week definition. The current dashboard must not be described as having passed the 26-week robustness test.
 
 ### Attribute the large cohorts to applications
 
