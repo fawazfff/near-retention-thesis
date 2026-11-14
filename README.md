@@ -40,7 +40,7 @@ Open http://localhost:8000 in your browser.
 
 ### Reproduce the published analysis
 
-Python 3.12 is the version used by the repository's automated checks. From the repository root:
+Use Python 3.12, matching the repository's automated checks. From the repository root:
 
 ```bash
 python -m pip install -r requirements-dev.txt
@@ -93,17 +93,6 @@ The headline is a week-four exact-week activity measure, not continuous retentio
 2. It reports four versions: no filter, and three high-activity filters that exclude accounts with more than 200, 50, or 20 transactions in their first week. The headline uses the 50-transaction threshold as a sensitivity setting. It is not a verified bot classifier. All variants remain visible.
 3. `rebuild.py` regenerates `THESIS.md` from `data/retention.csv` and the analysis code. The published interactive dashboard reads the committed CSV directly. Normal rebuilds preserve its design. Use `python rebuild.py --overwrite-dashboard` only if you intentionally want to replace it with the simpler generated report page.
 
-## Quick start
-
-Python 3.10+ is recommended.
-
-```bash
-python -m unittest -v
-python rebuild.py
-```
-
-The default rebuild regenerates the real-data thesis and leaves the designed dashboard untouched. `python rebuild.py --demo` writes a synthetic preview to `demo/`. It is fake data, prominently labelled as synthetic, and never overwrites `THESIS.md` or the real-data dashboard in `docs/`.
-
 ## Refreshing real data
 
 Install the BigQuery client and authenticate locally:
@@ -139,8 +128,6 @@ See [the outlier investigation](research/cohort_outliers.md). The five largest g
 Useful options:
 
 - `--cohort-weeks 40`: number of cohort weeks, including both endpoints. Must be at least 19 for the week-4 trend comparison.
-- `--burn-in-weeks 12` or `26`: prior weeks used to decide whether an account is new.
-- `--output-stem retention_26w`: write a separately named CSV and metadata file without overwriting the default export.
 - `--max-weeks 12`: furthest follow-up week to include. Must be at least 4.
 - `--max-gb 100`: hard cap for query processing.
 - `--literal-dates`: inline dates if BigQuery's dry-run estimate suggests parameterized partition pruning is not working.
@@ -168,14 +155,7 @@ The SQL's scan window includes exactly the requested number of cohort weeks. The
 python -m unittest -v
 ```
 
-The standard-library tests cover the cohort window, metrics, confidence intervals, verdict logic, rendering, and missing-data errors. Two SQL-to-reference tests additionally run when the optional development dependencies are installed:
-
-```bash
-python -m pip install -r requirements-dev.txt
-python -m unittest -v
-```
-
-Those tests execute the BigQuery-shaped SQL translated to DuckDB against generated transactions and compare the output to an independent Python reference. They validate query logic, not BigQuery's live schema or billing estimate.
+The automated test workflow installs `requirements-dev.txt`, runs the full test suite, validates the 40-cohort published dataset, regenerates the thesis, and checks the synthetic demo build. The SQL-to-reference tests execute the BigQuery-shaped query translated to DuckDB against generated transactions and compare it with an independent Python reference. They validate query logic, not BigQuery's live schema or billing estimate.
 
 ## AI assistance and libraries
 
